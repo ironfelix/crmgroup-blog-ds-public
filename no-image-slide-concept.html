@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No-Image Slide — Design Concepts</title>
+<style>
+@font-face { font-family: "TTSmalls"; font-weight: 400; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Regular.woff") format("woff"); }
+@font-face { font-family: "TTSmalls"; font-weight: 500; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Medium.woff") format("woff"); }
+@font-face { font-family: "TTRuns"; font-weight: 700; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_Bold.woff") format("woff"); }
+@font-face { font-family: "TTRuns"; font-weight: 800; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_ExtraBold.woff") format("woff"); }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f0f0f0; font-family: TTSmalls, sans-serif; padding: 20px; }
+
+h1 { text-align: center; font-family: TTRuns; font-size: 20px; margin: 20px 0 8px; color: #333; }
+.subtitle { text-align: center; font-size: 13px; color: #999; margin-bottom: 40px; }
+
+.concepts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.concept-label {
+  font-family: TTRuns;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+/* ─── Simulated mobile slide container ─── */
+.slide {
+  width: 100%;
+  max-width: 390px;
+  height: 680px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.slide__info {
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+.slide__title {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+.slide__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: TTSmalls, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+}
+.slide__cta::after {
+  content: "\2197";
+  font-size: 18px;
+}
+.slide__nav {
+  position: absolute;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+}
+.slide__nav span {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════
+   CONCEPT A — Editorial Dark
+   ═══════════════════════════════════════════ */
+.concept-a .slide {
+  background: #1a1a1a;
+  padding: 40px 28px;
+  justify-content: center;
+}
+.concept-a .slide::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #c01020 0%, #c01020 30%, transparent 100%);
+}
+.concept-a .slide__info {
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 24px;
+}
+.concept-a .slide__title {
+  color: #fff;
+  font-size: 38px;
+  line-height: 1.1;
+  margin-bottom: 32px;
+  text-wrap: balance;
+}
+.concept-a .slide__cta {
+  color: #c01020;
+  margin-top: auto;
+}
+.concept-a .slide__nav {
+  bottom: 40px;
+}
+.concept-a .slide__nav span {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+}
+
+/* ═══════════════════════════════════════════
+   CONCEPT B — Gradient Brand
+   ═══════════════════════════════════════════ */
+.concept-b .slide {
+  background: linear-gradient(155deg, #1a1a1a 0%, #2d1215 50%, #4a1a1f 100%);
+  padding: 40px 28px;
+  justify-content: center;
+}
+.concept-b .slide::after {
+  content: "";
+  position: absolute;
+  bottom: -60px;
+  right: -60px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,16,32,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.concept-b .slide__info {
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 20px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.concept-b .slide__title {
+  color: #fff;
+  font-size: 36px;
+  line-height: 1.12;
+  margin-bottom: 20px;
+  text-wrap: balance;
+}
+.concept-b .slide__desc {
+  color: rgba(255,255,255,0.55);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.concept-b .slide__cta {
+  color: #fff;
+  background: #c01020;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  align-self: flex-start;
+}
+.concept-b .slide__cta::after { content: none; }
+.concept-b .slide__nav {
+  bottom: 40px;
+}
+.concept-b .slide__nav span {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.5);
+}
+
+/* ═══════════════════════════════════════════
+   CONCEPT C — Magazine Typo
+   ═══════════════════════════════════════════ */
+.concept-c .slide {
+  background: #f2f2f2;
+  padding: 40px 28px;
+  justify-content: flex-end;
+}
+.concept-c .slide::before {
+  content: "CVM";
+  position: absolute;
+  top: 30px;
+  right: -10px;
+  font-family: TTRuns;
+  font-weight: 800;
+  font-size: 160px;
+  line-height: 1;
+  color: rgba(0,0,0,0.04);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+}
+.concept-c .slide__info {
+  color: #c01020;
+  margin-bottom: 16px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.concept-c .slide__title {
+  color: #1a1a1a;
+  font-size: 42px;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.concept-c .slide__divider {
+  width: 48px;
+  height: 3px;
+  background: #c01020;
+  margin-bottom: 20px;
+}
+.concept-c .slide__cta {
+  color: #c01020;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.concept-c .slide__nav {
+  bottom: 40px;
+}
+.concept-c .slide__nav span {
+  background: rgba(0,0,0,0.08);
+  color: rgba(0,0,0,0.4);
+}
+</style>
+</head>
+<body>
+
+<h1>Слайд "Новая статья" без картинки — мобилка</h1>
+<p class="subtitle">Три концепта. Реальные шрифты TTSmalls/TTRuns, размер 390&times;680px</p>
+
+<div class="concepts">
+
+<!-- CONCEPT A -->
+<div class="concept-a">
+  <p class="concept-label">A — Editorial Dark</p>
+  <div class="slide">
+    <p class="slide__info">22.02.26 &nbsp;&middot;&nbsp; читать 11-18 минут</p>
+    <h2 class="slide__title">CVM что это в&nbsp;маркетинге: полный гайд 2026</h2>
+    <a class="slide__cta" href="#">Читать статью</a>
+    <div class="slide__nav">
+      <span>&lsaquo;</span>
+      <span>&rsaquo;</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEPT B -->
+<div class="concept-b">
+  <p class="concept-label">B — Gradient Brand</p>
+  <div class="slide">
+    <p class="slide__info">22.02.26 &nbsp;&middot;&nbsp; читать 11-18 минут</p>
+    <h2 class="slide__title">CVM что это в&nbsp;маркетинге: полный гайд 2026</h2>
+    <p class="slide__desc">CAC вырос на&nbsp;50-70% за&nbsp;пять лет. Компании переходят от&nbsp;привлечения к&nbsp;удержанию.</p>
+    <a class="slide__cta" href="#">Читать статью</a>
+    <div class="slide__nav">
+      <span>&lsaquo;</span>
+      <span>&rsaquo;</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEPT C -->
+<div class="concept-c">
+  <p class="concept-label">C — Magazine Typo</p>
+  <div class="slide">
+    <p class="slide__info">Новое &nbsp;&middot;&nbsp; 22.02.26</p>
+    <h2 class="slide__title">CVM что это в&nbsp;маркетинге: полный гайд 2026</h2>
+    <div class="slide__divider"></div>
+    <a class="slide__cta" href="#">Читать статью</a>
+    <div class="slide__nav">
+      <span>&lsaquo;</span>
+      <span>&rsaquo;</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div style="max-width:800px;margin:40px auto;padding:24px;background:#fff;border-radius:12px">
+  <h3 style="font-family:TTRuns;font-size:16px;margin-bottom:12px">Что реализуемо только через CSS (без смены HTML):</h3>
+  <ul style="font-size:14px;line-height:1.8;color:#555;padding-left:20px">
+    <li><strong>A (Editorial Dark)</strong> — полностью через CSS. Тёмный фон, белый текст, красная полоса ::before. <span style="color:#2e7d32;font-weight:600">Рекомендую.</span></li>
+    <li><strong>B (Gradient Brand)</strong> — фон и цвета через CSS. Красная кнопка-заливка — через CSS. Описание (desc) — НЕТ в HTML, не добавить без JS/PHP.</li>
+    <li><strong>C (Magazine Typo)</strong> — большие буквы "CVM" ::before через CSS. Разделитель — НЕТ (нет элемента). Но можно через ::after на заголовке.</li>
+  </ul>
+</div>
+
+</body>
+</html>

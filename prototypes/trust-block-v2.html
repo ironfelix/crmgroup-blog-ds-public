@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блок "Нам доверяют" — v2 без позиции сверху</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c01020;
+    --red-hover: #b10e1d;
+    --black: #1a1a1a;
+    --gray: #888;
+    --border: #e4e4e4;
+    --surface: #f2f2f2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--black);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+  .variant-label {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--red); margin-bottom: 16px;
+    padding: 6px 14px; background: #fde8e8; display: inline-block; border-radius: 4px;
+  }
+  .variant-desc {
+    font-size: 14px; color: var(--gray); margin-bottom: 24px; line-height: 1.5;
+  }
+  .divider { border: none; border-top: 2px dashed var(--border); margin: 72px 0; }
+
+  .logo-placeholder {
+    background: var(--surface); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500; color: var(--gray);
+    letter-spacing: 0.02em; transition: background 0.2s;
+  }
+  .logo-placeholder:hover { background: #e8e8e8; }
+
+  /* ============================================
+     ВАРИАНТ F — Единая сетка: статы = ячейки среди логотипов
+     Статы и логотипы на одном уровне, перемешаны
+     ============================================ */
+  .trust-f {
+    padding: 64px 0;
+  }
+  .trust-f__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .trust-f__stat {
+    background: var(--black);
+    border-radius: 12px;
+    padding: 28px 24px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 120px;
+  }
+  .trust-f__stat--hero {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding: 36px 32px;
+    justify-content: space-between;
+  }
+  .trust-f__stat--hero .trust-f__stat-heading {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .trust-f__stat--hero .trust-f__stat-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+    max-width: 280px;
+  }
+  .trust-f__stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .trust-f__stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.35;
+  }
+  .trust-f__logo {
+    height: auto;
+    min-height: 100px;
+    aspect-ratio: auto;
+  }
+
+  @media (max-width: 900px) {
+    .trust-f__grid { grid-template-columns: repeat(3, 1fr); }
+    .trust-f__stat--hero { grid-column: span 3; grid-row: span 1; }
+    .trust-f__stat--hero .trust-f__stat-heading { font-size: 28px; }
+  }
+  @media (max-width: 600px) {
+    .trust-f__grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .trust-f__stat--hero { grid-column: span 2; }
+    .trust-f__stat { padding: 20px 16px; min-height: 90px; }
+    .trust-f__stat-number { font-size: 26px; }
+    .trust-f__stat--hero .trust-f__stat-heading { font-size: 24px; }
+    .trust-f__logo { min-height: 80px; }
+  }
+
+  /* ============================================
+     ВАРИАНТ G — Бенто-сетка: заголовок как ячейка,
+     статы как ячейки, логотипы как ячейки — всё равноправно
+     ============================================ */
+  .trust-g {
+    padding: 64px 0;
+  }
+  .trust-g__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    gap: 10px;
+  }
+  .trust-g__cell {
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px;
+  }
+  .trust-g__cell--heading {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: var(--red);
+    color: #fff;
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: left;
+    padding: 32px 28px;
+  }
+  .trust-g__heading {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .trust-g__sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.45;
+  }
+  .trust-g__cell--stat {
+    background: var(--surface);
+  }
+  .trust-g__stat-number {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .trust-g__stat-label {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.35;
+  }
+  .trust-g__cell--logo {
+    background: #fff;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--gray);
+    transition: border-color 0.2s;
+  }
+  .trust-g__cell--logo:hover {
+    border-color: var(--red);
+  }
+
+  @media (max-width: 900px) {
+    .trust-g__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .trust-g__grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .trust-g__cell--heading { grid-column: span 2; grid-row: span 1; padding: 24px 20px; }
+    .trust-g__heading { font-size: 26px; }
+    .trust-g__stat-number { font-size: 24px; }
+    .trust-g__cell { padding: 16px 12px; min-height: 80px; }
+  }
+
+  /* ============================================
+     ВАРИАНТ H — Левая колонка stat-stack + правая logo-wall
+     Заголовок ВНУТРИ стат-колонки, не сверху
+     ============================================ */
+  .trust-h {
+    padding: 64px 0;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .trust-h__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .trust-h__title-card {
+    background: var(--black);
+    border-radius: 14px;
+    padding: 32px 28px;
+    color: #fff;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .trust-h__heading {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .trust-h__sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.45;
+  }
+  .trust-h__stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .trust-h__stat {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 20px 16px;
+  }
+  .trust-h__stat-number {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 3px;
+  }
+  .trust-h__stat-label {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.35;
+  }
+  .trust-h__logos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .trust-h__logos .logo-placeholder {
+    min-height: 90px;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+  .trust-h__logos .logo-placeholder:hover {
+    border-color: var(--red);
+    background: #fff5f5;
+  }
+
+  @media (max-width: 900px) {
+    .trust-h {
+      grid-template-columns: 1fr;
+    }
+    .trust-h__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .trust-h__title-card { grid-column: span 2; }
+    .trust-h__stat-row { grid-column: span 2; }
+    .trust-h__logos { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+  @media (max-width: 480px) {
+    .trust-h__stats { grid-template-columns: 1fr; }
+    .trust-h__title-card { grid-column: span 1; }
+    .trust-h__stat-row { grid-column: span 1; }
+    .trust-h__heading { font-size: 26px; }
+  }
+
+  /* ============================================
+     ВАРИАНТ I — Одна горизонтальная лента:
+     стат → лого → стат → лого → ...  чередование
+     ============================================ */
+  .trust-i {
+    padding: 64px 0;
+  }
+  .trust-i__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .trust-i__stat {
+    background: var(--black);
+    border-radius: 12px;
+    padding: 24px 28px;
+    color: #fff;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 160px;
+  }
+  .trust-i__stat--wide {
+    flex: 0 0 auto;
+    min-width: 240px;
+  }
+  .trust-i__stat-number {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .trust-i__stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.35;
+  }
+  .trust-i__logo {
+    flex: 1 1 140px;
+    min-height: 80px;
+    max-width: 200px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--gray);
+    transition: border-color 0.2s;
+  }
+  .trust-i__logo:hover { border-color: var(--red); }
+  .trust-i__heading-cell {
+    background: var(--red);
+    border-radius: 12px;
+    padding: 24px 32px;
+    color: #fff;
+    flex: 0 0 auto;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+  }
+  .trust-i__heading-cell h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  @media (max-width: 600px) {
+    .trust-i__row { gap: 8px; }
+    .trust-i__stat { min-width: calc(50% - 4px); padding: 18px 16px; }
+    .trust-i__stat--wide { min-width: calc(50% - 4px); }
+    .trust-i__stat-number { font-size: 24px; }
+    .trust-i__logo { min-height: 64px; min-width: calc(50% - 4px); max-width: none; flex: 1 1 calc(50% - 4px); }
+    .trust-i__heading-cell { min-width: 100%; }
+    .trust-i__heading-cell h2 { font-size: 20px; }
+  }
+
+  /* ============================================
+     ВАРИАНТ J — Masonry-микс:
+     Одна большая сетка, заголовок/статы/логотипы
+     перемешаны, разных размеров. Как Pinterest-доска.
+     ============================================ */
+  .trust-j {
+    padding: 64px 0;
+  }
+  .trust-j__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 90px;
+    gap: 10px;
+  }
+  .trust-j__cell {
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+  /* Заголовок: 2 колонки, 2 ряда */
+  .trust-j__cell--title {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    background: linear-gradient(135deg, var(--red), #d42030);
+    color: #fff;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+  .trust-j__title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .trust-j__title-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 8px;
+    line-height: 1.45;
+  }
+  /* Статы */
+  .trust-j__cell--stat {
+    background: var(--black);
+    color: #fff;
+    align-items: center;
+    text-align: center;
+  }
+  .trust-j__num {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .trust-j__label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.35;
+  }
+  /* Стат на 2 колонки */
+  .trust-j__cell--stat-wide {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+  }
+  .trust-j__cell--stat-wide .trust-j__num {
+    font-size: 34px;
+    margin-bottom: 0;
+  }
+  .trust-j__cell--stat-wide .trust-j__label {
+    font-size: 13px;
+  }
+  /* Логотипы */
+  .trust-j__cell--logo {
+    background: #fff;
+    border: 1px solid var(--border);
+    align-items: center;
+    text-align: center;
+    font-size: 11px;
+    color: var(--gray);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .trust-j__cell--logo:hover {
+    border-color: var(--red);
+    background: #fff5f5;
+  }
+
+  @media (max-width: 768px) {
+    .trust-j__grid {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 80px;
+    }
+    .trust-j__cell--title {
+      grid-column: 1 / 3;
+      grid-row: auto / span 2;
+    }
+    .trust-j__cell--stat-wide { grid-column: span 2; }
+    .trust-j__title { font-size: 26px; }
+    .trust-j__num { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ========== ВАРИАНТ F — Единая сетка ========== -->
+  <div class="variant-label">F — Единая сетка (статы среди логотипов)</div>
+  <p class="variant-desc">Заголовок — большая тёмная ячейка. Статы — маленькие тёмные ячейки. Логотипы — светлые. Всё на одном уровне, как Bento-box.</p>
+  <section class="trust-f">
+    <div class="trust-f__grid">
+      <div class="trust-f__stat trust-f__stat--hero">
+        <div class="trust-f__stat-heading">Нам доверяют</div>
+        <div class="trust-f__stat-sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</div>
+      </div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">400+</div>
+        <div class="trust-f__stat-label">проектов</div>
+      </div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">12 лет</div>
+        <div class="trust-f__stat-label">на рынке</div>
+      </div>
+      <div class="logo-placeholder trust-f__logo">La Roche-Posay</div>
+      <div class="logo-placeholder trust-f__logo">L'Oreal</div>
+      <div class="logo-placeholder trust-f__logo">Puma</div>
+      <div class="logo-placeholder trust-f__logo">Tinkoff</div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">8 млрд ₽</div>
+        <div class="trust-f__stat-label">CRM-оборота</div>
+      </div>
+      <div class="logo-placeholder trust-f__logo">Miele</div>
+      <div class="logo-placeholder trust-f__logo">Vichy</div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">90%</div>
+        <div class="trust-f__stat-label">клиентов 2+ года</div>
+      </div>
+      <div class="logo-placeholder trust-f__logo">Benetton</div>
+      <div class="logo-placeholder trust-f__logo">Nordman</div>
+      <div class="logo-placeholder trust-f__logo">Gulliver</div>
+      <div class="logo-placeholder trust-f__logo">Metro</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ G — Бенто цветная ========== -->
+  <div class="variant-label">G — Бенто-сетка (красный заголовок)</div>
+  <p class="variant-desc">Красная ячейка с заголовком, серые ячейки статов, белые ячейки логотипов — всё равноправно в одной сетке.</p>
+  <section class="trust-g">
+    <div class="trust-g__grid">
+      <div class="trust-g__cell trust-g__cell--heading">
+        <div class="trust-g__heading">Нам доверяют</div>
+        <div class="trust-g__sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">400+</div>
+        <div class="trust-g__stat-label">проектов</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">12</div>
+        <div class="trust-g__stat-label">лет на рынке</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">8 млрд</div>
+        <div class="trust-g__stat-label">CRM-оборота</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--logo">La Roche-Posay</div>
+      <div class="trust-g__cell trust-g__cell--logo">L'Oreal</div>
+      <div class="trust-g__cell trust-g__cell--logo">Puma</div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">90%</div>
+        <div class="trust-g__stat-label">клиентов 2+ года</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--logo">Tinkoff</div>
+      <div class="trust-g__cell trust-g__cell--logo">Miele</div>
+      <div class="trust-g__cell trust-g__cell--logo">Vichy</div>
+      <div class="trust-g__cell trust-g__cell--logo">Benetton</div>
+      <div class="trust-g__cell trust-g__cell--logo">Nordman</div>
+      <div class="trust-g__cell trust-g__cell--logo">Gulliver</div>
+      <div class="trust-g__cell trust-g__cell--logo">Metro</div>
+      <div class="trust-g__cell trust-g__cell--logo">Dodo</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ H — Колонка + стена ========== -->
+  <div class="variant-label">H — Колонка статов + стена логотипов</div>
+  <p class="variant-desc">Слева: тёмная карточка-заголовок + 4 стата (2×2). Справа: стена логотипов. Всё на одном уровне, заголовок сбоку, не сверху.</p>
+  <section class="trust-h">
+    <div class="trust-h__stats">
+      <div class="trust-h__title-card">
+        <h2 class="trust-h__heading">Нам доверяют</h2>
+        <p class="trust-h__sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</p>
+      </div>
+      <div class="trust-h__stat-row">
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">400+</div>
+          <div class="trust-h__stat-label">проектов</div>
+        </div>
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">12 лет</div>
+          <div class="trust-h__stat-label">на рынке</div>
+        </div>
+      </div>
+      <div class="trust-h__stat-row">
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">8 млрд ₽</div>
+          <div class="trust-h__stat-label">CRM-оборота</div>
+        </div>
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">90%</div>
+          <div class="trust-h__stat-label">клиентов 2+ года</div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-h__logos">
+      <div class="logo-placeholder">La Roche-Posay</div>
+      <div class="logo-placeholder">L'Oreal</div>
+      <div class="logo-placeholder">Puma</div>
+      <div class="logo-placeholder">Tinkoff</div>
+      <div class="logo-placeholder">Miele</div>
+      <div class="logo-placeholder">Vichy</div>
+      <div class="logo-placeholder">Benetton</div>
+      <div class="logo-placeholder">Nordman</div>
+      <div class="logo-placeholder">Gulliver</div>
+      <div class="logo-placeholder">Metro</div>
+      <div class="logo-placeholder">Dodo</div>
+      <div class="logo-placeholder">Kerastase</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ I — Чередующиеся ряды ========== -->
+  <div class="variant-label">I — Чередующиеся ряды (стат → лого → стат → лого)</div>
+  <p class="variant-desc">Статы и логотипы в горизонтальных рядах, перемешаны. Заголовок — красная ячейка в первом ряду.</p>
+  <section class="trust-i">
+    <div class="trust-i__row">
+      <div class="trust-i__heading-cell"><h2>Нам доверяют</h2></div>
+      <div class="trust-i__stat">
+        <div class="trust-i__stat-number">400+</div>
+        <div class="trust-i__stat-label">проектов</div>
+      </div>
+      <div class="trust-i__logo">La Roche-Posay</div>
+      <div class="trust-i__logo">L'Oreal</div>
+      <div class="trust-i__logo">Puma</div>
+    </div>
+    <div class="trust-i__row">
+      <div class="trust-i__logo">Tinkoff</div>
+      <div class="trust-i__stat trust-i__stat--wide">
+        <div class="trust-i__stat-number">8 млрд ₽</div>
+        <div class="trust-i__stat-label">управляемого CRM-оборота</div>
+      </div>
+      <div class="trust-i__logo">Miele</div>
+      <div class="trust-i__logo">Vichy</div>
+    </div>
+    <div class="trust-i__row">
+      <div class="trust-i__logo">Benetton</div>
+      <div class="trust-i__logo">Nordman</div>
+      <div class="trust-i__stat">
+        <div class="trust-i__stat-number">12 лет</div>
+        <div class="trust-i__stat-label">на рынке</div>
+      </div>
+      <div class="trust-i__logo">Gulliver</div>
+    </div>
+    <div class="trust-i__row">
+      <div class="trust-i__stat">
+        <div class="trust-i__stat-number">90%</div>
+        <div class="trust-i__stat-label">клиентов 2+ года</div>
+      </div>
+      <div class="trust-i__logo">Metro</div>
+      <div class="trust-i__logo">Dodo</div>
+      <div class="trust-i__logo">Kerastase</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ J — Masonry-микс ========== -->
+  <div class="variant-label">J — Masonry-микс (разные размеры)</div>
+  <p class="variant-desc">Как Pinterest-доска: заголовок, статы и логотипы разных размеров в одной сетке. Заголовок — крупная красная ячейка, статы — тёмные, логотипы — с бордером.</p>
+  <section class="trust-j">
+    <div class="trust-j__grid">
+      <!-- Row 1-2: Title (2col×2row) + stat + logos -->
+      <div class="trust-j__cell trust-j__cell--title">
+        <div class="trust-j__title">Нам доверяют</div>
+        <div class="trust-j__title-sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--stat">
+        <div class="trust-j__num">400+</div>
+        <div class="trust-j__label">проектов</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--logo">La Roche-Posay</div>
+      <!-- Row 2 continues -->
+      <div class="trust-j__cell trust-j__cell--logo">L'Oreal</div>
+      <div class="trust-j__cell trust-j__cell--stat">
+        <div class="trust-j__num">12 лет</div>
+        <div class="trust-j__label">на рынке</div>
+      </div>
+      <!-- Row 3: wide stat + logos -->
+      <div class="trust-j__cell trust-j__cell--stat trust-j__cell--stat-wide">
+        <div class="trust-j__num">8 млрд ₽</div>
+        <div class="trust-j__label">управляемого<br>CRM-оборота в год</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--logo">Puma</div>
+      <div class="trust-j__cell trust-j__cell--logo">Tinkoff</div>
+      <!-- Row 4: logos + stat -->
+      <div class="trust-j__cell trust-j__cell--logo">Miele</div>
+      <div class="trust-j__cell trust-j__cell--logo">Vichy</div>
+      <div class="trust-j__cell trust-j__cell--stat">
+        <div class="trust-j__num">90%</div>
+        <div class="trust-j__label">клиентов 2+ года</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--logo">Benetton</div>
+      <!-- Row 5: logos -->
+      <div class="trust-j__cell trust-j__cell--logo">Nordman</div>
+      <div class="trust-j__cell trust-j__cell--logo">Gulliver</div>
+      <div class="trust-j__cell trust-j__cell--logo">Metro</div>
+      <div class="trust-j__cell trust-j__cell--logo">Dodo</div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

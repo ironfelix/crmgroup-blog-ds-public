@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM-group — Homepage Proto Unified</title>
+
+  <style>
+    @font-face { font-family: "TTSmalls"; font-weight: 400; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Regular.woff") format("woff"); font-display: swap; }
+    @font-face { font-family: "TTSmalls"; font-weight: 500; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Medium.woff") format("woff"); font-display: swap; }
+    @font-face { font-family: "TTSmalls"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_DemiBold.woff") format("woff"); font-display: swap; }
+    @font-face { font-family: "TTRuns"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_DemiBold.woff") format("woff"); font-display: swap; }
+    @font-face { font-family: "TTRuns"; font-weight: 700; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_Bold.woff") format("woff"); font-display: swap; }
+    @font-face { font-family: "TTRuns"; font-weight: 800; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_ExtraBold.woff") format("woff"); font-display: swap; }
+
+    :root {
+      --red: #c01020;
+      --red-dark: #a00d1a;
+      --text: #1a1a1a;
+      --muted: #595959;
+      --muted-soft: #8a8a8a;
+      --line: #e8e8e8;
+      --bg: #f5f5f5;
+      --surface: #ffffff;
+      --surface-soft: #f8f8f8;
+      --radius: 14px;
+      --container: 1200px;
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "TTSmalls", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .site-header__inner {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .site-logo {
+      font-family: "TTRuns", sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .site-logo span { color: var(--red); }
+    .site-nav {
+      display: flex;
+      gap: 22px;
+      color: #404040;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: 1px solid #e4c8cc;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+    .cta-link:hover { background: #fff1f2; border-color: #f0b0b7; }
+
+    .hero {
+      padding: 72px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+    .hero h1 {
+      margin: 0 0 18px;
+      font-family: "TTRuns", sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    .hero p {
+      margin: 0 0 26px;
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 620px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(192, 16, 32, 0.28);
+    }
+    .hero__panel {
+      background: #1f1f1f;
+      border-radius: 18px;
+      padding: 24px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .hero__panel-title {
+      margin: 0 0 8px;
+      font-family: "TTRuns", sans-serif;
+      font-size: 24px;
+      line-height: 1.12;
+    }
+    .hero__panel p {
+      margin: 0;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .section-block {
+      padding: 76px 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-end;
+      margin-bottom: 28px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-family: "TTRuns", sans-serif;
+      font-size: clamp(30px, 3.3vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .service-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 18px;
+      min-height: 172px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09);
+    }
+    .service-title {
+      margin: 0 0 8px;
+      font-family: "TTRuns", sans-serif;
+      font-size: 23px;
+      line-height: 1.14;
+    }
+    .service-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .awards-strip-wrap {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .awards-strip-head {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 0 20px;
+      gap: 24px;
+    }
+    .awards-strip-head h2 {
+      margin: 0;
+      font-family: "TTRuns", sans-serif;
+      font-size: clamp(30px, 3vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    .awards-strip-head h2 span { color: var(--red); }
+    .awards-strip-year {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .awards-strip {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .awards-strip-slot {
+      min-height: 122px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 20px 28px;
+    }
+    .awards-strip-slot:last-child { border-right: none; }
+    .slot-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slot-content.fade-out { opacity: 0; transform: translateY(-8px); }
+    .slot-content.fade-in { opacity: 0; transform: translateY(8px); }
+    .slot-content.visible { opacity: 1; transform: translateY(0); }
+    .slot-name {
+      font-family: "TTRuns", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .slot-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.48);
+      line-height: 1.45;
+    }
+    .awards-strip-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 20px 18px;
+    }
+    .strip-dot {
+      width: 24px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.28s ease;
+    }
+    .strip-dot.active {
+      width: 34px;
+      background: var(--red);
+    }
+
+    .cases-slider {
+      position: relative;
+    }
+    .cases-white-gallery {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 320px);
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .cases-white-gallery::-webkit-scrollbar { display: none; }
+
+    .case-white {
+      scroll-snap-align: start;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+      background: #fff;
+      min-height: 314px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+    .case-white:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.11);
+      border-color: #e2d8d8;
+    }
+    .case-white__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .case-white__category {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 700;
+    }
+    .case-white__logo {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.35;
+      transition: opacity var(--transition);
+    }
+    .case-white:hover .case-white__logo { opacity: 0.6; }
+    .case-white__metric {
+      margin: 0;
+      font-family: "TTRuns", sans-serif;
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .case-white__desc {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #555;
+      min-height: 68px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .case-white__divider {
+      height: 1px;
+      background: #ececec;
+    }
+    .case-white__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+    .case-white__tag {
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: #f6f6f6;
+      font-size: 12px;
+      color: #777;
+    }
+    .case-white__cta {
+      margin-top: 8px;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .case-white__cta-arrow {
+      display: inline-block;
+      transition: transform var(--transition);
+    }
+    .case-white:hover .case-white__cta-arrow { transform: translateX(4px); }
+
+    .slider-controls {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+    .slider-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #d8d8d8;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .slider-btn:hover {
+      background: #f6f6f6;
+      border-color: #c5c5c5;
+    }
+
+    .articles-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .articles-summary h2 {
+      margin: 0 0 16px;
+      font-family: "TTRuns", sans-serif;
+      font-size: clamp(30px, 3vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    .articles-summary p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .article-card {
+      border-radius: 12px;
+      background: var(--surface-soft);
+      border: 1px solid transparent;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 182px;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    .article-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+    .article-card.featured {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a1a1e 100%);
+      border-left: 3px solid var(--red);
+    }
+    .article-card.featured .article-tag { color: rgba(255, 130, 130, 1); }
+    .article-card.featured .article-meta,
+    .article-card.featured .article-desc,
+    .article-card.featured .article-read { color: rgba(255, 255, 255, 0.62); }
+    .article-card.featured .article-title { color: #fff; }
+
+    .article-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .article-meta {
+      display: flex;
+      gap: 8px;
+      color: var(--muted-soft);
+      font-size: 12px;
+    }
+    .article-title {
+      font-family: "TTSmalls", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .article-desc {
+      font-size: 14px;
+      line-height: 1.58;
+      color: var(--muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .article-read {
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .form-left h2 {
+      margin: 0 0 24px;
+      font-family: "TTRuns", sans-serif;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    .form-promise {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #177640;
+      background: #f0faf3;
+    }
+    .form-promise::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2ecc71;
+    }
+    .form-contacts {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-contacts li { display: flex; flex-direction: column; gap: 4px; }
+    .form-contacts .contact-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .form-contacts a {
+      font-size: 16px;
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+    .form-contacts a:hover { color: var(--red); }
+
+    .form-right form {
+      display: grid;
+      gap: 12px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      border: 1.5px solid transparent;
+      background: #f6f6f6;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      transition: border-color var(--transition), background var(--transition);
+      outline: none;
+    }
+    .form-field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: var(--red);
+      background: #fff;
+    }
+    .form-submit-row {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-submit {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 24px;
+      background: var(--red);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-submit:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(192, 16, 32, 0.26);
+    }
+    .form-consent {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+      color: #888;
+      line-height: 1.5;
+    }
+    .form-consent label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .form-consent input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: var(--red);
+    }
+    .form-consent a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    .site-footer {
+      background: #1a1a1a;
+      color: rgba(255, 255, 255, 0.85);
+      padding: 36px 0;
+    }
+    .site-footer__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero__inner,
+      .articles-layout,
+      .form-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .awards-strip-head { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 768px) {
+      .site-nav { display: none; }
+      .container { width: calc(100% - 32px); }
+      .hero { padding: 48px 0; }
+      .hero p { font-size: 17px; }
+      .section-block { padding: 54px 0; }
+      .services-grid,
+      .articles-grid,
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .awards-strip {
+        grid-template-columns: 1fr;
+      }
+      .awards-strip-slot {
+        min-height: 100px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .awards-strip-slot:last-child { border-bottom: none; }
+      .cases-white-gallery {
+        grid-auto-columns: minmax(270px, 300px);
+      }
+      .slider-controls {
+        gap: 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="#">CRM<span>group</span></a>
+      <nav class="site-nav">
+        <a href="#services">Услуги</a>
+        <a href="#cases-b">Кейсы</a>
+        <a href="#articles">Экспертные материалы</a>
+        <a href="#form">Контакты</a>
+      </nav>
+      <a class="cta-link" href="#form">Оставить заявку</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <div>
+          <h1>Делаем клиентов постоянными</h1>
+          <p>CRM-маркетинг, спецпроекты и дизайн-коммуникаций, которые повышают LTV и удержание.</p>
+          <a class="btn-primary" href="#form">Обсудить задачу <span aria-hidden="true">→</span></a>
+        </div>
+        <aside class="hero__panel">
+          <h2 class="hero__panel-title">Маркетинг и технологии для бизнеса</h2>
+          <p>Собрали единый прототип главной с согласованной дизайн-системой: награды, кейсы, экспертные материалы и форма в одном визуальном стандарте.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services" class="section-block">
+      <div class="container">
+        <div class="section-head">
+          <h2>Ключевые услуги</h2>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <h3 class="service-title">CRM-маркетинг</h3>
+            <p class="service-desc">Строим retention-модель и коммуникации на каждом этапе клиентского пути.</p>
+          </article>
+          <article class="service-card">
+            <h3 class="service-title">Email-маркетинг</h3>
+            <p class="service-desc">Запускаем системные рассылки и цепочки, которые дают повторные продажи.</p>
+          </article>
+          <article class="service-card">
+            <h3 class="service-title">Спецпроекты</h3>
+            <p class="service-desc">Геймификация и лидогенерация для быстрых и заметных бизнес-результатов.</p>
+          </article>
+          <article class="service-card">
+            <h3 class="service-title">Дизайн-поддержка</h3>
+            <p class="service-desc">Единый визуальный язык коммуникаций на сайте, в email и внутри продукта.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="awards" class="awards-strip-wrap">
+      <div class="awards-strip-head">
+        <h2>Нас отмечают как <span>лидеров</span></h2>
+        <span class="awards-strip-year">Обновление 2026</span>
+      </div>
+      <div class="awards-strip" id="awardsStrip">
+        <div class="awards-strip-slot"><div class="slot-content visible" id="slot-0"></div></div>
+        <div class="awards-strip-slot"><div class="slot-content visible" id="slot-1"></div></div>
+        <div class="awards-strip-slot"><div class="slot-content visible" id="slot-2"></div></div>
+      </div>
+      <div class="awards-strip-dots" id="awardsDots"></div>
+    </section>
+
+    <section class="section-block" id="cases-b">
+      <div class="container">
+        <div class="section-head">
+          <h2>Кейсы. Editorial White</h2>
+          <a class="btn-primary" href="https://crmgroup.ru/cases/">Смотреть больше</a>
+        </div>
+
+        <div class="cases-slider">
+          <div class="cases-white-gallery" id="casesGalleryB">
+            <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/special-project-for-donorsearch/')">
+              <div class="case-white__header">
+                <span class="case-white__category">Спецпроекты</span>
+                <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2024/07/DonorSearch-B4znt3UF.png" alt="DonorSearch">
+              </div>
+              <p class="case-white__metric">4000+</p>
+              <p class="case-white__desc">имейлов собрали для НКО без бюджета на продвижение</p>
+              <div class="case-white__divider"></div>
+              <div class="case-white__tags">
+                <span class="case-white__tag">Лидогенерация</span>
+                <span class="case-white__tag">Сайты и лендинги</span>
+              </div>
+              <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">→</span></span>
+            </article>
+
+            <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/advent-calendar-metallurg/')">
+              <div class="case-white__header">
+                <span class="case-white__category">Спорт</span>
+                <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2024/01/logo.png" alt="Металлург">
+              </div>
+              <p class="case-white__metric">+14,43%</p>
+              <p class="case-white__desc">выросла база подписчиков ХК «Металлург»</p>
+              <div class="case-white__divider"></div>
+              <div class="case-white__tags">
+                <span class="case-white__tag">Лидогенерация</span>
+                <span class="case-white__tag">Спецпроекты</span>
+              </div>
+              <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">→</span></span>
+            </article>
+
+            <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/tinkoff-special-project/')">
+              <div class="case-white__header">
+                <span class="case-white__category">Банки и финансы</span>
+                <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/light.png" alt="Tinkoff">
+              </div>
+              <p class="case-white__metric">14%</p>
+              <p class="case-white__desc">конверсия в заявку на кредит</p>
+              <div class="case-white__divider"></div>
+              <div class="case-white__tags"><span class="case-white__tag">Спецпроекты</span></div>
+              <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">→</span></span>
+            </article>
+
+            <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/design-system/')">
+              <div class="case-white__header">
+                <span class="case-white__category">Недвижимость</span>
+                <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/samolet_infoblock_rgb-blue.png" alt="Самолёт">
+              </div>
+              <p class="case-white__metric">в 3 раза</p>
+              <p class="case-white__desc">быстрее собираем макет письма после внедрения дизайн-системы</p>
+              <div class="case-white__divider"></div>
+              <div class="case-white__tags">
+                <span class="case-white__tag">Бэкстейдж</span>
+                <span class="case-white__tag">Дизайн-поддержка</span>
+              </div>
+              <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">→</span></span>
+            </article>
+
+            <article class="case-white" onclick="window.open('https://emailsoldiers.ru/cases/who-the-hell-is-kolya')">
+              <div class="case-white__header">
+                <span class="case-white__category">HoReCa</span>
+                <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/Без-названия.png" alt="Burger King">
+              </div>
+              <p class="case-white__metric">+75%</p>
+              <p class="case-white__desc">выросла база адресов за полгода работы над коммуникациями</p>
+              <div class="case-white__divider"></div>
+              <div class="case-white__tags">
+                <span class="case-white__tag">CRM-маркетинг</span>
+                <span class="case-white__tag">Лидогенерация</span>
+              </div>
+              <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">→</span></span>
+            </article>
+          </div>
+
+          <div class="slider-controls">
+            <div style="display:flex; gap:10px;">
+              <button class="slider-btn" aria-label="Назад" onclick="scrollSlider('casesGalleryB', -1)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button class="slider-btn" aria-label="Вперёд" onclick="scrollSlider('casesGalleryB', 1)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="articles">
+      <div class="container">
+        <div class="articles-layout">
+          <div class="articles-summary">
+            <h2>Экспертные материалы</h2>
+            <p>Статьи, гайды и разборы кейсов — в открытом доступе.</p>
+            <p>Пишем о том, что сами применяем в работе. Можно сразу брать в работу и адаптировать под свой бизнес.</p>
+            <a href="/blog/" class="btn-primary">Перейти в блог <span>→</span></a>
+          </div>
+
+          <div class="articles-grid">
+            <a href="/blog/customer-value-management/" class="article-card featured">
+              <span class="article-tag">Стратегия</span>
+              <div class="article-meta"><span>22 февраля 2026</span><span>•</span><span>11–18 минут</span></div>
+              <div class="article-title">Что такое Customer Value Management</div>
+              <div class="article-desc">CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM и как внедрить — в статье.</div>
+              <span class="article-read">Читать статью →</span>
+            </a>
+
+            <a href="/blog/inhouse-vs-agency-crm/" class="article-card">
+              <span class="article-tag">CRM-маркетинг</span>
+              <div class="article-meta"><span>8 февраля 2026</span><span>•</span><span>5–8 мин</span></div>
+              <div class="article-title">In-house vs агентство: объективное сравнение</div>
+              <div class="article-desc">Нанимать сотрудников или работать с агентством? Сравнили по 6 параметрам: экономика, экспертиза, контроль, безопасность, масштабируемость.</div>
+              <span class="article-read">Читать →</span>
+            </a>
+
+            <a href="/blog/top10-game-mechanics/" class="article-card">
+              <span class="article-tag">Спецпроекты</span>
+              <div class="article-meta"><span>8 апреля 2025</span><span>•</span><span>18–30 мин</span></div>
+              <div class="article-title">Топ-10 игровых механик для вовлечения аудитории</div>
+              <div class="article-desc">От раннеров до тиндер-квестов — 10 проверенных подходов для тех, кто хочет видеть результат и запускать геймификацию быстро.</div>
+              <span class="article-read">Читать →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="form">
+      <div class="container">
+        <div class="form-layout">
+          <div class="form-left">
+            <h2>Готовы сделать<br>ваших клиентов<br>постоянными</h2>
+            <div class="form-promise">Ответим в течение 1 рабочего дня</div>
+            <ul class="form-contacts">
+              <li>
+                <span class="contact-label">По телефону</span>
+                <a href="tel:+74954780362">+7 (495) 478-03-62</a>
+              </li>
+              <li>
+                <span class="contact-label">На почту</span>
+                <a href="mailto:manager@crmgroup.ru">manager@crmgroup.ru</a>
+              </li>
+              <li>
+                <span class="contact-label">В Telegram</span>
+                <a href="https://t.me/crmgroup_feedbackbot" target="_blank" rel="noopener">@crmgroup_feedbackbot</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="form-right">
+            <form>
+              <input type="hidden" name="form-type" value="main">
+
+              <div class="form-row">
+                <div class="form-field">
+                  <input type="text" name="name" placeholder="Имя*" required>
+                </div>
+                <div class="form-field">
+                  <input type="tel" name="phone" placeholder="Телефон*" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <input type="email" name="email" placeholder="Электронная почта*" required>
+              </div>
+
+              <div class="form-field">
+                <textarea name="message" placeholder="Что хотите сделать?"></textarea>
+              </div>
+
+              <div class="form-submit-row">
+                <button type="submit" class="btn-submit">Начать разговор</button>
+                <div class="form-consent">
+                  <label>
+                    <input type="checkbox" required>
+                    Соглашаюсь <a href="https://crmgroup.ru/conditions/" target="_blank" rel="noopener">с условиями обработки персональных данных</a>
+                  </label>
+                  <label>
+                    <input type="checkbox">
+                    Хочу получать вашу рассылку
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span>© 2014–2026 CRM-group</span>
+      <a href="https://crmgroup.ru/conditions/" target="_blank" rel="noopener">Условия обработки персональных данных</a>
+    </div>
+  </footer>
+
+  <script>
+    const awards = [
+      { name: 'Рейтинг Рунета', desc: '1 место в CRM-маркетинге' },
+      { name: 'Tagline Awards', desc: 'Лучший спецпроект для e-commerce' },
+      { name: 'Workspace Digital', desc: 'Топ-3 агентств по retention' },
+      { name: 'Ruward', desc: 'Премия за performance-коммуникации' },
+      { name: 'Digital Index', desc: 'Лидер категории Email-маркетинг' },
+      { name: 'Adindex', desc: 'Лучший проект года в CRM' },
+      { name: 'Silver Mercury', desc: 'Награда за стратегию лояльности' },
+      { name: 'АКАР', desc: 'Победитель в номинации Data-driven' },
+      { name: 'Effie Russia', desc: 'Кейс по росту LTV и retention' }
+    ];
+
+    const groupSize = 3;
+    const groups = Math.ceil(awards.length / groupSize);
+    const slots = [
+      document.getElementById('slot-0'),
+      document.getElementById('slot-1'),
+      document.getElementById('slot-2')
+    ];
+    const dotsEl = document.getElementById('awardsDots');
+
+    let currentGroup = 0;
+
+    function renderAwardsGroup(idx) {
+      slots.forEach((slot, i) => {
+        const award = awards[idx * groupSize + i];
+        slot.classList.remove('visible');
+        slot.classList.add('fade-out');
+
+        setTimeout(() => {
+          slot.innerHTML = award
+            ? `<span class="slot-name">${award.name}</span><span class="slot-desc">${award.desc}</span>`
+            : '';
+
+          slot.classList.remove('fade-out');
+          slot.classList.add('fade-in');
+
+          requestAnimationFrame(() => {
+            slot.classList.remove('fade-in');
+            slot.classList.add('visible');
+          });
+        }, 180);
+      });
+
+      [...dotsEl.children].forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+    }
+
+    function setupAwardsDots() {
+      for (let i = 0; i < groups; i += 1) {
+        const dot = document.createElement('button');
+        dot.className = `strip-dot ${i === 0 ? 'active' : ''}`;
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Показать группу ${i + 1}`);
+        dot.addEventListener('click', () => {
+          currentGroup = i;
+          renderAwardsGroup(currentGroup);
+        });
+        dotsEl.appendChild(dot);
+      }
+    }
+
+    function scrollSlider(id, direction) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const card = el.querySelector('.case-white');
+      const step = card ? (card.getBoundingClientRect().width + 16) : 320;
+      el.scrollBy({ left: direction * step, behavior: 'smooth' });
+    }
+
+    setupAwardsDots();
+    renderAwardsGroup(0);
+    setInterval(() => {
+      currentGroup = (currentGroup + 1) % groups;
+      renderAwardsGroup(currentGroup);
+    }, 4500);
+
+    window.scrollSlider = scrollSlider;
+  </script>
+</body>
+</html>

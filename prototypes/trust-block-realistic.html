@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блок «Нам доверяют» — реалистичные варианты в контексте главной</title>
+<style>
+/* ================================================================
+   ТЕМА FONTS — загружаем с crmgroup.ru
+   ================================================================ */
+@font-face { font-family: 'TTRuns-700'; src: url('https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TTRuns-Bold.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'TTRuns-500'; src: url('https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TTRuns-Medium.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'TTSmalls-400'; src: url('https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TTSmalls-Regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'TTSmalls-500'; src: url('https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TTSmalls-Medium.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'TTSmalls-600'; src: url('https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TTSmalls-DemiBold.woff2') format('woff2'); font-display: swap; }
+
+/* ================================================================
+   ТЕМА VARIABLES — точные токены с crmgroup.ru
+   ================================================================ */
+:root {
+  --color-accent-red: #c01020;
+  --button-bg: #c01020;
+  --button-bg-hover: #a80e1c;
+  --text-color: #000;
+  --text-color-grey: #999;
+  --bd-color: #D9D9D9;
+  --border-color-light-gray: #E1E1E1;
+  --bg-main: #fff;
+  --text-size: 18px;
+}
+
+/* ================================================================
+   RESET + BASE — как в теме
+   ================================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'TTSmalls-400', sans-serif;
+  color: var(--text-color);
+  background: #000; /* тема ставит body bg чёрным */
+  font-size: var(--text-size);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================================================================
+   ТЕМА LAYOUT — контейнер, секция
+   ================================================================ */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+
+.section {
+  padding: 96px 0;
+}
+.section.--white {
+  background: #fff;
+}
+
+h2, .h2 {
+  font-family: 'TTRuns-700', sans-serif;
+  font-size: 42px;
+  line-height: 1.15;
+  letter-spacing: -0.1rem;
+}
+@media (max-width: 768px) {
+  h2, .h2 { font-size: 30px; }
+  .section { padding: 48px 0; }
+  .container { padding: 0 20px; }
+}
+
+/* ================================================================
+   СЕКЦИЯ «СОБИРАЕМ ЛУЧШИХ» (упрощённо, для контекста)
+   ================================================================ */
+.about-section {
+  background: #fff;
+  padding: 96px 0 64px;
+}
+.about-section .textual h2 {
+  margin-bottom: 24px;
+}
+.about-section .summary {
+  font-size: 18px;
+  color: var(--text-color-grey);
+  max-width: 500px;
+  line-height: 1.5;
+}
+.about-section .summary a {
+  color: var(--color-accent-red);
+  text-decoration: none;
+}
+.about-section .team-photos {
+  display: flex;
+  gap: 8px;
+  margin-top: 40px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.about-section .team-photos .photo {
+  flex: 1;
+  height: 260px;
+  background: #e8e8e8;
+  position: relative;
+  overflow: hidden;
+}
+.about-section .team-photos .photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.15));
+}
+
+/* ================================================================
+   СЕКЦИЯ «ГОТОВЫ К ОБЩЕНИЮ» (упрощённо, для контекста)
+   ================================================================ */
+.form-section {
+  background: #fff;
+  padding: 96px 0;
+}
+.form-request__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 64px;
+  flex-wrap: wrap;
+}
+.form-contacts {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  font-size: 18px;
+}
+.form-contacts span {
+  display: block;
+  font-size: 14px;
+  color: var(--text-color-grey);
+  margin-bottom: 4px;
+}
+.form-contacts a {
+  color: var(--color-accent-red);
+  text-decoration: none;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+.form-grid input, .form-grid textarea {
+  font-family: 'TTSmalls-400', sans-serif;
+  font-size: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--bd-color);
+  border-radius: 4px;
+  background: #F5F5F5;
+  outline: none;
+}
+.form-grid textarea {
+  grid-row: span 3;
+  resize: none;
+  min-height: 160px;
+}
+.form-grid .submit-row {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.btn-primary {
+  font-family: 'TTSmalls-600', sans-serif;
+  font-size: 16px;
+  padding: 16px 40px;
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-primary:hover { background: var(--button-bg-hover); }
+.form-checkbox-label {
+  font-size: 13px;
+  color: var(--text-color-grey);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .form-request__header { flex-direction: column; align-items: flex-start; }
+  .form-contacts { flex-direction: column; gap: 12px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid textarea { grid-row: auto; }
+}
+
+/* ================================================================
+   РАЗДЕЛИТЕЛЬ МЕЖДУ ВАРИАНТАМИ
+   ================================================================ */
+.variant-separator {
+  background: #000;
+  padding: 60px 30px;
+  text-align: center;
+}
+.variant-separator h3 {
+  font-family: 'TTRuns-700', sans-serif;
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.variant-separator .variant-tag {
+  display: inline-block;
+  font-family: 'TTSmalls-600', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+  background: rgba(192,16,32,0.15);
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.variant-separator p {
+  font-family: 'TTSmalls-400', sans-serif;
+  font-size: 16px;
+  color: #999;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+.variant-separator .score-badge {
+  display: inline-block;
+  font-family: 'TTSmalls-600', sans-serif;
+  font-size: 14px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+.score-badge.green { background: #e8f5e9; color: #2e7d32; }
+.score-badge.orange { background: #fff3e0; color: #e67700; }
+.score-badge.red { background: #fde8e8; color: #c01020; }
+
+/* ================================================================
+   LOGO GRID — общий для всех вариантов
+   ================================================================ */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+.client-logo {
+  height: 80px;
+  border-radius: 7px;
+  border: 1px solid var(--border-color-light-gray);
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transition: opacity 0.2s;
+}
+.client-logo:hover { opacity: 0.7; }
+
+/* Тёмные логотипы (для варианта C) */
+.logo-grid--dark .client-logo {
+  border-color: rgba(255,255,255,0.1);
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+}
+.logo-grid--dark .client-logo:hover {
+  opacity: 1;
+}
+
+/* ================================================================
+   ВАРИАНТ ORIG — Текущий сайт (для сравнения)
+   ================================================================ */
+.clients-section-orig {
+  display: flex;
+  gap: 50px;
+}
+.clients-section-orig .split-hero {
+  flex-shrink: 0;
+  max-width: 410px;
+}
+.clients-section-orig .split-hero .desc {
+  margin-top: 24px;
+  font-size: 18px;
+  color: var(--text-color-grey);
+  line-height: 1.5;
+}
+.clients-section-orig .split-content {
+  flex: 1;
+}
+.clients-section-orig .logo-grid {
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+}
+.clients-section-orig .client-logo {
+  height: 102px;
+}
+
+@media (max-width: 768px) {
+  .clients-section-orig {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .clients-section-orig .split-hero { max-width: 100%; }
+}
+
+/* ================================================================
+   ВАРИАНТ B — Два столбца: стат + логотипы
+   ================================================================ */
+.clients-section-b {
+  display: flex;
+  gap: 50px;
+}
+.clients-section-b .left-col {
+  flex-shrink: 0;
+  max-width: 410px;
+}
+.clients-section-b .left-col .desc {
+  margin-top: 24px;
+  font-size: 18px;
+  color: var(--text-color-grey);
+  line-height: 1.5;
+}
+.clients-section-b .stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+.clients-section-b .stat-item {}
+.clients-section-b .stat-num {
+  font-family: 'TTRuns-700', sans-serif;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.05rem;
+}
+.clients-section-b .stat-label {
+  font-size: 14px;
+  color: var(--text-color-grey);
+  margin-top: 4px;
+  line-height: 1.35;
+}
+.clients-section-b .right-col {
+  flex: 1;
+}
+.clients-section-b .logo-grid {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+.clients-section-b .client-logo {
+  height: 90px;
+}
+
+@media (max-width: 768px) {
+  .clients-section-b {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .clients-section-b .left-col { max-width: 100%; }
+  .clients-section-b .stats-row { gap: 16px; }
+  .clients-section-b .stat-num { font-size: 28px; }
+}
+
+/* ================================================================
+   ВАРИАНТ C — Тёмный блок (Stripe-стиль)
+   ================================================================ */
+.clients-section-c {
+  background: #1a1a1a;
+  border-radius: 20px;
+  padding: 56px 64px;
+  color: #fff;
+}
+.clients-section-c .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+.clients-section-c .top-row h2 {
+  color: #fff;
+  flex-shrink: 0;
+}
+.clients-section-c .stats-row {
+  display: flex;
+  gap: 40px;
+  flex-shrink: 0;
+}
+.clients-section-c .stat-item {
+  text-align: right;
+}
+.clients-section-c .stat-num {
+  font-family: 'TTRuns-700', sans-serif;
+  font-size: 32px;
+  line-height: 1.1;
+  color: #fff;
+}
+.clients-section-c .stat-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+}
+.clients-section-c .divider {
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  margin-bottom: 40px;
+}
+.clients-section-c .logo-grid {
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+.clients-section-c .client-logo {
+  height: 70px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  filter: brightness(0) invert(1);
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+.clients-section-c .client-logo:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .clients-section-c {
+    padding: 36px 24px;
+    border-radius: 16px;
+  }
+  .clients-section-c .top-row {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .clients-section-c .stats-row {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .clients-section-c .stat-item { text-align: left; }
+  .clients-section-c .stat-num { font-size: 26px; }
+}
+
+/* ================================================================
+   ВАРИАНТ H — Два столбца: информация слева, логотипы справа
+   ================================================================ */
+.clients-section-h {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.clients-section-h .info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.clients-section-h .desc {
+  font-size: 18px;
+  color: var(--text-color-grey);
+  line-height: 1.55;
+}
+.clients-section-h .stats-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+  border-top: 1px solid var(--bd-color);
+}
+.clients-section-h .stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.clients-section-h .stat-num {
+  font-family: 'TTRuns-700', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+.clients-section-h .stat-label {
+  font-size: 15px;
+  color: var(--text-color-grey);
+  line-height: 1.4;
+}
+.clients-section-h .logos-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.clients-section-h .client-logo {
+  height: 90px;
+}
+
+@media (max-width: 1024px) {
+  .clients-section-h {
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+  }
+}
+@media (max-width: 768px) {
+  .clients-section-h {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .clients-section-h .logos-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .clients-section-h .stat-num { font-size: 24px; }
+}
+
+/* ================================================================
+   ВАРИАНТ NEW — Центрированный с горизонтальными стат
+   ================================================================ */
+.clients-section-new {
+  text-align: center;
+}
+.clients-section-new h2 {
+  margin-bottom: 16px;
+}
+.clients-section-new .subtitle {
+  font-size: 18px;
+  color: var(--text-color-grey);
+  line-height: 1.55;
+  max-width: 520px;
+  margin: 0 auto 48px;
+}
+.clients-section-new .stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 48px;
+}
+.clients-section-new .stat-item {
+  padding: 0 40px;
+  border-right: 1px solid var(--bd-color);
+}
+.clients-section-new .stat-item:last-child { border-right: none; }
+.clients-section-new .stat-num {
+  font-family: 'TTRuns-700', sans-serif;
+  font-size: 32px;
+  line-height: 1.1;
+}
+.clients-section-new .stat-label {
+  font-size: 14px;
+  color: var(--text-color-grey);
+  margin-top: 4px;
+}
+.clients-section-new .logo-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+}
+.clients-section-new .client-logo {
+  height: 80px;
+}
+
+@media (max-width: 768px) {
+  .clients-section-new .stats-bar {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .clients-section-new .stat-item {
+    padding: 0 20px;
+    border-right: none;
+  }
+  .clients-section-new .stat-num { font-size: 26px; }
+}
+
+/* ================================================================
+   HEADER BAR (эмуляция)
+   ================================================================ */
+.page-intro {
+  background: #000;
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+  font-family: 'TTSmalls-500', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     INTRO
+     ============================================================ -->
+<div class="page-intro">
+  crmgroup.ru — реалистичная эмуляция главной страницы. Шрифты, отступы, контейнер — как на сайте.
+</div>
+
+
+<!-- ============================================================
+     ВАРИАНТ ORIG — Текущий вид (для сравнения)
+     ============================================================ -->
+<div class="variant-separator">
+  <span class="variant-tag">Текущий сайт</span>
+  <h3>Как сейчас</h3>
+  <p>Текущая вёрстка: split-container с заголовком слева и сеткой логотипов справа. Нет статистик, заголовок «Работаем с лучшими».</p>
+  <div class="score-badge red">Проблема: «Работаем с лучшими» звучит высокомерно</div>
+</div>
+
+<!-- Секция ДО: «Собираем лучших» -->
+<section class="section --white about-section">
+  <div class="container">
+    <div class="textual">
+      <h2 class="h2">Собираем<br>лучших</h2>
+      <div class="summary">
+        <p>Нас 100+ человек. 12 лет на рынке. Главный офис в Рязани, сотрудники по всей России, клиенты по всему миру.</p>
+      </div>
+    </div>
+    <div class="team-photos">
+      <div class="photo" style="background: linear-gradient(135deg, #2a2a2a, #444)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #333, #555)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #3a3a3a, #4a4a4a)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #2e2e2e, #484848)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ТЕКУЩИЙ БЛОК КЛИЕНТОВ -->
+<section class="section --white" style="padding-top: 0;">
+  <div class="container">
+    <div class="clients-section-orig">
+      <div class="split-hero">
+        <h2 class="h2">Работаем<br>с&nbsp;лучшими</h2>
+        <div class="desc">
+          <p>Мы ценим долгосрочное сотрудничество. За это время мы оказали услуги для более чем 400 клиентов.</p>
+        </div>
+      </div>
+      <div class="split-content">
+        <div class="logo-grid" id="logos-orig"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Секция ПОСЛЕ: «Готовы к общению» -->
+<section class="section form-section --white" style="border-top: 1px solid #e4e4e4;">
+  <div class="container">
+    <div class="form-request__header">
+      <h2 class="h2">Готовы к<br>общению</h2>
+      <ul class="form-contacts">
+        <li><span>Звоните</span><a href="#">+7 (495) 478-03-62</a></li>
+        <li><span>Пишите</span><a href="#">manager@crmgroup.ru</a></li>
+      </ul>
+    </div>
+    <div class="form-grid">
+      <input type="text" placeholder="Имя*">
+      <textarea placeholder="Расскажите немного о вашей задаче"></textarea>
+      <input type="email" placeholder="Электронная почта*">
+      <input type="tel" placeholder="Телефон*">
+      <div class="submit-row">
+        <button class="btn-primary">Отправить</button>
+        <span class="form-checkbox-label">Соглашаюсь с условиями обработки персональных данных</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ВАРИАНТ B — Два столбца со статистиками
+     ============================================================ -->
+<div class="variant-separator">
+  <span class="variant-tag">Вариант B</span>
+  <h3>Два столбца + статистики</h3>
+  <p>Сохраняет привычный split-layout сайта. Левая колонка усилена цифрами. Органично вписывается в существующий паттерн.</p>
+  <div class="score-badge orange">6/10 — безопасный, эволюционный</div>
+</div>
+
+<section class="section --white about-section">
+  <div class="container">
+    <div class="textual">
+      <h2 class="h2">Собираем<br>лучших</h2>
+      <div class="summary"><p>Нас 100+ человек. 12 лет на рынке. Главный офис в Рязани, сотрудники по всей России.</p></div>
+    </div>
+    <div class="team-photos">
+      <div class="photo" style="background: linear-gradient(135deg, #2a2a2a, #444)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #333, #555)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #3a3a3a, #4a4a4a)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #2e2e2e, #484848)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section --white" style="padding-top: 0;">
+  <div class="container">
+    <div class="clients-section-b">
+      <div class="left-col">
+        <h2 class="h2">Нам<br>доверяют</h2>
+        <div class="desc"><p>400+ клиентов за 12 лет. 90% остаются с нами на годы.</p></div>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num">400+</div>
+            <div class="stat-label">проектов</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">12 лет</div>
+            <div class="stat-label">на рынке</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">8 млрд</div>
+            <div class="stat-label">CRM-оборота / год</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">90%</div>
+            <div class="stat-label">клиентов 2+ года</div>
+          </div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="logo-grid" id="logos-b"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section form-section --white" style="border-top: 1px solid #e4e4e4;">
+  <div class="container">
+    <div class="form-request__header">
+      <h2 class="h2">Готовы к<br>общению</h2>
+      <ul class="form-contacts">
+        <li><span>Звоните</span><a href="#">+7 (495) 478-03-62</a></li>
+        <li><span>Пишите</span><a href="#">manager@crmgroup.ru</a></li>
+      </ul>
+    </div>
+    <div class="form-grid">
+      <input type="text" placeholder="Имя*">
+      <textarea placeholder="Расскажите немного о вашей задаче"></textarea>
+      <input type="email" placeholder="Электронная почта*">
+      <input type="tel" placeholder="Телефон*">
+      <div class="submit-row">
+        <button class="btn-primary">Отправить</button>
+        <span class="form-checkbox-label">Соглашаюсь с условиями обработки персональных данных</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ВАРИАНТ C — Тёмный блок (Stripe-стиль)
+     ============================================================ -->
+<div class="variant-separator">
+  <span class="variant-tag">Вариант C — рекомендую</span>
+  <h3>Тёмный блок (Stripe-стиль)</h3>
+  <p>Премиальный контраст. Тёмный rounded-блок внутри белой секции. Как на главных Stripe, Linear, Vercel. На сайте уже есть тёмные блоки (кейсы, услуги) — визуально в тему.</p>
+  <div class="score-badge green">8/10 — премиум, в стиле сайта</div>
+</div>
+
+<section class="section --white about-section">
+  <div class="container">
+    <div class="textual">
+      <h2 class="h2">Собираем<br>лучших</h2>
+      <div class="summary"><p>Нас 100+ человек. 12 лет на рынке. Главный офис в Рязани, сотрудники по всей России.</p></div>
+    </div>
+    <div class="team-photos">
+      <div class="photo" style="background: linear-gradient(135deg, #2a2a2a, #444)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #333, #555)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #3a3a3a, #4a4a4a)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #2e2e2e, #484848)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section --white" style="padding-top: 0;">
+  <div class="container">
+    <div class="clients-section-c">
+      <div class="top-row">
+        <h2 class="h2">Нам доверяют</h2>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num">400+</div>
+            <div class="stat-label">проектов</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">12 лет</div>
+            <div class="stat-label">на рынке</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">8 млрд ₽</div>
+            <div class="stat-label">CRM-оборота</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">90%</div>
+            <div class="stat-label">клиентов 2+ года</div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="logo-grid" id="logos-c"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section form-section --white" style="border-top: 1px solid #e4e4e4;">
+  <div class="container">
+    <div class="form-request__header">
+      <h2 class="h2">Готовы к<br>общению</h2>
+      <ul class="form-contacts">
+        <li><span>Звоните</span><a href="#">+7 (495) 478-03-62</a></li>
+        <li><span>Пишите</span><a href="#">manager@crmgroup.ru</a></li>
+      </ul>
+    </div>
+    <div class="form-grid">
+      <input type="text" placeholder="Имя*">
+      <textarea placeholder="Расскажите немного о вашей задаче"></textarea>
+      <input type="email" placeholder="Электронная почта*">
+      <input type="tel" placeholder="Телефон*">
+      <div class="submit-row">
+        <button class="btn-primary">Отправить</button>
+        <span class="form-checkbox-label">Соглашаюсь с условиями обработки персональных данных</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ВАРИАНТ H — Инфо слева + стена логотипов справа
+     ============================================================ -->
+<div class="variant-separator">
+  <span class="variant-tag">Вариант H</span>
+  <h3>Информационная архитектура</h3>
+  <p>Лучшая структура данных: заголовок → описание → цифры в столбик слева, плотная стена логотипов справа. Чётко организовано, легко сканировать.</p>
+  <div class="score-badge orange">7/10 — лучшая структура</div>
+</div>
+
+<section class="section --white about-section">
+  <div class="container">
+    <div class="textual">
+      <h2 class="h2">Собираем<br>лучших</h2>
+      <div class="summary"><p>Нас 100+ человек. 12 лет на рынке. Главный офис в Рязани, сотрудники по всей России.</p></div>
+    </div>
+    <div class="team-photos">
+      <div class="photo" style="background: linear-gradient(135deg, #2a2a2a, #444)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #333, #555)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #3a3a3a, #4a4a4a)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #2e2e2e, #484848)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section --white" style="padding-top: 0;">
+  <div class="container">
+    <div class="clients-section-h">
+      <div class="info-col">
+        <h2 class="h2">Нам<br>доверяют</h2>
+        <div class="desc">400+ клиентов за 12 лет. Ценим долгосрочное сотрудничество — 90% возвращаются.</div>
+        <div class="stats-stack">
+          <div class="stat-row">
+            <div class="stat-num">400+</div>
+            <div class="stat-label">реализованных проектов</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num">12 лет</div>
+            <div class="stat-label">на рынке CRM</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num">8 млрд ₽</div>
+            <div class="stat-label">управляемого CRM-оборота в год</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num">90%</div>
+            <div class="stat-label">клиентов работают 2+ года</div>
+          </div>
+        </div>
+      </div>
+      <div class="logos-col" id="logos-h"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section form-section --white" style="border-top: 1px solid #e4e4e4;">
+  <div class="container">
+    <div class="form-request__header">
+      <h2 class="h2">Готовы к<br>общению</h2>
+      <ul class="form-contacts">
+        <li><span>Звоните</span><a href="#">+7 (495) 478-03-62</a></li>
+        <li><span>Пишите</span><a href="#">manager@crmgroup.ru</a></li>
+      </ul>
+    </div>
+    <div class="form-grid">
+      <input type="text" placeholder="Имя*">
+      <textarea placeholder="Расскажите немного о вашей задаче"></textarea>
+      <input type="email" placeholder="Электронная почта*">
+      <input type="tel" placeholder="Телефон*">
+      <div class="submit-row">
+        <button class="btn-primary">Отправить</button>
+        <span class="form-checkbox-label">Соглашаюсь с условиями обработки персональных данных</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ВАРИАНТ NEW — Центрированный + горизонтальные статистики
+     ============================================================ -->
+<div class="variant-separator">
+  <span class="variant-tag">Вариант New</span>
+  <h3>Центрированный + стат-бар</h3>
+  <p>Минималистичный: заголовок по центру, горизонтальная полоса цифр, под ней — логотипы. Похоже на секции Apple/Notion. Простой, но может казаться скучным без визуального якоря.</p>
+  <div class="score-badge orange">6/10 — чисто, но плоско</div>
+</div>
+
+<section class="section --white about-section">
+  <div class="container">
+    <div class="textual">
+      <h2 class="h2">Собираем<br>лучших</h2>
+      <div class="summary"><p>Нас 100+ человек. 12 лет на рынке. Главный офис в Рязани, сотрудники по всей России.</p></div>
+    </div>
+    <div class="team-photos">
+      <div class="photo" style="background: linear-gradient(135deg, #2a2a2a, #444)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #333, #555)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #3a3a3a, #4a4a4a)"></div>
+      <div class="photo" style="background: linear-gradient(135deg, #2e2e2e, #484848)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section --white" style="padding-top: 0;">
+  <div class="container">
+    <div class="clients-section-new">
+      <h2 class="h2">Нам доверяют</h2>
+      <div class="subtitle">400+ клиентов за 12 лет. Ценим долгосрочное сотрудничество — 90% возвращаются.</div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-num">400+</div>
+          <div class="stat-label">проектов</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12 лет</div>
+          <div class="stat-label">на рынке</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8 млрд ₽</div>
+          <div class="stat-label">CRM-оборота</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">90%</div>
+          <div class="stat-label">клиентов 2+ года</div>
+        </div>
+      </div>
+      <div class="logo-grid" id="logos-new"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section form-section --white" style="border-top: 1px solid #e4e4e4;">
+  <div class="container">
+    <div class="form-request__header">
+      <h2 class="h2">Готовы к<br>общению</h2>
+      <ul class="form-contacts">
+        <li><span>Звоните</span><a href="#">+7 (495) 478-03-62</a></li>
+        <li><span>Пишите</span><a href="#">manager@crmgroup.ru</a></li>
+      </ul>
+    </div>
+    <div class="form-grid">
+      <input type="text" placeholder="Имя*">
+      <textarea placeholder="Расскажите немного о вашей задаче"></textarea>
+      <input type="email" placeholder="Электронная почта*">
+      <input type="tel" placeholder="Телефон*">
+      <div class="submit-row">
+        <button class="btn-primary">Отправить</button>
+        <span class="form-checkbox-label">Соглашаюсь с условиями обработки персональных данных</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     JS: Генерация логотипов из реальных SVG с crmgroup.ru
+     ============================================================ -->
+<script>
+// Реальные логотипы с сервера crmgroup.ru
+const logoBase = 'https://crmgroup.ru/wp-content/themes/content_hub/src/img/logos/';
+const brands = [
+  { file: 'puma_2.svg', name: 'PUMA' },
+  { file: 'loreal.svg', name: "L'Oreal" },
+  { file: 'tinkoff_2.svg', name: 'Тинькофф' },
+  { file: 'vtb.svg', name: 'ВТБ' },
+  { file: 'miele_2.svg', name: 'Miele' },
+  { file: 'metro.svg', name: 'METRO' },
+  { file: 'lenta.svg', name: 'Лента' },
+  { file: 'ashan.svg', name: 'Ашан' },
+  { file: 'dodo.svg', name: 'Додо' },
+  { file: 'hyndai.svg', name: 'Hyundai' },
+  { file: 'vichy_2.svg', name: 'Vichy' },
+  { file: 'kerastase_2.svg', name: 'Kerastase' },
+  { file: 'samolet.svg', name: 'Самолёт' },
+  { file: 'burger_2.svg', name: 'Burger King' },
+  { file: 'premier.svg', name: 'Premier' },
+  { file: 'benetton_2.svg', name: 'Benetton' },
+  { file: 'laroche.svg', name: 'La Roche-Posay' },
+  { file: 'amediateka.svg', name: 'Амедиатека' },
+];
+
+function fillLogos(containerId, count) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const logos = brands.slice(0, count || brands.length);
+  logos.forEach(brand => {
+    const div = document.createElement('div');
+    div.className = 'client-logo';
+    div.style.backgroundImage = `url('${logoBase}${brand.file}')`;
+    div.title = brand.name;
+    container.appendChild(div);
+  });
+}
+
+// Заполняем все контейнеры логотипами
+fillLogos('logos-orig', 11);    // оригинал: 11 логотипов
+fillLogos('logos-b', 12);       // вариант B: 12
+fillLogos('logos-c', 18);       // вариант C: 18 (тёмный блок — больше места)
+fillLogos('logos-h', 12);       // вариант H: 12 (3 col × 4 rows)
+fillLogos('logos-new', 14);     // вариант New: 14
+</script>
+
+</body>
+</html>

@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Group — Sections Redesign</title>
+<style>
+@font-face { font-family: "TTSmalls"; font-weight: 400; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Regular.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTSmalls"; font-weight: 500; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Medium.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTSmalls"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_DemiBold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTRuns"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_DemiBold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTRuns"; font-weight: 700; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_Bold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTRuns"; font-weight: 800; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_ExtraBold.woff") format("woff"); font-display: swap; }
+</style>
+
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #c01020;
+  --red-hover: #a00d1a;
+  --red-light: #fce8ea;
+  --dark: #1a1a1a;
+  --gray: #555;
+  --gray-light: #888;
+  --border: #e8e8e8;
+  --bg: #f6f6f6;
+  --white: #ffffff;
+  --font-body: "TTSmalls", system-ui, sans-serif;
+  --font-head: "TTRuns", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--dark);
+  background: #f0f0f0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ─── Nav ─── */
+.proto-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark);
+  display: flex;
+  gap: 0;
+  padding: 0 24px;
+}
+.proto-nav a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 14px 20px;
+  transition: color 0.2s;
+  border-bottom: 2px solid transparent;
+}
+.proto-nav a:hover { color: #fff; }
+.proto-nav a.active { color: #fff; border-bottom-color: var(--red); }
+
+/* ─── Section wrapper ─── */
+.section-block {
+  background: var(--white);
+  margin: 40px auto;
+  max-width: 1200px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+}
+.section-label {
+  background: var(--bg);
+  padding: 10px 40px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-light);
+}
+.section-inner {
+  padding: 64px 40px;
+}
+@media (max-width: 768px) {
+  .section-inner { padding: 40px 20px; }
+}
+
+/* ═══════════════════════════════════════
+   BLOCK 1 — ЭКСПЕРТНЫЕ МАТЕРИАЛЫ
+═══════════════════════════════════════ */
+
+.articles-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .articles-layout { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.articles-summary h2 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.15;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+.articles-summary p {
+  color: var(--gray);
+  font-size: 15px;
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.articles-summary p:last-of-type { margin-bottom: 28px; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red);
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+.btn-primary:hover {
+  background: var(--red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(192,16,32,0.25);
+}
+.btn-primary .arrow { transition: transform 0.25s; }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+/* Article cards grid */
+.articles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+.article-card {
+  background: #f8f8f8;
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+.article-card:hover {
+  background: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+}
+.article-card.featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
+  background: var(--dark);
+  color: #fff;
+}
+.article-card.featured:hover {
+  background: #222;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.article-card.featured .article-meta { color: rgba(255,255,255,0.45); }
+.article-card.featured .article-title { color: #fff; font-size: 20px; }
+.article-card.featured .article-desc { color: rgba(255,255,255,0.65); }
+.article-card.featured .article-read { color: rgba(255,255,255,0.5); }
+.article-card.featured .article-read:hover { color: #fff; }
+
+.article-card-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+.article-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.article-card.featured .article-tag { color: rgba(255,255,255,0.5); }
+
+.article-meta {
+  font-size: 12px;
+  color: var(--gray-light);
+  display: flex;
+  gap: 10px;
+}
+.article-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--dark);
+}
+.article-desc {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.article-read {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--red);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s;
+}
+.article-card:hover .article-read { gap: 8px; }
+
+/* featured — no image variant */
+.article-card.featured.no-image {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a1a1e 100%);
+  border-left: 3px solid var(--red);
+}
+.article-card.featured.no-image .article-title {
+  font-size: 22px;
+  max-width: 600px;
+}
+.article-card.featured.no-image .article-desc {
+  -webkit-line-clamp: 2;
+  max-width: 560px;
+}
+
+
+/* ═══════════════════════════════════════
+   BLOCK 2 — НАГРАДЫ
+═══════════════════════════════════════ */
+
+.awards-section-inner {
+  background: var(--dark);
+  border-radius: 20px;
+  padding: 64px 40px;
+}
+@media (max-width: 768px) {
+  .awards-section-inner { padding: 40px 20px; }
+}
+
+.awards-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.awards-header h2 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 48px;
+  color: #fff;
+  line-height: 1.05;
+}
+.awards-header h2 span {
+  color: var(--red);
+}
+.awards-header-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  max-width: 220px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) {
+  .awards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .awards-grid { grid-template-columns: 1fr; }
+}
+
+.award-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.25s, background 0.25s;
+  cursor: default;
+}
+.award-card:hover {
+  border-color: rgba(192,16,32,0.4);
+  background: rgba(192,16,32,0.05);
+}
+.award-year {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  text-transform: uppercase;
+}
+.award-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.2;
+}
+.award-category {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════
+   BLOCK 3 — ФОРМА
+═══════════════════════════════════════ */
+
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .form-layout { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ═══════════════════════════════════════
+   AWARDS STRIP
+═══════════════════════════════════════ */
+.awards-strip-wrap {
+  background: var(--dark);
+  width: 100%;
+}
+.awards-strip-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 40px 40px 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.awards-strip-head h2 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 32px;
+  color: #fff;
+}
+.awards-strip-head h2 span { color: var(--red); }
+.awards-strip-year {
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 500;
+}
+
+/* The strip */
+.awards-strip {
+  width: 100%;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 110px;
+  overflow: hidden;
+  position: relative;
+}
+.awards-strip-slot {
+  padding: 24px 32px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.awards-strip-slot:last-child { border-right: none; }
+
+/* content inside slot */
+.slot-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.slot-content.fade-out {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.slot-content.fade-in {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.slot-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slot-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 17px;
+  color: #fff;
+  line-height: 1.2;
+}
+.slot-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.4;
+}
+
+/* Progress dots */
+.awards-strip-dots {
+  display: flex;
+  gap: 6px;
+  padding: 20px 40px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.strip-dot {
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.15);
+  transition: background 0.3s, width 0.3s;
+  cursor: pointer;
+}
+.strip-dot.active {
+  background: var(--red);
+  width: 32px;
+}
+
+.form-left h2 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 24px;
+}
+.form-left h2 br { display: block; }
+
+.form-promise {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0faf3;
+  color: #1a7a40;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+}
+.form-promise::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #2ecc71;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.form-contacts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form-contacts li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.form-contacts .contact-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--gray-light);
+}
+.form-contacts a {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.form-contacts a:hover { color: var(--red); }
+
+.form-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.form-field input,
+.form-field textarea {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--dark);
+  background: #f6f6f6;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  padding: 14px 18px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: #aaa; }
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: var(--red);
+  background: #fff;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-submit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.btn-submit {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--red);
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+  width: 100%;
+}
+.btn-submit:hover {
+  background: var(--red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(192,16,32,0.3);
+}
+
+.form-consent {
+  font-size: 12px;
+  color: var(--gray-light);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-consent label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+.form-consent input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: var(--red);
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+.form-consent a { color: var(--red); text-decoration: none; }
+.form-consent a:hover { text-decoration: underline; }
+
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="proto-nav">
+  <a href="#awards" class="active">Награды</a>
+  <a href="#articles">Экспертные материалы</a>
+  <a href="#form">Форма</a>
+</nav>
+
+
+<!-- ════════════════════════════════════
+     BLOCK 1 — НАГРАДЫ (полоса)
+     место: после услуг, до кейсов
+════════════════════════════════════ -->
+<div id="awards" class="awards-strip-wrap">
+
+  <div class="awards-strip" id="awardsStrip">
+    <div class="awards-strip-slot">
+      <div class="slot-content visible" id="slot-0"></div>
+    </div>
+    <div class="awards-strip-slot">
+      <div class="slot-content visible" id="slot-1"></div>
+    </div>
+    <div class="awards-strip-slot">
+      <div class="slot-content visible" id="slot-2"></div>
+    </div>
+  </div>
+
+  <div class="awards-strip-dots" id="awardsDots"></div>
+
+</div>
+
+
+<!-- ════════════════════════════════════
+     BLOCK 2 — ЭКСПЕРТНЫЕ МАТЕРИАЛЫ
+════════════════════════════════════ -->
+<div class="section-block" id="articles">
+  <div class="section-label">Блок: Экспертные материалы</div>
+  <div class="section-inner">
+    <div class="articles-layout">
+
+      <div class="articles-summary">
+        <h2>Экспертные материалы</h2>
+        <p>Статьи, гайды и разборы кейсов — в открытом доступе.</p>
+        <p>Пишем о том, что сами применяем в работе. Гайды, разборы кейсов, схемы рассылок — можно скачать и использовать.</p>
+        <a href="/blog/" class="btn-primary">Перейти в блог <span class="arrow">→</span></a>
+      </div>
+
+      <div class="articles-grid">
+        <a href="/blog/customer-value-management/" class="article-card featured no-image">
+          <div class="article-card-body">
+            <span class="article-tag">Стратегия</span>
+            <div class="article-meta"><span>22 февраля 2026</span><span>·</span><span>11–18 минут</span></div>
+            <div class="article-title">Что такое Customer Value Management</div>
+            <div class="article-desc">CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM и как внедрить — в статье.</div>
+            <span class="article-read">Читать статью →</span>
+          </div>
+        </a>
+        <a href="/blog/inhouse-vs-agency-crm/" class="article-card">
+          <span class="article-tag">CRM-маркетинг</span>
+          <div class="article-meta"><span>8 февраля 2026</span><span>·</span><span>5–8 мин</span></div>
+          <div class="article-title">In-house vs агентство: объективное сравнение</div>
+          <div class="article-desc">Нанимать сотрудников или работать с агентством? Сравнили по 6 параметрам: экономика, экспертиза, контроль, безопасность, масштабируемость.</div>
+          <span class="article-read">Читать →</span>
+        </a>
+        <a href="/blog/top10-game-mechanics/" class="article-card">
+          <span class="article-tag">Спецпроекты</span>
+          <div class="article-meta"><span>8 апреля 2025</span><span>·</span><span>18–30 мин</span></div>
+          <div class="article-title">Топ-10 игровых механик для вовлечения аудитории</div>
+          <div class="article-desc">От раннеров до тиндер-квестов — 10 проверенных подходов для тех, кто хочет видеть результат и запускать геймификацию быстро.</div>
+          <span class="article-read">Читать →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     BLOCK 3 — ФОРМА
+════════════════════════════════════ -->
+<div class="section-block" id="form">
+  <div class="section-label">Блок: Форма</div>
+  <div class="section-inner">
+    <div class="form-layout">
+
+      <!-- Left: headline + contacts -->
+      <div class="form-left">
+        <h2>Готовы сделать<br>ваших клиентов<br>постоянными</h2>
+
+        <div class="form-promise">Ответим в течение 1 рабочего дня</div>
+
+        <ul class="form-contacts">
+          <li>
+            <span class="contact-label">По телефону</span>
+            <a href="tel:+74954780362">+7 (495) 478-03-62</a>
+          </li>
+          <li>
+            <span class="contact-label">На почту</span>
+            <a href="mailto:manager@crmgroup.ru">manager@crmgroup.ru</a>
+          </li>
+          <li>
+            <span class="contact-label">В Telegram</span>
+            <a href="https://t.me/crmgroup_feedbackbot" target="_blank">@crmgroup_feedbackbot</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-right">
+        <form>
+          <input type="hidden" name="form-type" value="main">
+
+          <div class="form-row">
+            <div class="form-field">
+              <input type="text" name="name" placeholder="Имя*" required>
+            </div>
+            <div class="form-field">
+              <input type="tel" name="phone" placeholder="Телефон*" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <input type="email" name="email" placeholder="Электронная почта*" required>
+          </div>
+
+          <div class="form-field">
+            <textarea name="message" placeholder="Что хотите сделать?"></textarea>
+          </div>
+
+          <div class="form-submit-row">
+            <button type="submit" class="btn-submit">Начать разговор</button>
+            <div class="form-consent">
+              <label>
+                <input type="checkbox" required>
+                Соглашаюсь <a href="https://crmgroup.ru/conditions/" target="_blank">с условиями обработки персональных данных</a>
+              </label>
+              <label>
+                <input type="checkbox">
+                Хочу получать вашу рассылку
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div style="height: 60px;"></div>
+
+<script>
+// Awards strip rotator
+const awards = [
+  { name: 'МИКС Россия',        desc: 'Лучший спецпроект — НКО DonorSearch' },
+  { name: 'Ruward',             desc: 'CRM-агентство года' },
+  { name: 'Ruward',             desc: 'Лучшее агентское медиа' },
+  { name: 'Unisender Go',       desc: 'Лучшие письма — выбор актёров театра и кино' },
+  { name: 'hh.ru',              desc: '7 место — лучший работодатель среди небольших компаний' },
+  { name: 'Martech Star Awards',desc: 'Рост показателей рассылок в 1,5× через тестирование гипотез' },
+  { name: 'Perspectum Awards',  desc: 'Адвент-календарь ХК Металлург — рост базы на 14%' },
+  { name: 'Marspo Awards',      desc: 'Новогодний спецпроект для болельщиков хоккея' },
+  { name: 'Апостол Медиа',      desc: 'TG-канал «Дерзкий Репетитор»' },
+];
+
+const groups = Math.ceil(awards.length / 3); // 3 groups
+let currentGroup = 0;
+let stripTimer;
+
+function renderGroup(idx, animate) {
+  const slots = [0,1,2];
+  const contents = slots.map(i => document.getElementById('slot-' + i));
+
+  if (animate) {
+    // fade out
+    contents.forEach(el => { el.classList.remove('visible'); el.classList.add('fade-out'); });
+    setTimeout(() => {
+      setGroupContent(idx, contents);
+      contents.forEach(el => { el.classList.remove('fade-out'); el.classList.add('fade-in'); });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        contents.forEach(el => { el.classList.remove('fade-in'); el.classList.add('visible'); });
+      }));
+    }, 320);
+  } else {
+    setGroupContent(idx, contents);
+    contents.forEach(el => el.classList.add('visible'));
+  }
+
+  // dots
+  document.querySelectorAll('.strip-dot').forEach((d,i) => d.classList.toggle('active', i === idx));
+}
+
+function setGroupContent(idx, contents) {
+  contents.forEach((el, i) => {
+    const award = awards[idx * 3 + i];
+    if (award) {
+      el.innerHTML = `<div class="slot-name">${award.name}</div><div class="slot-desc">${award.desc}</div>`;
+    } else {
+      el.innerHTML = '';
+    }
+  });
+}
+
+function startStrip() {
+  // build dots
+  const dotsEl = document.getElementById('awardsDots');
+  dotsEl.innerHTML = '';
+  for (let i = 0; i < groups; i++) {
+    const d = document.createElement('div');
+    d.className = 'strip-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => { currentGroup = i; renderGroup(i, true); resetTimer(); };
+    dotsEl.appendChild(d);
+  }
+  renderGroup(0, false);
+  resetTimer();
+}
+
+function resetTimer() {
+  clearInterval(stripTimer);
+  stripTimer = setInterval(() => {
+    currentGroup = (currentGroup + 1) % groups;
+    renderGroup(currentGroup, true);
+  }, 3500);
+}
+
+document.addEventListener('DOMContentLoaded', startStrip);
+
+// Nav active state on scroll
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.proto-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>

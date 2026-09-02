@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System: CRM Group</title>
+    <style>
+        /* ============================================================
+           DESIGN TOKENS — CRM Group / crmgroup.ru
+           ============================================================ */
+        :root {
+            /* Colors */
+            --color-accent:        #FD3939;
+            --color-accent-dark:   #c41c1c;
+            --color-accent-light:  #fff2f2;
+            --color-dark:          #32373c;
+            --color-dark-soft:     #4a4f55;
+            --color-bg:            #ffffff;
+            --color-bg-secondary:  #f5f5f5;
+            --color-bg-tertiary:   #eeeeee;
+            --color-text:          #1a1a1a;
+            --color-text-muted:    #5f6368;
+            --color-text-light:    #9aa0a6;
+            --color-border:        #e0e0e0;
+            --color-success:       #34a853;
+            --color-warning:       #fbbc04;
+
+            /* Typography */
+            --font:                Arial, Helvetica, sans-serif;
+            --font-size-xs:        12px;
+            --font-size-sm:        13px;
+            --font-size-base:      15px;
+            --font-size-md:        16px;
+            --font-size-lg:        20px;
+            --font-size-xl:        24px;
+            --font-size-2xl:       36px;
+            --font-size-3xl:       42px;
+            --font-weight-normal:  400;
+            --font-weight-semi:    600;
+            --font-weight-bold:    700;
+            --line-height:         1.6;
+
+            /* Spacing */
+            --space-xs:   4px;
+            --space-sm:   8px;
+            --space-md:   16px;
+            --space-lg:   24px;
+            --space-xl:   32px;
+            --space-2xl:  48px;
+            --space-3xl:  64px;
+
+            /* Border radius */
+            --radius-sm:  4px;
+            --radius-md:  6px;
+            --radius-lg:  10px;
+            --radius-pill: 9999px;
+
+            /* Shadows */
+            --shadow-sm:  0 2px 4px rgba(0,0,0,0.08);
+            --shadow-md:  6px 6px 9px rgba(0,0,0,0.12);
+            --shadow-lg:  0 8px 24px rgba(0,0,0,0.15);
+
+            /* Breakpoints (справочно) */
+            /* --bp-mobile: 600px; --bp-tablet: 782px; --bp-desktop: 1025px; */
+        }
+
+        /* ============================================================
+           BASE
+           ============================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--color-bg-secondary);
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height);
+        }
+
+        .page { max-width: 1100px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); }
+
+        /* ============================================================
+           DS SECTIONS
+           ============================================================ */
+        .ds-section {
+            background: var(--color-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            border: 1px solid var(--color-border);
+        }
+
+        .ds-title {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semi);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .ds-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            align-items: flex-start;
+        }
+
+        .ds-label {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        .ds-value {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-light);
+            font-family: monospace;
+        }
+
+        /* ============================================================
+           HEADER PREVIEW
+           ============================================================ */
+        .site-header {
+            background: var(--color-dark);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .site-logo {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .site-logo span { color: var(--color-accent); }
+
+        .site-nav {
+            display: flex;
+            gap: var(--space-lg);
+            font-size: var(--font-size-base);
+        }
+
+        .site-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .site-nav a:hover { color: var(--color-accent); }
+
+        /* ============================================================
+           COLORS
+           ============================================================ */
+        .color-swatch {
+            width: 80px;
+            text-align: center;
+        }
+
+        .swatch-box {
+            width: 80px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0,0,0,0.08);
+            margin-bottom: var(--space-xs);
+        }
+
+        /* ============================================================
+           TYPOGRAPHY
+           ============================================================ */
+        .type-sample {
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .type-sample:last-child { border-bottom: none; }
+
+        .type-meta {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            font-family: monospace;
+            margin-bottom: var(--space-xs);
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-block;
+            font-family: var(--font);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semi);
+            line-height: 1;
+            padding: 12px 28px;
+            border-radius: var(--radius-pill);
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-dark);
+            border-color: var(--color-accent-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-accent-light);
+        }
+
+        .btn-dark {
+            background: var(--color-dark);
+            color: white;
+            border-color: var(--color-dark);
+        }
+
+        .btn-dark:hover { background: var(--color-dark-soft); }
+
+        .btn-sm {
+            font-size: var(--font-size-sm);
+            padding: 8px 20px;
+        }
+
+        .btn-lg {
+            font-size: var(--font-size-lg);
+            padding: 16px 40px;
+        }
+
+        /* ============================================================
+           CARDS
+           ============================================================ */
+        .card {
+            background: var(--color-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-accent {
+            border-top: 3px solid var(--color-accent);
+        }
+
+        .card-title {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-sm);
+        }
+
+        .card-text {
+            font-size: var(--font-size-base);
+            color: var(--color-text-muted);
+            line-height: var(--line-height);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-md);
+        }
+
+        /* ============================================================
+           STAT BLOCK
+           ============================================================ */
+        .stat-block {
+            background: var(--color-dark);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+
+        .stat-value {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: white;
+        }
+
+        .stat-value.accent { color: var(--color-accent); }
+
+        .stat-label {
+            font-size: var(--font-size-sm);
+            color: rgba(255,255,255,0.7);
+            margin-top: var(--space-xs);
+        }
+
+        /* ============================================================
+           ALERTS / CALLOUTS
+           ============================================================ */
+        .callout {
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            border-left: 4px solid;
+            font-size: var(--font-size-base);
+        }
+
+        .callout-danger {
+            background: #fff2f2;
+            border-color: var(--color-accent);
+            color: var(--color-accent-dark);
+        }
+
+        .callout-warning {
+            background: #fff9e6;
+            border-color: var(--color-warning);
+            color: #7a5800;
+        }
+
+        .callout-success {
+            background: #e6f9ed;
+            border-color: var(--color-success);
+            color: #1e6e3a;
+        }
+
+        .callout-neutral {
+            background: var(--color-bg-tertiary);
+            border-color: var(--color-border);
+            color: var(--color-text-muted);
+        }
+
+        /* ============================================================
+           LIST
+           ============================================================ */
+        .branded-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .branded-list li {
+            padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+            position: relative;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .branded-list li:last-child { border-bottom: none; }
+
+        .branded-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-accent);
+        }
+
+        /* ============================================================
+           TABLE
+           ============================================================ */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-base);
+        }
+
+        .data-table th {
+            background: var(--color-dark);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            text-align: left;
+            font-weight: var(--font-weight-semi);
+            font-size: var(--font-size-sm);
+        }
+
+        .data-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+        .data-table th:last-child  { border-radius: 0 var(--radius-sm) 0 0; }
+
+        .data-table td {
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+
+        .data-table tr:hover td { background: var(--color-bg-secondary); }
+
+        .data-table .tag-red   { color: var(--color-accent); font-weight: var(--font-weight-semi); }
+        .data-table .tag-green { color: var(--color-success); font-weight: var(--font-weight-semi); }
+
+        /* ============================================================
+           SECTION HERO (как на crmgroup.ru)
+           ============================================================ */
+        .hero-block {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-dark) 100%);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-3xl) var(--space-2xl);
+            text-align: center;
+        }
+
+        .hero-block h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            line-height: 1.2;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-block p {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+            margin-bottom: var(--space-xl);
+        }
+
+        /* ============================================================
+           BADGE / TAG
+           ============================================================ */
+        .badge {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semi);
+            padding: 3px 10px;
+            border-radius: var(--radius-pill);
+        }
+
+        .badge-red    { background: var(--color-accent-light); color: var(--color-accent-dark); }
+        .badge-dark   { background: var(--color-dark); color: white; }
+        .badge-green  { background: #e6f9ed; color: #1e6e3a; }
+        .badge-gray   { background: var(--color-bg-tertiary); color: var(--color-text-muted); }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- Header -->
+    <div class="site-header">
+        <div class="site-logo">CRM<span>Group</span></div>
+        <nav class="site-nav">
+            <a href="#">Услуги</a>
+            <a href="#">Кейсы</a>
+            <a href="#">О нас</a>
+            <a href="#">Контакты</a>
+        </nav>
+    </div>
+
+    <div class="ds-section">
+        <div class="ds-title">Design System: CRM Group — crmgroup.ru</div>
+        <p style="color:var(--color-text-muted);font-size:var(--font-size-sm);">
+            Дизайн-система на основе стилей сайта crmgroup.ru.
+            Шрифт: Arial. Акцент: #FD3939. Тёмный: #32373c.
+        </p>
+    </div>
+
+    <!-- COLORS -->
+    <div class="ds-section">
+        <div class="ds-title">Цвета</div>
+        <div class="ds-row">
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#FD3939;"></div>
+                <div class="ds-label">Акцент</div>
+                <div class="ds-value">#FD3939</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#c41c1c;"></div>
+                <div class="ds-label">Акцент тёмный</div>
+                <div class="ds-value">#c41c1c</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#fff2f2;border:1px solid #eee;"></div>
+                <div class="ds-label">Акцент светлый</div>
+                <div class="ds-value">#fff2f2</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#32373c;"></div>
+                <div class="ds-label">Тёмный</div>
+                <div class="ds-value">#32373c</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#4a4f55;"></div>
+                <div class="ds-label">Тёмный мягкий</div>
+                <div class="ds-value">#4a4f55</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#ffffff;border:1px solid #eee;"></div>
+                <div class="ds-label">Фон</div>
+                <div class="ds-value">#ffffff</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#f5f5f5;border:1px solid #eee;"></div>
+                <div class="ds-label">Фон 2</div>
+                <div class="ds-value">#f5f5f5</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#eeeeee;border:1px solid #e0e0e0;"></div>
+                <div class="ds-label">Фон 3</div>
+                <div class="ds-value">#eeeeee</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#34a853;"></div>
+                <div class="ds-label">Успех</div>
+                <div class="ds-value">#34a853</div>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch-box" style="background:#fbbc04;"></div>
+                <div class="ds-label">Внимание</div>
+                <div class="ds-value">#fbbc04</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="ds-section">
+        <div class="ds-title">Типографика — Arial</div>
+
+        <div class="type-sample">
+            <div class="type-meta">42px / 700 — Заголовок страницы</div>
+            <div style="font-size:42px;font-weight:700;line-height:1.2;">Удержание клиентов</div>
+        </div>
+        <div class="type-sample">
+            <div class="type-meta">36px / 700 — Заголовок секции</div>
+            <div style="font-size:36px;font-weight:700;">Наши услуги</div>
+        </div>
+        <div class="type-sample">
+            <div class="type-meta">24px / 600 — Подзаголовок</div>
+            <div style="font-size:24px;font-weight:600;">CRM-маркетинг и email-рассылки</div>
+        </div>
+        <div class="type-sample">
+            <div class="type-meta">20px / 400 — Лид-текст</div>
+            <div style="font-size:20px;">Помогаем компаниям выстроить системную работу с клиентами</div>
+        </div>
+        <div class="type-sample">
+            <div class="type-meta">15px / 400 — Основной текст</div>
+            <div style="font-size:15px;color:#5f6368;max-width:600px;">
+                Агентство CRM Group специализируется на удержании клиентов, повышении LTV и построении
+                системной коммуникации. Работаем с e-commerce, финтехом и SaaS.
+            </div>
+        </div>
+        <div class="type-sample">
+            <div class="type-meta">13px / 400 — Мелкий текст, подписи</div>
+            <div style="font-size:13px;color:#9aa0a6;">crmgroup.ru — Стратегия 2026-2028</div>
+        </div>
+        <div class="type-sample">
+            <div class="type-meta">13px / 600 / uppercase — Лейблы, метки</div>
+            <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#5f6368;">Результаты работы</div>
+        </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="ds-section">
+        <div class="ds-title">Кнопки — border-radius: 9999px (pill)</div>
+        <div class="ds-row" style="align-items:center;">
+            <div>
+                <a class="btn btn-primary btn-sm" href="#">Маленькая</a>
+                <div class="ds-label">btn-primary btn-sm</div>
+            </div>
+            <div>
+                <a class="btn btn-primary" href="#">Основная</a>
+                <div class="ds-label">btn-primary</div>
+            </div>
+            <div>
+                <a class="btn btn-primary btn-lg" href="#">Большая</a>
+                <div class="ds-label">btn-primary btn-lg</div>
+            </div>
+            <div>
+                <a class="btn btn-secondary" href="#">Вторичная</a>
+                <div class="ds-label">btn-secondary</div>
+            </div>
+            <div>
+                <a class="btn btn-dark" href="#">Тёмная</a>
+                <div class="ds-label">btn-dark</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BADGES -->
+    <div class="ds-section">
+        <div class="ds-title">Бейджи / Теги</div>
+        <div class="ds-row">
+            <span class="badge badge-red">Акцент</span>
+            <span class="badge badge-dark">Тёмный</span>
+            <span class="badge badge-green">Успех</span>
+            <span class="badge badge-gray">Нейтральный</span>
+        </div>
+    </div>
+
+    <!-- CARDS -->
+    <div class="ds-section">
+        <div class="ds-title">Карточки</div>
+        <div class="cards-grid">
+            <div class="card card-accent">
+                <div class="card-title">Email-маркетинг</div>
+                <div class="card-text">Разработка стратегии, настройка триггеров, сегментация базы и регулярные рассылки.</div>
+            </div>
+            <div class="card card-accent">
+                <div class="card-title">CRM-интеграция</div>
+                <div class="card-text">Подключение и настройка CRM-систем. Автоматизация воронок и работы с клиентами.</div>
+            </div>
+            <div class="card card-accent">
+                <div class="card-title">Аналитика</div>
+                <div class="card-text">Когортный анализ, LTV, отток. Дашборды и регулярные отчёты по ключевым метрикам.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STAT BLOCK -->
+    <div class="ds-section">
+        <div class="ds-title">Блок статистики (тёмный фон)</div>
+        <div class="stat-block">
+            <div style="font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-xs);">Результаты клиентов</div>
+            <div style="font-size:var(--font-size-base);opacity:0.7;">За 12 месяцев работы с агентством</div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value accent">+32%</div>
+                    <div class="stat-label">рост повторных продаж</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2.4x</div>
+                    <div class="stat-label">рост LTV</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value accent">–18%</div>
+                    <div class="stat-label">снижение оттока</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">клиентов под управлением</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CALLOUTS -->
+    <div class="ds-section">
+        <div class="ds-title">Выделения / Callout</div>
+        <div style="display:grid;gap:var(--space-md);">
+            <div class="callout callout-danger">Критично: ФОТ составляет 89% выручки. Норма 50-60%.</div>
+            <div class="callout callout-warning">Внимание: 47 продаж за год вместо 115 плановых.</div>
+            <div class="callout callout-success">Хорошо: маржинальность по топ-10 клиентам выше 30%.</div>
+            <div class="callout callout-neutral">Справочно: средний чек 2.8M₽ в год на клиента (~50 клиентов).</div>
+        </div>
+    </div>
+
+    <!-- LIST -->
+    <div class="ds-section">
+        <div class="ds-title">Список с маркерами</div>
+        <ul class="branded-list">
+            <li>Разработка стратегии удержания клиентов</li>
+            <li>Настройка триггерных коммуникаций</li>
+            <li>Когортный анализ и LTV-моделирование</li>
+            <li>Обучение команды работе с данными</li>
+        </ul>
+    </div>
+
+    <!-- TABLE -->
+    <div class="ds-section">
+        <div class="ds-title">Таблица данных</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Показатель</th>
+                    <th>Сейчас</th>
+                    <th>Цель</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Маржа</td>
+                    <td>5%</td>
+                    <td>25-30%</td>
+                    <td><span class="tag-red">Критично</span></td>
+                </tr>
+                <tr>
+                    <td>Выручка на человека</td>
+                    <td>143k₽/мес</td>
+                    <td>300k₽/мес</td>
+                    <td><span class="tag-red">Работаем</span></td>
+                </tr>
+                <tr>
+                    <td>Клиентов</td>
+                    <td>~50</td>
+                    <td>40+ на пакетах</td>
+                    <td><span class="tag-green">В плане</span></td>
+                </tr>
+                <tr>
+                    <td>Команда</td>
+                    <td>81 чел</td>
+                    <td>65-70 чел</td>
+                    <td><span class="tag-red">Аудит</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- HERO -->
+    <div class="ds-section">
+        <div class="ds-title">Hero-секция</div>
+        <div class="hero-block">
+            <h1>Системное удержание клиентов</h1>
+            <p>Превращаем CRM-маркетинг из набора активностей в управляемую бизнес-функцию</p>
+            <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;">
+                <a class="btn btn-primary btn-lg" href="#" style="background:white;color:var(--color-accent);border-color:white;">Обсудить проект</a>
+                <a class="btn btn-lg" href="#" style="border:2px solid rgba(255,255,255,0.6);color:white;border-radius:9999px;padding:16px 40px;font-size:20px;font-weight:600;">Смотреть кейсы</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer Variants — CRM-group</title>
+
+<!-- Реальные стили сайта -->
+<link rel="stylesheet" href="//crmgroup.ru/wp-content/themes/content_hub/src/css/css-global.css">
+<link rel="stylesheet" href="//crmgroup.ru/wp-content/uploads/crm-ds/wp-custom.css">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background: #e8e8e8;
+  margin: 0;
+  font-family: 'TTSmalls', sans-serif;
+}
+
+/* Навигация по вариантам */
+.demo-nav {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-nav__label {
+  font-size: 12px;
+  color: #999;
+  margin-right: 12px;
+  font-family: 'TTSmalls', sans-serif;
+}
+.demo-nav a {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #444;
+  background: #f0f0f0;
+  transition: all 0.15s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.demo-nav a:hover,
+.demo-nav a.active { background: #1a1a1a; color: #fff; }
+
+.demo-label {
+  padding: 48px 32px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  font-family: 'TTSmalls', sans-serif;
+}
+.demo-sep { height: 64px; background: #e8e8e8; }
+
+
+/* ════════════════════════════════════════════
+   ВАРИАНТ A — Dark Editorial (Mindbox-style)
+   Тёмный, 4 колонки, CTA-полоса сверху
+════════════════════════════════════════════ */
+.footer-a {
+  background: #111;
+  color: #fff;
+}
+
+/* CTA banner */
+.footer-a__banner {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-a__banner-inner {
+  max-width: var(--container, 1340px);
+  margin: 0 auto;
+  padding: 40px var(--container-indent, 30px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.footer-a__banner h2 {
+  font-family: 'TTRuns', sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 2.5vw, 36px);
+  color: #fff;
+  line-height: 1.15;
+  margin: 0;
+}
+.footer-a__banner p {
+  margin-top: 8px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.4);
+}
+.footer-a__banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-accent-red, #fd3939);
+  color: #fff;
+  font-family: 'TTSmalls', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm, 4px);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.footer-a__banner-btn:hover { background: var(--color-accent-red-intense, #dc1327); }
+
+/* Cols */
+.footer-a__cols {
+  max-width: var(--container, 1340px);
+  margin: 0 auto;
+  padding: 48px var(--container-indent, 30px) 40px;
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-a__logo {
+  font-family: 'TTRuns', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+.footer-a__logo span { color: var(--color-accent-red, #fd3939); }
+.footer-a__tagline {
+  font-size: 14px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.footer-a__contacts { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.footer-a__contacts a {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-a__contacts a:hover { color: #fff; }
+
+.footer-a__socials { display: flex; gap: 10px; }
+.footer-a__socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm, 4px);
+  background: rgba(255,255,255,0.07);
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.footer-a__socials a:hover {
+  background: var(--color-accent-red, #fd3939);
+  color: #fff;
+}
+
+.footer-a__col-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 18px;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-a__links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-a__links a {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-a__links a:hover { color: #fff; }
+.footer-a__links .badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--color-accent-red, #fd3939);
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 5px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+/* Bottom bar */
+.footer-a__bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.footer-a__bottom-inner {
+  max-width: var(--container, 1340px);
+  margin: 0 auto;
+  padding: 18px var(--container-indent, 30px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.footer-a__copy { font-size: 13px; color: rgba(255,255,255,0.2); }
+.footer-a__legal { display: flex; gap: 24px; }
+.footer-a__legal a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-a__legal a:hover { color: rgba(255,255,255,0.6); }
+
+
+/* ════════════════════════════════════════════
+   ВАРИАНТ B — Big Headline CTA
+   Огромный заголовок, компактный нижний ряд
+════════════════════════════════════════════ */
+.footer-b { background: #0d0d0d; }
+
+.footer-b__cta {
+  max-width: var(--container, 1340px);
+  margin: 0 auto;
+  padding: 72px var(--container-indent, 30px) 64px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+}
+.footer-b__headline {
+  font-family: 'TTRuns', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 4.5vw, 64px);
+  line-height: 1.05;
+  color: #fff;
+  max-width: 600px;
+  margin: 0;
+}
+.footer-b__headline em {
+  font-style: normal;
+  color: var(--color-accent-red, #fd3939);
+}
+.footer-b__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.footer-b__email {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-b__email:hover { color: #fff; }
+.footer-b__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-accent-red, #fd3939);
+  color: #fff;
+  font-family: 'TTSmalls', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 15px 30px;
+  border-radius: var(--radius-sm, 4px);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.footer-b__btn:hover { background: var(--color-accent-red-intense, #dc1327); }
+
+.footer-b__bar {
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.footer-b__bar-inner {
+  max-width: var(--container, 1340px);
+  margin: 0 auto;
+  padding: 24px var(--container-indent, 30px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-b__logo {
+  font-family: 'TTRuns', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  text-decoration: none;
+}
+.footer-b__logo span { color: var(--color-accent-red, #fd3939); }
+.footer-b__nav {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.footer-b__nav a {
+  font-size: 14px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-b__nav a:hover { color: #fff; }
+.footer-b__meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.footer-b__meta a, .footer-b__copy {
+  font-size: 13px;
+  color: rgba(255,255,255,0.2);
+  text-decoration: none;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-b__meta a:hover { color: rgba(255,255,255,0.6); }
+
+
+/* ════════════════════════════════════════════
+   ВАРИАНТ C — Белый верх, тёмный низ
+   Чистые колонки на белом + тёмная полоса
+════════════════════════════════════════════ */
+.footer-c {}
+
+.footer-c__top {
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+.footer-c__top-inner {
+  max-width: var(--container, 1340px);
+  margin: 0 auto;
+  padding: 56px var(--container-indent, 30px) 48px;
+  display: grid;
+  grid-template-columns: 260px 1fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-c__brand-logo {
+  font-family: 'TTRuns', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #1a1a1a;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+.footer-c__brand-logo span { color: var(--color-accent-red, #fd3939); }
+.footer-c__brand-desc {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+.footer-c__brand-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent-red, #fd3939);
+  border: 1.5px solid var(--color-accent-red, #fd3939);
+  padding: 9px 18px;
+  border-radius: var(--radius-sm, 4px);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-c__brand-cta:hover {
+  background: var(--color-accent-red, #fd3939);
+  color: #fff;
+}
+
+.footer-c__col-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #bbb;
+  margin-bottom: 18px;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-c__links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-c__links a {
+  font-size: 15px;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-c__links a:hover { color: var(--color-accent-red, #fd3939); }
+
+.footer-c__bottom {
+  background: var(--color-dark, #1a1a1a);
+}
+.footer-c__bottom-inner {
+  max-width: var(--container, 1340px);
+  margin: 0 auto;
+  padding: 20px var(--container-indent, 30px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-c__copy { font-size: 13px; color: rgba(255,255,255,0.28); font-family: 'TTSmalls', sans-serif; }
+.footer-c__bottom-links { display: flex; gap: 20px; }
+.footer-c__bottom-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.28);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-c__bottom-links a:hover { color: rgba(255,255,255,0.7); }
+.footer-c__bottom-social { display: flex; gap: 16px; }
+.footer-c__bottom-social a {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'TTSmalls', sans-serif;
+}
+.footer-c__bottom-social a:hover { color: #fff; }
+</style>
+</head>
+<body>
+
+<nav class="demo-nav">
+  <span class="demo-nav__label">Footer:</span>
+  <a href="#a">A — Dark Editorial</a>
+  <a href="#b">B — Big CTA</a>
+  <a href="#c">C — White/Dark</a>
+</nav>
+
+
+<!-- ═══ A ═══ -->
+<div class="demo-label" id="a">Вариант A — Dark Editorial</div>
+<footer class="footer-a">
+
+  <div class="footer-a__banner">
+    <div class="footer-a__banner-inner">
+      <div>
+        <h2>Увеличим возвращаемость<br>ваших клиентов</h2>
+        <p>Расскажите о задаче — предложим решение за 1 рабочий день</p>
+      </div>
+      <a href="#form-request" class="footer-a__banner-btn">
+        Оставить заявку
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-a__cols">
+    <div>
+      <a href="/" class="footer-a__logo">CRM<span>.</span>group</a>
+      <p class="footer-a__tagline">Агентство CRM-маркетинга с 2012 года.<br>100+ сотрудников.</p>
+      <div class="footer-a__contacts">
+        <a href="mailto:hello@crmgroup.ru">hello@crmgroup.ru</a>
+        <a href="tel:+78003337042">8 800 333-70-42</a>
+      </div>
+      <div class="footer-a__socials">
+        <a href="https://t.me/+kpSTjvOfqvw1NTRi" target="_blank">TG</a>
+        <a href="https://www.youtube.com/@crm_group" target="_blank">YT</a>
+        <a href="https://ru.pinterest.com/crm_group/" target="_blank">PIN</a>
+        <a href="https://www.behance.net/process_agency" target="_blank">BE</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-a__col-title">Услуги</div>
+      <ul class="footer-a__links">
+        <li><a href="/crm-marketing/">CRM-маркетинг</a></li>
+        <li><a href="/special-projects/">Спецпроекты и геймификация</a></li>
+        <li><a href="/design-support/">Дизайн-поддержка</a></li>
+        <li><a href="/custom-template/">Email-шаблон <span class="badge">3 дня</span></a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-a__col-title">Материалы</div>
+      <ul class="footer-a__links">
+        <li><a href="/cases/">Кейсы</a></li>
+        <li><a href="/blog/">Блог и контент-хаб</a></li>
+        <li><a href="/whitepapers/">Гайды PDF</a></li>
+        <li><a href="/blog/category/crm/">CRM-маркетинг</a></li>
+        <li><a href="/blog/category/email/">Email-маркетинг</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-a__col-title">Компания</div>
+      <ul class="footer-a__links">
+        <li><a href="/about/">О нас</a></li>
+        <li><a href="https://jobs.crmgroup.ru" target="_blank">Вакансии</a></li>
+        <li><a href="/contacts/">Контакты</a></li>
+        <li><a href="/conditions/">Политика конфиденциальности</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-a__bottom">
+    <div class="footer-a__bottom-inner">
+      <span class="footer-a__copy">© 2014–2025 CRM-group · ООО «СиАрЭм Груп» · ИНН 6234118659</span>
+      <div class="footer-a__legal">
+        <a href="/conditions/">Условия обработки</a>
+        <a href="/conditions/">Оферта</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+
+<!-- ═══ B ═══ -->
+<div class="demo-sep"></div>
+<div class="demo-label" id="b">Вариант B — Big CTA</div>
+<footer class="footer-b">
+
+  <div class="footer-b__cta">
+    <h2 class="footer-b__headline">
+      Увеличим<br>возвращаемость<br><em>ваших клиентов</em>
+    </h2>
+    <div class="footer-b__actions">
+      <a href="mailto:hello@crmgroup.ru" class="footer-b__email">hello@crmgroup.ru</a>
+      <a href="#form-request" class="footer-b__btn">
+        Обсудить задачу
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-b__bar">
+    <div class="footer-b__bar-inner">
+      <a href="/" class="footer-b__logo">CRM<span>.</span>group</a>
+      <ul class="footer-b__nav">
+        <li><a href="/crm-marketing/">CRM-маркетинг</a></li>
+        <li><a href="/special-projects/">Спецпроекты</a></li>
+        <li><a href="/design-support/">Дизайн</a></li>
+        <li><a href="/custom-template/">Email-шаблон</a></li>
+        <li><a href="/cases/">Кейсы</a></li>
+        <li><a href="/blog/">Блог</a></li>
+        <li><a href="https://jobs.crmgroup.ru">Вакансии</a></li>
+      </ul>
+      <div class="footer-b__meta">
+        <a href="https://t.me/+kpSTjvOfqvw1NTRi">Telegram</a>
+        <a href="https://www.youtube.com/@crm_group">YouTube</a>
+        <span class="footer-b__copy">© 2014–2025</span>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+
+<!-- ═══ C ═══ -->
+<div class="demo-sep"></div>
+<div class="demo-label" id="c">Вариант C — Белый верх / тёмный низ</div>
+<footer class="footer-c">
+
+  <div class="footer-c__top">
+    <div class="footer-c__top-inner">
+      <div>
+        <a href="/" class="footer-c__brand-logo">CRM<span>.</span>group</a>
+        <p class="footer-c__brand-desc">Агентство CRM-маркетинга с 2012 года. Помогаем брендам удерживать клиентов и увеличивать LTV.</p>
+        <a href="#form-request" class="footer-c__brand-cta">
+          Обсудить проект
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div>
+        <div class="footer-c__col-title">Услуги</div>
+        <ul class="footer-c__links">
+          <li><a href="/crm-marketing/">CRM-маркетинг</a></li>
+          <li><a href="/special-projects/">Спецпроекты</a></li>
+          <li><a href="/design-support/">Дизайн-поддержка</a></li>
+          <li><a href="/custom-template/">Email-шаблон</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-c__col-title">Контент</div>
+        <ul class="footer-c__links">
+          <li><a href="/cases/">Кейсы</a></li>
+          <li><a href="/blog/">Блог</a></li>
+          <li><a href="/whitepapers/">Гайды PDF</a></li>
+          <li><a href="/blog/category/crm/">CRM-материалы</a></li>
+          <li><a href="/blog/category/email/">Email-материалы</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-c__col-title">Компания</div>
+        <ul class="footer-c__links">
+          <li><a href="/about/">О нас</a></li>
+          <li><a href="https://jobs.crmgroup.ru">Вакансии</a></li>
+          <li><a href="/contacts/">Контакты</a></li>
+          <li><a href="mailto:hello@crmgroup.ru">hello@crmgroup.ru</a></li>
+          <li><a href="tel:+78003337042">8 800 333-70-42</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-c__bottom">
+    <div class="footer-c__bottom-inner">
+      <span class="footer-c__copy">© 2014–2025 CRM-group · ИНН 6234118659</span>
+      <div class="footer-c__bottom-links">
+        <a href="/conditions/">Политика конфиденциальности</a>
+        <a href="/conditions/">Оферта</a>
+      </div>
+      <div class="footer-c__bottom-social">
+        <a href="https://t.me/+kpSTjvOfqvw1NTRi">Telegram</a>
+        <a href="https://www.youtube.com/@crm_group">YouTube</a>
+        <a href="https://www.behance.net/process_agency">Behance</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<div class="demo-sep"></div>
+</body>
+</html>

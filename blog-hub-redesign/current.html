@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блог — CRM-Group (текущая версия)</title>
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Theme fonts (TTRuns/TTSmalls approximated with system fonts + Inter override from wp-custom) ─── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-accent-red: #FD3939; /* theme default, NOT DS #c01020 */
+  --text-color-grey: #999;
+  --bd-dark-color: #A6A6A6;
+}
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* ─── Header ─── */
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 40px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+.header .logo span { color: #FD3939; }
+.header-nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.header-nav a {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+.header-nav a:hover { color: #FD3939; }
+.header-nav .cta-btn {
+  background: #FD3939;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ─── Blog wrapper ─── */
+#blog {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+}
+
+/* ─── Page title ─── */
+.blog-title {
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  /* Original: TTRuns-600, now overridden to Inter */
+}
+
+/* ─── Hero Swiper (new_article) ─── */
+.new-articles {
+  position: relative;
+  display: flex;
+  max-height: 505px;
+  background: #f2f2f2;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.new_article__text {
+  width: calc(100% - 405px);
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.new_article__category {
+  font-size: 13px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.new_article__title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+.new_article__excerpt {
+  font-size: 16px;
+  color: #595959;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.new_article__meta {
+  font-size: 14px;
+  color: #999;
+  display: flex;
+  gap: 16px;
+}
+.new_article__image {
+  width: 405px;
+  flex-shrink: 0;
+  background: #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #ccc;
+}
+
+/* ─── Layout: sidebar + grid ─── */
+.blog-layout {
+  display: flex;
+  gap: 48px;
+}
+
+/* ─── Categories sidebar ─── */
+.articles-categories {
+  width: 200px;
+  flex-shrink: 0;
+}
+.articles-categories__title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #999;
+  margin-bottom: 16px;
+}
+.articles-categories__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.articles-categories__item {
+  font-size: 15px;
+  color: #595959;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.articles-categories__item:hover,
+.articles-categories__item.active {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* ─── Article grid ─── */
+.materials {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.material {
+  width: calc(33.333% - 22px);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s linear;
+}
+.material::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  transition: border-color 0.15s;
+}
+.material:hover::before {
+  border-color: #FD3939;
+}
+.material__image {
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: #f2f2f2;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #ccc;
+  overflow: hidden;
+}
+.material__category {
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.material__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+  /* Original: TTRuns-600, now Inter */
+}
+.material__excerpt {
+  font-size: 14px;
+  color: #595959;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12px;
+  flex: 1;
+}
+.material__meta {
+  font-size: 13px;
+  color: #999;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.button-read {
+  display: flex;
+  align-items: center;
+  color: #FD3939;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 12px;
+  gap: 6px;
+}
+.button-read::after {
+  content: '\2192';
+}
+
+/* ─── Pagination ─── */
+.articles-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 64px;
+  gap: 8px;
+}
+.articles-pagination a,
+.articles-pagination span {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #595959;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.articles-pagination a:hover {
+  background: #f2f2f2;
+}
+.articles-pagination .current {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+/* ─── Footer ─── */
+.footer {
+  background: #1a1a1a;
+  color: rgba(255,255,255,0.55);
+  padding: 40px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .material { width: calc(50% - 16px); }
+  .new_article__title { font-size: 26px; }
+}
+@media (max-width: 768px) {
+  #blog { padding: 24px 20px 60px; }
+  .blog-title { font-size: 36px; }
+  .blog-layout { flex-direction: column; gap: 24px; }
+  .articles-categories { width: 100%; }
+  .articles-categories__list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .articles-categories__item { padding: 6px 14px; background: #f2f2f2; border-radius: 20px; font-size: 13px; }
+  .material { width: 100%; }
+  .new-articles { flex-direction: column-reverse; max-height: none; }
+  .new_article__text { width: 100%; padding: 24px 20px; }
+  .new_article__image { width: 100%; height: 200px; }
+  .header { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <a href="/" class="logo">CRM<span>-</span>Group</a>
+  <nav class="header-nav">
+    <a href="/services/">Услуги</a>
+    <a href="/cases/">Кейсы</a>
+    <a href="/blog/" style="font-weight:700">Блог</a>
+    <a href="/contacts/">Контакты</a>
+    <a href="#" class="cta-btn">Оставить заявку</a>
+  </nav>
+</header>
+
+<!-- ═══ BLOG ═══ -->
+<div id="blog">
+
+  <!-- ── Заголовок страницы ── -->
+  <h1 class="blog-title">Блог</h1>
+
+  <!-- ── Hero: Новая статья (Swiper) ── -->
+  <div class="new-articles">
+    <div class="new_article__text">
+      <div class="new_article__category">CRM-маркетинг</div>
+      <h2 class="new_article__title">CVM что это в маркетинге: полный гайд 2026</h2>
+      <p class="new_article__excerpt">CAC вырос на 50-70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM (Customer Value Management), как управлять ценностью клиента и какие инструменты использовать.</p>
+      <div class="new_article__meta">
+        <span>22 февраля 2026</span>
+        <span>15 мин чтения</span>
+      </div>
+    </div>
+    <div class="new_article__image">&#9634;</div>
+  </div>
+
+  <!-- ── Layout: категории + сетка ── -->
+  <div class="blog-layout">
+
+    <!-- Сайдбар категорий -->
+    <aside class="articles-categories">
+      <div class="articles-categories__title">Рубрики</div>
+      <ul class="articles-categories__list">
+        <li class="articles-categories__item active">Все статьи</li>
+        <li class="articles-categories__item">CRM-маркетинг</li>
+        <li class="articles-categories__item">Email-маркетинг</li>
+        <li class="articles-categories__item">Аналитика</li>
+        <li class="articles-categories__item">Менеджмент и продажи</li>
+        <li class="articles-categories__item">Контент-маркетинг</li>
+        <li class="articles-categories__item">Customer Journey Map</li>
+        <li class="articles-categories__item">Мессенджер-маркетинг</li>
+        <li class="articles-categories__item">Омниканальность</li>
+        <li class="articles-categories__item">Дизайн и верстка</li>
+      </ul>
+    </aside>
+
+    <!-- Сетка статей -->
+    <div class="materials">
+
+      <!-- Card 1 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">CRM-маркетинг</div>
+        <h3 class="material__title">In-house vs агентство: объективное сравнение для CRM-маркетинга</h3>
+        <p class="material__excerpt">CRM-маркетинг: нанимать сотрудников или работать с агентством? Перед вами стоит этот сложный выбор...</p>
+        <div class="material__meta">
+          <span>8 февраля 2026</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">CRM-маркетинг</div>
+        <h3 class="material__title">Топ-10 проверенных игровых механик, чтобы вовлечь аудиторию в продукт</h3>
+        <p class="material__excerpt">Как удержать внимание клиентов и повысить вовлеченность в маркетинговые кампании? Используйте игровые механики...</p>
+        <div class="material__meta">
+          <span>8 апреля 2025</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">Email-маркетинг</div>
+        <h3 class="material__title">Как AMP-письмо улучшает вовлеченность в email-рассылках. Опыт Altcraft</h3>
+        <p class="material__excerpt">Как повысить CTR и оживить email? Попробуйте AMP-письмо! Узнайте, как интерактивные рассылки на AMP улучшают вовлеченность...</p>
+        <div class="material__meta">
+          <span>21 марта 2025</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">Email-маркетинг</div>
+        <h3 class="material__title">Генерация писем с помощью нейросети: наш эксперимент с инструментом EmailMaker</h3>
+        <p class="material__excerpt">Можно ли использовать ИИ-генератор писем для создания email-рассылок? Мы протестировали блочный конструктор...</p>
+        <div class="material__meta">
+          <span>18 марта 2025</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">CRM-маркетинг</div>
+        <h3 class="material__title">Геймификация в маркетинге: механики, кейсы, советы по внедрению</h3>
+        <p class="material__excerpt">Геймификация в маркетинге: кейсы, механики, советы! Узнайте, как игровые подходы повышают продажи и лояльность...</p>
+        <div class="material__meta">
+          <span>29 января 2025</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">Аналитика</div>
+        <h3 class="material__title">Что делать, если падают показатели в CRM-каналах: делимся опытом агентства</h3>
+        <p class="material__excerpt">Падает конверсия или растет стоимость привлечения клиентов? Разбираем, почему так происходит, как это диагностировать...</p>
+        <div class="material__meta">
+          <span>17 декабря 2024</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">Реклама</div>
+        <h3 class="material__title">Таргетированная реклама ВКонтакте: как избежать распространенных ошибок</h3>
+        <p class="material__excerpt">Как настроить рекламу ВКонтакте и не допустить ошибок? Читайте советы маркетологов digital-агентства...</p>
+        <div class="material__meta">
+          <span>17 октября 2024</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">CRM-маркетинг</div>
+        <h3 class="material__title">Как увеличить продажи с помощью текущей клиентской базы</h3>
+        <p class="material__excerpt">Как выжать максимум из текущей клиентской базы и увеличить продажи? А заодно сэкономить на привлечении новых клиентов...</p>
+        <div class="material__meta">
+          <span>10 сентября 2024</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+      <!-- Card 9 -->
+      <article class="material">
+        <div class="material__image">&#9634;</div>
+        <div class="material__category">Аналитика</div>
+        <h3 class="material__title">5 ключевых метрик для измерения эффективности CRM-стратегии</h3>
+        <p class="material__excerpt">Пять ключевых показателей для бизнеса, которые помогут увеличить рост дохода от клиентов и добиться долгосрочного развития...</p>
+        <div class="material__meta">
+          <span>15 августа 2024</span>
+        </div>
+        <div class="button-read">Читать</div>
+      </article>
+
+    </div><!-- /.materials -->
+
+  </div><!-- /.blog-layout -->
+
+  <!-- ── Пагинация ── -->
+  <div class="articles-pagination">
+    <span class="current">1</span>
+    <a href="/blog/page/2/">2</a>
+    <a href="/blog/page/3/">3</a>
+    <a href="/blog/page/4/">4</a>
+    <a href="/blog/page/5/">5</a>
+    <a href="/blog/page/2/">&rarr;</a>
+  </div>
+
+</div><!-- /#blog -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <p>&copy; 2026 CRM-Group. Агентство CRM-маркетинга.</p>
+</footer>
+
+</body>
+</html>

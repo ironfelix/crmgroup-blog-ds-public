@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM-group: Inter vs TT — сравнение типографики</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── TT Fonts from theme ── */
+@font-face { font-family: "TTSmalls"; font-weight: 400; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Regular.woff") format("woff"); }
+@font-face { font-family: "TTSmalls"; font-weight: 500; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Medium.woff") format("woff"); }
+@font-face { font-family: "TTSmalls"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_DemiBold.woff") format("woff"); }
+@font-face { font-family: "TTSmalls"; font-weight: 700; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Bold.woff") format("woff"); }
+@font-face { font-family: "TTRuns"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_DemiBold.woff") format("woff"); }
+@font-face { font-family: "TTRuns"; font-weight: 700; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_Bold.woff") format("woff"); }
+@font-face { font-family: "TTRuns"; font-weight: 800; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_ExtraBold.woff") format("woff"); }
+
+/* ── Global ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f5f5f5; color: #1a1a1a; }
+
+.page { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+h1.page-title {
+  font-family: Inter, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.page-subtitle {
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  color: #8a8a8a;
+  margin-bottom: 40px;
+}
+
+/* ── Layout: 2 columns ── */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+@media (max-width: 900px) {
+  .comparison { grid-template-columns: 1fr; }
+}
+
+.column {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 36px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.column-label {
+  display: inline-block;
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 24px;
+}
+.col-inter .column-label { background: #e8f0fe; color: #1a73e8; }
+.col-tt .column-label { background: #fde8e8; color: #c01020; }
+.col-tt-opt .column-label { background: #e8fde8; color: #1a8a1a; }
+.col-tt-lr17 .column-label { background: #fff3e0; color: #e65100; }
+.col-tt-lr18 .column-label { background: #f3e5f5; color: #7b1fa2; }
+
+/* ── A: Inter (current) ── */
+.col-inter {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.col-inter h2 { font-size: 32px; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 24px; }
+.col-inter h3 { font-size: 18px; font-weight: 700; line-height: 1.32; letter-spacing: -0.02em; margin-bottom: 12px; }
+.col-inter p { font-size: 16px; line-height: 1.58; margin-bottom: 16px; color: #1a1a1a; }
+.col-inter .desc { font-size: 14px; line-height: 1.58; color: #5a5a5a; }
+.col-inter .meta { font-size: 12px; color: #8a8a8a; letter-spacing: 0.02em; }
+.col-inter .card-title { font-size: 18px; font-weight: 700; line-height: 1.32; margin-bottom: 8px; }
+
+/* ── B: TTSmalls (original theme, as-is) ── */
+.col-tt {
+  font-family: "TTSmalls", sans-serif;
+}
+.col-tt h2 { font-family: "TTRuns", sans-serif; font-size: 32px; font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
+.col-tt h3 { font-family: "TTRuns", sans-serif; font-size: 18px; font-weight: 600; line-height: 1.2; margin-bottom: 12px; }
+.col-tt p { font-size: 18px; line-height: normal; margin-bottom: 16px; color: #1a1a1a; }
+.col-tt .desc { font-size: 18px; line-height: normal; color: #595959; }
+.col-tt .meta { font-size: 16px; color: #595959; }
+.col-tt .card-title { font-family: "TTRuns", sans-serif; font-size: 18px; font-weight: 600; line-height: 1.2; margin-bottom: 8px; }
+
+/* ── C: TTSmalls OPTIMIZED ── */
+.col-tt-opt {
+  font-family: "TTSmalls", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.col-tt-opt h2 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.col-tt-opt h3 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.col-tt-opt p {
+  font-size: 16px;
+  line-height: 1.62;
+  letter-spacing: 0.005em;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+.col-tt-opt .desc {
+  font-size: 14px;
+  line-height: 1.62;
+  letter-spacing: 0.005em;
+  color: #5a5a5a;
+}
+.col-tt-opt .meta {
+  font-size: 12px;
+  color: #8a8a8a;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+.col-tt-opt .card-title {
+  font-family: "TTRuns", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+/* ── D: TTSmalls LONG-READ 17px ── */
+.col-tt-lr17 {
+  font-family: "TTSmalls", sans-serif;
+  -webkit-font-smoothing: auto;  /* subpixel — TTSmalls-400 тонкий, subpixel добавляет плотности */
+}
+.col-tt-lr17 h2 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+.col-tt-lr17 h3 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.col-tt-lr17 p {
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: 0.008em;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+.col-tt-lr17 ul {
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: 0.008em;
+}
+.col-tt-lr17 .desc {
+  font-size: 15px;
+  line-height: 1.65;
+  letter-spacing: 0.008em;
+  color: #5a5a5a;
+}
+.col-tt-lr17 .meta {
+  font-size: 13px;
+  color: #8a8a8a;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+
+/* ── E: TTSmalls LONG-READ 18px ── */
+.col-tt-lr18 {
+  font-family: "TTSmalls", sans-serif;
+  -webkit-font-smoothing: auto;
+}
+.col-tt-lr18 h2 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+.col-tt-lr18 h3 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.col-tt-lr18 p {
+  font-size: 18px;
+  line-height: 1.62;
+  letter-spacing: 0.006em;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+.col-tt-lr18 ul {
+  font-size: 18px;
+  line-height: 1.62;
+  letter-spacing: 0.006em;
+}
+.col-tt-lr18 .desc {
+  font-size: 16px;
+  line-height: 1.62;
+  letter-spacing: 0.006em;
+  color: #5a5a5a;
+}
+.col-tt-lr18 .meta {
+  font-size: 13px;
+  color: #8a8a8a;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+
+/* ── F: TTSmalls EXPERT — максимальная оптимизация ── */
+.col-tt-expert {
+  font-family: "TTSmalls", sans-serif;
+  -webkit-font-smoothing: auto;            /* subpixel: плотный штрих */
+  text-rendering: optimizeLegibility;       /* kerning pairs + ligatures */
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1; /* OpenType features */
+  hanging-punctuation: first last;          /* кавычки/тире не ломают левый край */
+}
+.col-tt-expert h2 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
+  text-wrap: balance;
+  color: #1a1a1a;
+}
+.col-tt-expert h3 {
+  font-family: "TTRuns", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+  text-wrap: balance;
+  color: #1a1a1a;
+}
+.col-tt-expert p {
+  font-size: 17px;
+  line-height: 1.68;                        /* щедрее чем 1.65: воздух между строк */
+  letter-spacing: 0.01em;                   /* чуть шире чем 0.008: разборчивость */
+  word-spacing: 0.05em;                     /* ключевой приём: чёткие границы слов */
+  text-wrap: pretty;                        /* умные переносы строк (Chrome) */
+  hyphens: auto;                            /* авто-переносы = ровный правый край */
+  -webkit-hyphens: auto;
+  color: #222;                              /* мягче контраст: 87% vs 90% */
+  margin-bottom: 1.15em;                    /* пропорциональный ритм */
+}
+.col-tt-expert ul, .col-tt-expert ol {
+  font-size: 17px;
+  line-height: 1.68;
+  letter-spacing: 0.01em;
+  word-spacing: 0.05em;
+  color: #222;
+  padding-left: 1.3em;
+  margin-bottom: 1.15em;
+}
+.col-tt-expert li {
+  margin-bottom: 0.5em;
+}
+.col-tt-expert .desc {
+  font-size: 15px;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  word-spacing: 0.04em;
+  color: #555;                              /* дескрипт чуть мягче */
+}
+.col-tt-expert .meta {
+  font-size: 13px;
+  color: #888;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.col-tt-expert .accent {
+  color: #c01020;
+  font-weight: 600;
+}
+.col-tt-expert .card-title {
+  font-family: "TTRuns", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+.col-tt-expert .column-label { background: #e0f2f1; color: #00695c; }
+/* warm paper background for expert reading */
+.col-tt-expert.paper { background: #faf9f6 !important; }
+
+/* ── G: Inter EXPERT (контроль — тоже все приёмы) ── */
+.col-inter-expert {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "cv01" 1, "cv05" 1;
+  /* cv01 = open 1, cv05 = lower-case l with tail — Inter OpenType alternates */
+  hanging-punctuation: first last;
+}
+.col-inter-expert h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  text-wrap: balance;
+}
+.col-inter-expert h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+  text-wrap: balance;
+}
+.col-inter-expert p {
+  font-size: 17px;
+  line-height: 1.58;
+  letter-spacing: 0;
+  text-wrap: pretty;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  color: #1a1a1a;
+  margin-bottom: 1.15em;
+}
+.col-inter-expert ul {
+  font-size: 17px;
+  line-height: 1.58;
+  padding-left: 1.3em;
+  margin-bottom: 1.15em;
+}
+.col-inter-expert li { margin-bottom: 0.5em; }
+.col-inter-expert .meta {
+  font-size: 12px;
+  color: #8a8a8a;
+  letter-spacing: 0.02em;
+}
+.col-inter-expert .column-label { background: #e8f0fe; color: #1a73e8; }
+.col-inter-expert.paper { background: #faf9f6 !important; }
+
+/* ── Shared card styling ── */
+.card {
+  border: 1px solid #e4e2dc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.card .meta { margin-bottom: 8px; }
+.card .desc { margin-top: 8px; }
+.separator { border: none; border-top: 1px solid #e4e2dc; margin: 24px 0; }
+.accent { color: #c01020; font-weight: 600; }
+.section-title {
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 48px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e4e2dc;
+}
+
+/* ── Specs table ── */
+.specs {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  margin-top: 24px;
+}
+.specs th, .specs td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e4e2dc;
+}
+.specs th { font-weight: 600; background: #f9f9f7; }
+.specs td:first-child { font-weight: 500; }
+.specs .highlight { background: #fffde8; }
+
+/* ── Verdict ── */
+.verdict {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  margin-top: 32px;
+}
+.verdict h2 {
+  font-family: Inter, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.verdict p, .verdict li {
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.verdict ul { padding-left: 20px; }
+
+.triple { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 1100px) { .triple { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1 class="page-title">Какой шрифт выбрать для блога: сравнение и рекомендации</h1>
+<p class="page-subtitle">Inter, TTSmalls, TTRuns — что где использовать и как грамотно сочетать</p>
+
+<!-- ═══ SECTION 1: Headlines ═══ -->
+<h2 class="section-title">1. Заголовки</h2>
+<div class="comparison triple">
+  <div class="column col-inter">
+    <span class="column-label">Inter (текущий)</span>
+    <h2>CVM что это в маркетинге: полный гайд 2026</h2>
+    <p class="meta">32px / 700 / lh 1.2 / ls -0.02em</p>
+  </div>
+  <div class="column col-tt">
+    <span class="column-label">TTRuns (оригинал)</span>
+    <h2>CVM что это в маркетинге: полный гайд 2026</h2>
+    <p class="meta" style="font-family:Inter,sans-serif;font-size:12px;color:#8a8a8a">32px / 700 / lh 1.1 / ls 0</p>
+  </div>
+  <div class="column col-tt-opt">
+    <span class="column-label">TTRuns (оптимизированный)</span>
+    <h2>CVM что это в маркетинге: полный гайд 2026</h2>
+    <p class="meta" style="font-family:Inter,sans-serif;font-size:12px;color:#8a8a8a">32px / 700 / lh 1.15 / ls -0.03em</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2: Body text ═══ -->
+<h2 class="section-title">2. Основной текст (статья-описание)</h2>
+<div class="comparison triple">
+  <div class="column col-inter">
+    <span class="column-label">Inter (текущий)</span>
+    <p>CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM и как внедрить — в статье.</p>
+    <p>Customer Value Management (CVM) — это стратегический подход к управлению ценностью клиента на протяжении всего жизненного цикла. В отличие от традиционного CRM, который фокусируется на процессах, CVM строится вокруг метрик: LTV, retention rate, churn prediction.</p>
+    <p class="meta">16px / 400 / lh 1.58</p>
+  </div>
+  <div class="column col-tt">
+    <span class="column-label">TTSmalls (оригинал)</span>
+    <p>CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM и как внедрить — в статье.</p>
+    <p>Customer Value Management (CVM) — это стратегический подход к управлению ценностью клиента на протяжении всего жизненного цикла. В отличие от традиционного CRM, который фокусируется на процессах, CVM строится вокруг метрик: LTV, retention rate, churn prediction.</p>
+    <p class="meta" style="font-family:Inter,sans-serif;font-size:12px;color:#8a8a8a">18px / 400 / lh normal (~1.2)</p>
+  </div>
+  <div class="column col-tt-opt">
+    <span class="column-label">TTSmalls (оптимизированный)</span>
+    <p>CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM и как внедрить — в статье.</p>
+    <p>Customer Value Management (CVM) — это стратегический подход к управлению ценностью клиента на протяжении всего жизненного цикла. В отличие от традиционного CRM, который фокусируется на процессах, CVM строится вокруг метрик: LTV, retention rate, churn prediction.</p>
+    <p class="meta" style="font-family:Inter,sans-serif;font-size:12px;color:#8a8a8a">16px / 400 / lh 1.62 / ls 0.005em</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3: Card ═══ -->
+<h2 class="section-title">3. Карточка статьи (как на /blog/)</h2>
+<div class="comparison triple">
+  <div class="column col-inter">
+    <span class="column-label">Inter (текущий)</span>
+    <div class="card">
+      <p class="meta">CRM-маркетинг &middot; 22.02.26 &middot; 11-18 мин</p>
+      <h3 class="card-title">CVM что это в маркетинге: полный гайд 2026</h3>
+      <p class="desc">CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM.</p>
+    </div>
+    <div class="card">
+      <p class="meta">CRM-маркетинг &middot; 08.02.26 &middot; 5-8 мин</p>
+      <h3 class="card-title">In-house vs агентство: объективное сравнение для CRM-маркетинга</h3>
+      <p class="desc">Когда бизнесу выгоднее нанять штатного CRM-маркетолога, а когда — отдать работу агентству? Разбираем плюсы и минусы.</p>
+    </div>
+  </div>
+  <div class="column col-tt">
+    <span class="column-label">TTSmalls (оригинал)</span>
+    <div class="card">
+      <p class="meta">CRM-маркетинг &middot; 22.02.26 &middot; 11-18 мин</p>
+      <h3 class="card-title">CVM что это в маркетинге: полный гайд 2026</h3>
+      <p class="desc">CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM.</p>
+    </div>
+    <div class="card">
+      <p class="meta">CRM-маркетинг &middot; 08.02.26 &middot; 5-8 мин</p>
+      <h3 class="card-title">In-house vs агентство: объективное сравнение для CRM-маркетинга</h3>
+      <p class="desc">Когда бизнесу выгоднее нанять штатного CRM-маркетолога, а когда — отдать работу агентству? Разбираем плюсы и минусы.</p>
+    </div>
+  </div>
+  <div class="column col-tt-opt">
+    <span class="column-label">TTSmalls (оптимизированный)</span>
+    <div class="card">
+      <p class="meta">CRM-маркетинг &middot; 22.02.26 &middot; 11-18 мин</p>
+      <h3 class="card-title">CVM что это в маркетинге: полный гайд 2026</h3>
+      <p class="desc">CAC вырос на 50–70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM, чем отличается от CRM.</p>
+    </div>
+    <div class="card">
+      <p class="meta">CRM-маркетинг &middot; 08.02.26 &middot; 5-8 мин</p>
+      <h3 class="card-title">In-house vs агентство: объективное сравнение для CRM-маркетинга</h3>
+      <p class="desc">Когда бизнесу выгоднее нанять штатного CRM-маркетолога, а когда — отдать работу агентству? Разбираем плюсы и минусы.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: Long reading ═══ -->
+<h2 class="section-title">4. Длинный текст (имитация статьи, ~660px)</h2>
+<div class="comparison" style="grid-template-columns: 1fr 1fr;">
+  <div class="column col-inter" style="max-width: 660px;">
+    <span class="column-label">Inter (текущий)</span>
+    <h2 style="font-size: 26px; margin-bottom: 16px;">Что такое Customer Value Management</h2>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+    <p>Ключевые метрики CVM:</p>
+    <ul style="padding-left: 20px; margin-bottom: 16px;">
+      <li style="margin-bottom: 8px;">LTV (Lifetime Value) — совокупный доход от клиента за весь период</li>
+      <li style="margin-bottom: 8px;">Retention Rate — процент клиентов, совершивших повторную покупку</li>
+      <li style="margin-bottom: 8px;">Churn Rate — процент оттока за период</li>
+      <li style="margin-bottom: 8px;">CAC (Customer Acquisition Cost) — стоимость привлечения</li>
+    </ul>
+    <p>Формула окупаемости проста: если LTV > CAC * 3, бизнес-модель устойчива. Если LTV < CAC, компания теряет деньги на каждом клиенте.</p>
+  </div>
+  <div class="column col-tt-opt" style="max-width: 660px;">
+    <span class="column-label">TTSmalls (оптимизированный)</span>
+    <h2 style="font-size: 26px; margin-bottom: 16px;">Что такое Customer Value Management</h2>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+    <p>Ключевые метрики CVM:</p>
+    <ul style="padding-left: 20px; margin-bottom: 16px; line-height: 1.62;">
+      <li style="margin-bottom: 8px;">LTV (Lifetime Value) — совокупный доход от клиента за весь период</li>
+      <li style="margin-bottom: 8px;">Retention Rate — процент клиентов, совершивших повторную покупку</li>
+      <li style="margin-bottom: 8px;">Churn Rate — процент оттока за период</li>
+      <li style="margin-bottom: 8px;">CAC (Customer Acquisition Cost) — стоимость привлечения</li>
+    </ul>
+    <p>Формула окупаемости проста: если LTV > CAC * 3, бизнес-модель устойчива. Если LTV < CAC, компания теряет деньги на каждом клиенте.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: TTSmalls Long-Read Variants ═══ -->
+<h2 class="section-title">5. TTSmalls для лонгридов (17px vs 18px vs Inter)</h2>
+<p style="font-family:Inter;font-size:14px;color:#8a8a8a;margin-bottom:24px;">
+  Текущий оптимизированный TTSmalls (16px) мелковат для длинного чтения. Ниже — три варианта для сравнения на полной ширине статьи (660px).
+  <br><strong>font-smoothing: auto (subpixel)</strong> — TTSmalls-400 при antialiased слишком тонкий, subpixel даёт нужную плотность штриха.
+</p>
+
+<div class="comparison" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="column col-inter" style="max-width: 660px;">
+    <span class="column-label">Inter 17px (DS v6)</span>
+    <h2 style="font-size: 26px; margin-bottom: 16px;">Что такое Customer Value Management</h2>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+    <h3>Ключевые метрики</h3>
+    <ul style="padding-left: 20px; margin-bottom: 16px;">
+      <li style="margin-bottom: 8px;">LTV (Lifetime Value) — совокупный доход от клиента за весь период</li>
+      <li style="margin-bottom: 8px;">Retention Rate — процент клиентов, совершивших повторную покупку</li>
+      <li style="margin-bottom: 8px;">Churn Rate — процент оттока за период</li>
+      <li style="margin-bottom: 8px;">CAC (Customer Acquisition Cost) — стоимость привлечения</li>
+    </ul>
+    <p>Формула окупаемости проста: если LTV > CAC &times; 3, бизнес-модель устойчива. Если LTV &lt; CAC, компания теряет деньги на каждом клиенте.</p>
+    <hr class="separator">
+    <p class="meta" style="font-family:Inter;font-size:12px;color:#8a8a8a">17px / 400 / lh 1.58 / antialiased</p>
+  </div>
+
+  <div class="column col-tt-lr17" style="max-width: 660px;">
+    <span class="column-label">TTSmalls 17px Long-read</span>
+    <h2>Что такое Customer Value Management</h2>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+    <h3>Ключевые метрики</h3>
+    <ul style="padding-left: 20px; margin-bottom: 16px;">
+      <li style="margin-bottom: 8px;">LTV (Lifetime Value) — совокупный доход от клиента за весь период</li>
+      <li style="margin-bottom: 8px;">Retention Rate — процент клиентов, совершивших повторную покупку</li>
+      <li style="margin-bottom: 8px;">Churn Rate — процент оттока за период</li>
+      <li style="margin-bottom: 8px;">CAC (Customer Acquisition Cost) — стоимость привлечения</li>
+    </ul>
+    <p>Формула окупаемости проста: если LTV > CAC &times; 3, бизнес-модель устойчива. Если LTV &lt; CAC, компания теряет деньги на каждом клиенте.</p>
+    <hr class="separator">
+    <p style="font-family:Inter;font-size:12px;color:#8a8a8a">17px / 400 / lh 1.65 / ls 0.008em / subpixel</p>
+  </div>
+
+  <div class="column col-tt-lr18" style="max-width: 660px;">
+    <span class="column-label">TTSmalls 18px Long-read</span>
+    <h2>Что такое Customer Value Management</h2>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+    <h3>Ключевые метрики</h3>
+    <ul style="padding-left: 20px; margin-bottom: 16px;">
+      <li style="margin-bottom: 8px;">LTV (Lifetime Value) — совокупный доход от клиента за весь период</li>
+      <li style="margin-bottom: 8px;">Retention Rate — процент клиентов, совершивших повторную покупку</li>
+      <li style="margin-bottom: 8px;">Churn Rate — процент оттока за период</li>
+      <li style="margin-bottom: 8px;">CAC (Customer Acquisition Cost) — стоимость привлечения</li>
+    </ul>
+    <p>Формула окупаемости проста: если LTV > CAC &times; 3, бизнес-модель устойчива. Если LTV &lt; CAC, компания теряет деньги на каждом клиенте.</p>
+    <hr class="separator">
+    <p style="font-family:Inter;font-size:12px;color:#8a8a8a">18px / 400 / lh 1.62 / ls 0.006em / subpixel</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5b: Longer paragraph test ═══ -->
+<h2 class="section-title">5b. Длинный абзац — тест на усталость глаз</h2>
+<p style="font-family:Inter;font-size:14px;color:#8a8a8a;margin-bottom:24px;">
+  Один длинный абзац (150+ слов) — проверка "хочется ли продолжать читать". Ширина: 660px.
+</p>
+
+<div class="comparison" style="grid-template-columns: 1fr 1fr;">
+  <div class="column col-tt-lr17" style="max-width: 660px;">
+    <span class="column-label">TTSmalls 17px Long-read</span>
+    <p>Представьте двух ритейлеров с одинаковой выручкой в 100 миллионов рублей. Первый получает 80% дохода от повторных покупок: клиенты возвращаются сами, средний чек растёт, стоимость обслуживания падает. Второй тратит половину маркетингового бюджета на привлечение новых: каждый месяц нужно восполнять 15% оттока, каждая акция дешевле предыдущей, потому что база выжжена скидками. Через два года первый откроет новое направление на сэкономленные деньги, а второй будет обсуждать с акционерами, почему маржа упала ещё на три процентных пункта. Разница между ними — не в продукте, не в рекламе и не в удаче. Разница в том, управляет ли компания ценностью клиента системно или надеется, что «как-нибудь удержим». CVM — это система, которая превращает надежду в процесс с измеримым результатом.</p>
+  </div>
+  <div class="column col-tt-lr18" style="max-width: 660px;">
+    <span class="column-label">TTSmalls 18px Long-read</span>
+    <p>Представьте двух ритейлеров с одинаковой выручкой в 100 миллионов рублей. Первый получает 80% дохода от повторных покупок: клиенты возвращаются сами, средний чек растёт, стоимость обслуживания падает. Второй тратит половину маркетингового бюджета на привлечение новых: каждый месяц нужно восполнять 15% оттока, каждая акция дешевле предыдущей, потому что база выжжена скидками. Через два года первый откроет новое направление на сэкономленные деньги, а второй будет обсуждать с акционерами, почему маржа упала ещё на три процентных пункта. Разница между ними — не в продукте, не в рекламе и не в удаче. Разница в том, управляет ли компания ценностью клиента системно или надеется, что «как-нибудь удержим». CVM — это система, которая превращает надежду в процесс с измеримым результатом.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 6: TTSmalls EXPERT ═══ -->
+<h2 class="section-title">6. TTSmalls EXPERT — все приёмы типографа</h2>
+<p style="font-family:Inter;font-size:14px;color:#666;margin-bottom:8px;line-height:1.6;">
+  <strong>Что применено:</strong> text-rendering: optimizeLegibility &bull; font-feature-settings (kern, liga, calt) &bull;
+  word-spacing 0.05em &bull; hyphens: auto &bull; text-wrap: pretty &bull; hanging-punctuation &bull;
+  мягкий контраст (#222) &bull; пропорциональные отступы (1.15em) &bull; line-height 1.68
+</p>
+<p style="font-family:Inter;font-size:14px;color:#666;margin-bottom:24px;line-height:1.6;">
+  <strong>Тёплый фон (#faf9f6)</strong> имитирует бумагу — снижает усталость от яркого белого. Ширина: 660px (оптимальные 65-75 символов в строке).
+</p>
+
+<div class="comparison" style="grid-template-columns: 1fr 1fr;">
+  <div class="column col-inter-expert paper" style="max-width: 660px;" lang="ru">
+    <span class="column-label">Inter EXPERT (контроль)</span>
+    <h2>Что такое Customer Value Management</h2>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+    <h3>Ключевые метрики CVM</h3>
+    <ul>
+      <li><strong>LTV</strong> (Lifetime Value) — совокупный доход от клиента за весь период сотрудничества с&nbsp;компанией</li>
+      <li><strong>Retention Rate</strong> — процент клиентов, совершивших повторную покупку в&nbsp;отчётном периоде</li>
+      <li><strong>Churn Rate</strong> — процент оттока за период, обратная сторона удержания</li>
+      <li><strong>CAC</strong> (Customer Acquisition Cost) — стоимость привлечения одного нового клиента</li>
+    </ul>
+    <p>Формула окупаемости проста: если LTV&nbsp;>&nbsp;CAC&nbsp;&times;&nbsp;3, бизнес-модель устойчива. Если LTV&nbsp;&lt;&nbsp;CAC, компания теряет деньги на каждом клиенте — и чем быстрее она растёт, тем быстрее сгорает.</p>
+    <hr class="separator">
+    <p class="meta">Inter 17px / lh 1.58 / antialiased / OT features / hyphens / text-wrap: pretty</p>
+  </div>
+
+  <div class="column col-tt-expert paper" style="max-width: 660px;" lang="ru">
+    <span class="column-label">TTSmalls EXPERT</span>
+    <h2>Что такое Customer Value Management</h2>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+    <h3>Ключевые метрики CVM</h3>
+    <ul>
+      <li><strong>LTV</strong> (Lifetime Value) — совокупный доход от клиента за весь период сотрудничества с&nbsp;компанией</li>
+      <li><strong>Retention Rate</strong> — процент клиентов, совершивших повторную покупку в&nbsp;отчётном периоде</li>
+      <li><strong>Churn Rate</strong> — процент оттока за период, обратная сторона удержания</li>
+      <li><strong>CAC</strong> (Customer Acquisition Cost) — стоимость привлечения одного нового клиента</li>
+    </ul>
+    <p>Формула окупаемости проста: если LTV&nbsp;>&nbsp;CAC&nbsp;&times;&nbsp;3, бизнес-модель устойчива. Если LTV&nbsp;&lt;&nbsp;CAC, компания теряет деньги на каждом клиенте — и чем быстрее она растёт, тем быстрее сгорает.</p>
+    <hr class="separator">
+    <p style="font-family:Inter;font-size:12px;color:#8a8a8a">TTSmalls 17px / lh 1.68 / ls 0.01em / ws 0.05em / subpixel / OT / hyphens / pretty / #222 on #faf9f6</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 6b: Expert — long paragraph stress test ═══ -->
+<h2 class="section-title">6b. EXPERT — стресс-тест длинным абзацем</h2>
+<p style="font-family:Inter;font-size:14px;color:#666;margin-bottom:24px;">
+  200+ слов без единого подзаголовка — самый жёсткий тест на «хочется ли продолжать читать».
+</p>
+
+<div class="comparison" style="grid-template-columns: 1fr 1fr;">
+  <div class="column col-inter-expert paper" style="max-width: 660px;" lang="ru">
+    <span class="column-label">Inter EXPERT</span>
+    <p>Представьте двух ритейлеров с одинаковой выручкой в 100 миллионов рублей. Первый получает 80% дохода от повторных покупок: клиенты возвращаются сами, средний чек растёт, стоимость обслуживания падает. Второй тратит половину маркетингового бюджета на привлечение новых: каждый месяц нужно восполнять 15% оттока, каждая акция дешевле предыдущей, потому что база выжжена скидками. Через два года первый откроет новое направление на сэкономленные деньги, а второй будет обсуждать с акционерами, почему маржа упала ещё на три процентных пункта.</p>
+    <p>Разница между ними — не в продукте, не в рекламе и не в удаче. Разница в том, управляет ли компания ценностью клиента системно или надеется, что «как-нибудь удержим». CVM — это система, которая превращает надежду в процесс с измеримым результатом. Она отвечает на три вопроса: сколько стоит каждый клиент, какова вероятность его ухода и что именно нужно сделать, чтобы он остался. Без ответов на эти вопросы маркетинг работает вслепую — а с ними превращается в точный инструмент управления доходом.</p>
+  </div>
+  <div class="column col-tt-expert paper" style="max-width: 660px;" lang="ru">
+    <span class="column-label">TTSmalls EXPERT</span>
+    <p>Представьте двух ритейлеров с одинаковой выручкой в 100 миллионов рублей. Первый получает 80% дохода от повторных покупок: клиенты возвращаются сами, средний чек растёт, стоимость обслуживания падает. Второй тратит половину маркетингового бюджета на привлечение новых: каждый месяц нужно восполнять 15% оттока, каждая акция дешевле предыдущей, потому что база выжжена скидками. Через два года первый откроет новое направление на сэкономленные деньги, а второй будет обсуждать с акционерами, почему маржа упала ещё на три процентных пункта.</p>
+    <p>Разница между ними — не в продукте, не в рекламе и не в удаче. Разница в том, управляет ли компания ценностью клиента системно или надеется, что «как-нибудь удержим». CVM — это система, которая превращает надежду в процесс с измеримым результатом. Она отвечает на три вопроса: сколько стоит каждый клиент, какова вероятность его ухода и что именно нужно сделать, чтобы он остался. Без ответов на эти вопросы маркетинг работает вслепую — а с ними превращается в точный инструмент управления доходом.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 6c: Expert — white vs paper background ═══ -->
+<h2 class="section-title">6c. Белый фон vs тёплая бумага</h2>
+<p style="font-family:Inter;font-size:14px;color:#666;margin-bottom:24px;">
+  Один и тот же TTSmalls EXPERT — слева на чистом белом, справа на тёплом #faf9f6. Обрати внимание на комфорт глаз.
+</p>
+
+<div class="comparison" style="grid-template-columns: 1fr 1fr;">
+  <div class="column col-tt-expert" style="max-width: 660px; background: #fff;" lang="ru">
+    <span class="column-label">TTSmalls EXPERT (белый)</span>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+  </div>
+  <div class="column col-tt-expert paper" style="max-width: 660px;" lang="ru">
+    <span class="column-label">TTSmalls EXPERT (бумага)</span>
+    <p>CVM (Customer Value Management) — это стратегический подход, при котором компания выстраивает маркетинг вокруг ценности каждого клиента. Вместо массовых рассылок и одинаковых скидок для всех, CVM сегментирует базу по прогнозируемому LTV и подбирает коммуникации индивидуально.</p>
+    <p>По данным <span class="accent">McKinsey</span>, компании, внедрившие CVM-подход, увеличивают доход от существующей базы на <span class="accent">15–25%</span> за первый год. При этом стоимость удержания клиента в 5–7 раз ниже стоимости привлечения нового.</p>
+  </div>
+</div>
+
+<!-- ═══ Specs table ═══ -->
+<h2 class="section-title">7. Спецификации</h2>
+<div class="column" style="background: #fff; border-radius: 16px; padding: 24px; overflow-x: auto;">
+<table class="specs">
+  <thead>
+    <tr>
+      <th>Параметр</th>
+      <th>Inter (DS v6)</th>
+      <th>TT as-is (тема)</th>
+      <th>TT opt (hub)</th>
+      <th style="background:#fff3e0">TT LR 17px</th>
+      <th style="background:#f3e5f5">TT LR 18px</th>
+      <th style="background:#e0f2f1"><strong>TT EXPERT</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Body font</td>
+      <td>Inter 400</td>
+      <td>TTSmalls 400</td>
+      <td>TTSmalls 400</td>
+      <td>TTSmalls 400</td>
+      <td>TTSmalls 400</td>
+      <td><strong>TTSmalls 400</strong></td>
+    </tr>
+    <tr>
+      <td>Heading font</td>
+      <td>Inter 700</td>
+      <td>TTRuns 600/700</td>
+      <td>TTRuns 700</td>
+      <td>TTRuns 700</td>
+      <td>TTRuns 700</td>
+      <td><strong>TTRuns 700</strong></td>
+    </tr>
+    <tr class="highlight">
+      <td>Body size</td>
+      <td>17px</td>
+      <td>18px</td>
+      <td>16px</td>
+      <td><strong>17px</strong></td>
+      <td><strong>18px</strong></td>
+      <td><strong>17px</strong></td>
+    </tr>
+    <tr class="highlight">
+      <td>Body line-height</td>
+      <td>1.58</td>
+      <td>normal (~1.2)</td>
+      <td>1.62</td>
+      <td><strong>1.65</strong></td>
+      <td><strong>1.62</strong></td>
+      <td><strong>1.68</strong></td>
+    </tr>
+    <tr>
+      <td>Body letter-spacing</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.005em</td>
+      <td>0.008em</td>
+      <td>0.006em</td>
+      <td><strong>0.01em</strong></td>
+    </tr>
+    <tr>
+      <td>Word spacing</td>
+      <td>normal</td>
+      <td>normal</td>
+      <td>normal</td>
+      <td>normal</td>
+      <td>normal</td>
+      <td><strong>0.05em</strong></td>
+    </tr>
+    <tr>
+      <td>Heading letter-spacing</td>
+      <td>-0.02em</td>
+      <td>0</td>
+      <td>-0.03em</td>
+      <td>-0.025em</td>
+      <td>-0.025em</td>
+      <td><strong>-0.025em</strong></td>
+    </tr>
+    <tr class="highlight">
+      <td>Font smoothing</td>
+      <td>antialiased</td>
+      <td>default (subpixel)</td>
+      <td>antialiased</td>
+      <td><strong>auto (subpixel)</strong></td>
+      <td><strong>auto (subpixel)</strong></td>
+      <td><strong>auto (subpixel)</strong></td>
+    </tr>
+    <tr class="highlight">
+      <td>text-rendering</td>
+      <td>auto</td>
+      <td>auto</td>
+      <td>auto</td>
+      <td>auto</td>
+      <td>auto</td>
+      <td><strong>optimizeLegibility</strong></td>
+    </tr>
+    <tr>
+      <td>OT features</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>kern, liga, calt</strong></td>
+    </tr>
+    <tr>
+      <td>Hyphens</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>auto</strong></td>
+    </tr>
+    <tr>
+      <td>text-wrap</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>pretty</strong></td>
+    </tr>
+    <tr>
+      <td>Text color</td>
+      <td>#1a1a1a</td>
+      <td>#1a1a1a</td>
+      <td>#1a1a1a</td>
+      <td>#1a1a1a</td>
+      <td>#1a1a1a</td>
+      <td><strong>#222</strong></td>
+    </tr>
+    <tr>
+      <td>Background</td>
+      <td>#fff</td>
+      <td>#fff</td>
+      <td>#fff</td>
+      <td>#fff</td>
+      <td>#fff</td>
+      <td><strong>#faf9f6 (paper)</strong></td>
+    </tr>
+    <tr>
+      <td>Контекст</td>
+      <td>Статьи</td>
+      <td>Вся тема</td>
+      <td>Hub /blog/</td>
+      <td>Long-read</td>
+      <td>Long-read</td>
+      <td><strong>Long-read MAX</strong></td>
+    </tr>
+    <tr>
+      <td>Reading width</td>
+      <td>660px</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>660px</td>
+      <td>660px</td>
+      <td><strong>660px</strong></td>
+    </tr>
+    <tr>
+      <td>License</td>
+      <td>OFL (free)</td>
+      <td>Commercial</td>
+      <td>Commercial</td>
+      <td>Commercial</td>
+      <td>Commercial</td>
+      <td>Commercial</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ═══ Verdict ═══ -->
+<div class="verdict">
+  <h2>Вердикт типографа</h2>
+
+  <!-- ── 1. Честная оценка шрифтов ── -->
+  <h3 style="margin-top: 8px;">1. Честная оценка: что умеет каждый шрифт</h3>
+
+  <p><strong style="color:#1a73e8;">Inter</strong> — спроектирован Расмусом Андерссоном специально для экранов. Открытые апертуры (буквы «a», «e», «c», «s» с&nbsp;широким просветом), ровная толщина штрихов, высокий x-height. Это значит: текст читается быстро, глаз не цепляется, даже при 14-15px всё разборчиво. Для лонгридов на&nbsp;экране — это объективно один из лучших шрифтов в мире. <em>Бесплатный (OFL).</em></p>
+
+  <p><strong style="color:#c01020;">TTSmalls</strong> — геометрический гротеск от TypeType, спроектирован для брендинга и&nbsp;навигации. Плотная посадка букв, тонкий штрих в Regular (400), закрытые апертуры. Хорош для заголовков карточек, меню, кнопок — везде, где текст короткий и&nbsp;нужен фирменный характер. Для лонгридов — проигрывает Inter по всем метрикам читаемости. <em>Коммерческая лицензия (уже куплена для темы).</em></p>
+
+  <p><strong style="color:#c01020;">TTRuns</strong> — акцидентный (display) шрифт от TypeType. Сжатые пропорции, сильный характер. Отлично работает в заголовках H1-H2, лого-блоках, hero-секциях. Не&nbsp;предназначен для мелкого текста. <em>Коммерческая лицензия.</em></p>
+
+  <p style="padding: 16px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #e65100; margin: 20px 0;">
+    <strong>Главный вывод:</strong> Заставить TTSmalls читаться как Inter в лонгридах — это как заставить спорткар ехать комфортно по грунтовке. Можно подкачать подвеску (line-height, word-spacing, hyphens), и будет терпимо. Но бизнес-класс (Inter) всё равно будет комфортнее — он для этого сделан.
+  </p>
+
+  <!-- ── 2. Рекомендация: двушрифтовая система ── -->
+  <h3 style="margin-top: 32px;">2. Рекомендация: двушрифтовая система TT + Inter</h3>
+
+  <p>Два шрифта — это не баг, а&nbsp;стандартная практика. Medium, Stripe, Linear, Notion — все используют акцидентный шрифт для бренда + нейтральный для чтения. Ключ в том, чтобы переход между ними был <strong>осознанным, а не случайным</strong>.</p>
+
+  <table class="specs" style="margin: 20px 0;">
+    <thead>
+      <tr>
+        <th style="width:25%">Зона</th>
+        <th style="width:20%">Шрифт</th>
+        <th style="width:15%">Размер</th>
+        <th>Почему</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#fde8e8">
+        <td><strong>Навигация, хедер, футер</strong></td>
+        <td>TTSmalls 500</td>
+        <td>14-15px</td>
+        <td>Бренд. Короткий текст, плотная посадка — TT в своей стихии</td>
+      </tr>
+      <tr style="background:#fde8e8">
+        <td><strong>Hub /blog/ — карточки</strong></td>
+        <td>TTSmalls opt</td>
+        <td>16px / lh 1.62</td>
+        <td>Описания &le;3 строки. TT справляется, брендовый характер сохранён</td>
+      </tr>
+      <tr style="background:#fde8e8">
+        <td><strong>Hub — заголовки карточек</strong></td>
+        <td>TTRuns 700</td>
+        <td>18-20px</td>
+        <td>Display-шрифт в display-контексте. Выразительность, узнаваемость</td>
+      </tr>
+      <tr style="background:#fde8e8">
+        <td><strong>Hub — мета (дата, категория)</strong></td>
+        <td>TTSmalls 500</td>
+        <td>12-13px</td>
+        <td>Служебный текст, вес 500 для плотности на мелком размере</td>
+      </tr>
+      <tr style="background:#fde8e8">
+        <td><strong>Слайдер — Editorial Dark</strong></td>
+        <td>TTRuns 700</td>
+        <td>28-36px</td>
+        <td>Hero-заголовок. TTRuns рождён для этого</td>
+      </tr>
+      <tr class="highlight">
+        <td colspan="4" style="text-align:center;font-weight:600;color:#888;letter-spacing:0.05em;font-size:12px;padding:12px;">
+          &mdash;&mdash;&mdash; ГРАНИЦА: хаб &rarr; статья (смена контекста чтения) &mdash;&mdash;&mdash;
+        </td>
+      </tr>
+      <tr style="background:#e8f0fe">
+        <td><strong>Статья — H1</strong></td>
+        <td>Inter 700</td>
+        <td>32-38px</td>
+        <td>Читатель уже «внутри» статьи. Inter задаёт тон для чтения</td>
+      </tr>
+      <tr style="background:#e8f0fe">
+        <td><strong>Статья — H2, H3</strong></td>
+        <td>Inter 700/600</td>
+        <td>26px / 17px</td>
+        <td>Единая гарнитура с текстом — нет переключения внимания</td>
+      </tr>
+      <tr style="background:#e8f0fe">
+        <td><strong>Статья — тело текста</strong></td>
+        <td>Inter 400</td>
+        <td>17px / lh 1.58</td>
+        <td>Лонгрид. Inter создан для этого. Максимальный комфорт</td>
+      </tr>
+      <tr style="background:#e8f0fe">
+        <td><strong>Статья — лид-абзац</strong></td>
+        <td>Inter 400</td>
+        <td>18px / lh 1.65</td>
+        <td>Первый абзац крупнее — приглашение к чтению</td>
+      </tr>
+      <tr style="background:#e8f0fe">
+        <td><strong>Статья — TOC (сайдбар)</strong></td>
+        <td>Inter 400/600</td>
+        <td>13.5px</td>
+        <td>Мелкий навигационный текст. Inter разборчив даже здесь</td>
+      </tr>
+      <tr style="background:#e8f0fe">
+        <td><strong>Статья — block-comment</strong></td>
+        <td>Inter 400 italic</td>
+        <td>16px</td>
+        <td>Экспертный комментарий. Курсив отделяет от основного текста</td>
+      </tr>
+      <tr style="background:#e8f0fe">
+        <td><strong>Статья — CTA-блок</strong></td>
+        <td>Inter 600</td>
+        <td>18-20px</td>
+        <td>Призыв к действию. Полужирный Inter — чисто и убедительно</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── 3. Как связать два шрифта ── -->
+  <h3 style="margin-top: 32px;">3. Как связать TT и Inter, чтобы не было «скачка»</h3>
+
+  <p>Переход шрифта происходит при клике на карточку: хаб (TT) &rarr; статья (Inter). Три приёма, чтобы это ощущалось как единый дизайн, а не два разных сайта:</p>
+
+  <p><strong>A. Общая цветовая и пространственная система</strong></p>
+  <ul>
+    <li>Один и тот же акцент <code>#c01020</code>, одна палитра серых, одни отступы (8px-grid)</li>
+    <li>Одинаковая ширина контентной колонки (660px) и структура хедера</li>
+    <li>Читатель не замечает смену шрифта, если всё остальное стабильно</li>
+  </ul>
+
+  <p><strong>B. Shared metrics (совпадающие метрики)</strong></p>
+  <ul>
+    <li>Body size: TTSmalls hub 16px &asymp; Inter article 17px (TT визуально крупнее при одинаковом px из-за x-height)</li>
+    <li>Line-height: TT 1.62 &asymp; Inter 1.58 (визуально одинаковый «воздух», т.к. у TT выше строчные)</li>
+    <li>Card titles: TTRuns 18px &harr; Inter H3 17px (визуально совпадают по жирности и ритму)</li>
+    <li><strong>Принцип:</strong> подбираем числа не одинаковые, а <em>визуально эквивалентные</em></li>
+  </ul>
+
+  <p><strong>C. Transition point = смена контекста</strong></p>
+  <ul>
+    <li>Хаб — это <strong>навигация</strong> (сканирование, выбор). TT подходит: короткие тексты, фирменный стиль</li>
+    <li>Статья — это <strong>погружение</strong> (чтение 10+ минут). Inter подходит: комфорт, ритм, ровное дыхание</li>
+    <li>Переключение шрифта совпадает с переключением <em>режима поведения</em> пользователя — поэтому оно незаметно</li>
+    <li><strong>Аналогия:</strong> вывеска магазина (бренд-шрифт) &rarr; книга на полке (читабельный шрифт). Никто не ожидает, что они совпадут</li>
+  </ul>
+
+  <!-- ── 4. Когда TTSmalls для лонгридов имеет смысл ── -->
+  <h3 style="margin-top: 32px;">4. А&nbsp;если всё-таки хочется TT для статей?</h3>
+
+  <p>Единственный сценарий, когда TTSmalls в лонгридах оправдан: <strong>бренд-гайдлайн запрещает другие шрифты</strong> (например, для франшизы или строгого корпстиля). В этом случае — <span style="color:#00695c;font-weight:600;">вариант EXPERT</span>:</p>
+
+  <table class="specs" style="margin: 16px 0;">
+    <thead>
+      <tr>
+        <th>Приём</th>
+        <th>Значение</th>
+        <th>Что даёт</th>
+        <th>Вклад в читаемость</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>font-smoothing: auto</td>
+        <td>subpixel</td>
+        <td>Утолщает тонкий штрих TT-400</td>
+        <td style="color:#c01020;font-weight:600">+++ (критично)</td>
+      </tr>
+      <tr>
+        <td>word-spacing</td>
+        <td>0.05em</td>
+        <td>Чёткие границы слов</td>
+        <td style="color:#c01020;font-weight:600">+++ (главный приём)</td>
+      </tr>
+      <tr>
+        <td>line-height</td>
+        <td>1.68</td>
+        <td>Воздух между строк</td>
+        <td style="color:#e65100;font-weight:600">++ (заметно)</td>
+      </tr>
+      <tr>
+        <td>letter-spacing</td>
+        <td>0.01em</td>
+        <td>Разрежает плотную посадку</td>
+        <td style="color:#e65100;font-weight:600">++ (заметно)</td>
+      </tr>
+      <tr>
+        <td>hyphens: auto</td>
+        <td>авто-переносы</td>
+        <td>Ровный правый край, нет «дыр»</td>
+        <td style="color:#888;font-weight:600">+ (на длинных абзацах)</td>
+      </tr>
+      <tr>
+        <td>text-rendering</td>
+        <td>optimizeLegibility</td>
+        <td>Кернинг-пары шрифта</td>
+        <td style="color:#888;font-weight:600">+ (тонкая разница)</td>
+      </tr>
+      <tr>
+        <td>фон #faf9f6</td>
+        <td>тёплая бумага</td>
+        <td>Снижает усталость от контраста</td>
+        <td style="color:#888;font-weight:600">+ (комфорт, не читаемость)</td>
+      </tr>
+      <tr>
+        <td>text-wrap: pretty</td>
+        <td>умные переносы</td>
+        <td>Меньше «сирот» в конце строк</td>
+        <td style="color:#888;font-weight:600">+ (эстетика)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="padding: 16px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #e65100; margin: 20px 0;">
+    <strong>Обновление 2026-02-23:</strong> EXPERT-свойства были протестированы на продакшне (Inter в статьях) и <strong>убраны</strong>. Причины:<br>
+    &bull; <code>text-wrap: pretty</code> — перераспределяет строки, вызывает «пляску» концов строк<br>
+    &bull; <code>text-rendering: optimizeLegibility</code> + <code>font-feature-settings</code> — меняют кернинг → другие переносы<br>
+    &bull; <code>hanging-punctuation</code> — сдвигает пунктуацию за поля → визуально неровно<br>
+    &bull; <code>word-spacing: 0.05em</code> — помогает TTSmalls, но <em>ухудшает</em> Inter (у него и так хороший word-spacing)<br>
+    &bull; <code>hyphens: auto</code> — русские авто-переносы некрасивые: «кли-», «цен-», «о-»<br><br>
+    <strong>Вывод:</strong> Inter не нуждается в дополнительном тюнинге — он уже оптимально рендерится из коробки. Эти приёмы полезны для TTSmalls (у него слабее дефолтный кернинг), но не для Inter.
+  </p>
+
+  <p>С EXPERT-настройками TTSmalls набирает <strong>~85-90%</strong> читаемости Inter. Для 80% читателей разницу будет сложно артикулировать — «вроде нормально читается». Но последние 10-15% (открытые апертуры, равномерность штриха) — это ДНК шрифта, которую CSS не изменит.</p>
+
+  <!-- ── 5. Итоговая рекомендация ── -->
+  <h3 style="margin-top: 32px;">5. Итоговая рекомендация</h3>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 16px 0;">
+    <div style="padding: 20px; background: #e8f5e9; border-radius: 12px; border: 2px solid #4caf50;">
+      <p style="font-weight: 700; font-size: 16px; margin-bottom: 12px; color: #2e7d32;">Вариант A: TT + Inter (рекомендую)</p>
+      <ul style="font-size: 14px;">
+        <li>Hub, навигация, хедер, карточки &rarr; <strong>TTSmalls/TTRuns opt</strong></li>
+        <li>Статьи, лонгриды, FAQ, CTA &rarr; <strong>Inter</strong></li>
+        <li>Визуальный «мост»: общие цвета, spacing, ширина колонки</li>
+        <li>Переход хаб&rarr;статья = смена контекста (навигация&rarr;чтение)</li>
+      </ul>
+      <p style="font-size: 13px; color: #555; margin-top: 12px; margin-bottom: 0;"><strong>Плюсы:</strong> максимальный комфорт чтения + фирменный стиль на хабе.<br><strong>Минусы:</strong> два шрифта = два кэша (Inter из Google Fonts, TT из темы). Плюс ~40KB.</p>
+    </div>
+    <div style="padding: 20px; background: #f3f3f3; border-radius: 12px; border: 2px solid #bbb;">
+      <p style="font-weight: 700; font-size: 16px; margin-bottom: 12px; color: #555;">Вариант B: Только TT (если бренд требует)</p>
+      <ul style="font-size: 14px;">
+        <li>Всё &rarr; <strong>TTSmalls EXPERT + TTRuns</strong></li>
+        <li>Обязательно: subpixel, word-spacing, lh 1.68, hyphens</li>
+        <li>Опционально: тёплый фон #faf9f6 для статей</li>
+        <li>Заголовки статей: TTRuns 700 (вместо Inter 700)</li>
+      </ul>
+      <p style="font-size: 13px; color: #555; margin-top: 12px; margin-bottom: 0;"><strong>Плюсы:</strong> единый бренд-шрифт на всём сайте. Один кэш.<br><strong>Минусы:</strong> ~10-15% потери читаемости в лонгридах. Чувствуется на статьях 2000+ слов.</p>
+    </div>
+  </div>
+
+  <p style="padding: 16px; background: #e8f0fe; border-radius: 8px; border-left: 4px solid #1a73e8; margin: 20px 0;">
+    <strong>Моя позиция:</strong> вариант A. Читатель проводит 10 секунд на хабе и 10 минут в статье. Оптимизировать нужно то, где человек проводит больше времени. TT на хабе даёт узнаваемость бренда, Inter в статье даёт комфорт — каждый шрифт делает то, для чего создан.
+  </p>
+
+  <!-- ── 6. CSS-рецепт для обоих вариантов ── -->
+  <h3 style="margin-top: 32px;">6. CSS-рецепт</h3>
+
+  <p><strong>Вариант A — двушрифтовая система:</strong></p>
+  <pre style="background:#1a1a1a; color:#e0e0e0; padding:20px; border-radius:8px; font-size:13px; line-height:1.5; overflow-x:auto; margin-bottom:16px;"><code><span style="color:#8a8a8a">/* Hub: фирменный TT */</span>
+#blog { font-family: "TTSmalls", sans-serif; }
+#blog h1, #blog h2, #blog h3,
+#blog .card-title { font-family: "TTRuns", sans-serif; }
+#blog p, #blog .desc {
+  font-size: 16px; line-height: 1.62;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: auto; <span style="color:#8a8a8a">/* subpixel */</span>
+}
+
+<span style="color:#8a8a8a">/* Статья: читабельный Inter */</span>
+.single-blog .section-content {
+  font-family: Inter, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.single-blog .section-content p {
+  font-size: 17px; line-height: 1.58;
+}
+
+<span style="color:#8a8a8a">/* Мост: общие токены */</span>
+:root {
+  --accent: #c01020;
+  --text: #1a1a1a;
+  --reading-width: 660px;
+}</code></pre>
+
+  <p><strong>Вариант B — только TT с EXPERT:</strong></p>
+  <pre style="background:#1a1a1a; color:#e0e0e0; padding:20px; border-radius:8px; font-size:13px; line-height:1.5; overflow-x:auto; margin-bottom:16px;"><code><span style="color:#8a8a8a">/* Всё: TTSmalls EXPERT */</span>
+body {
+  font-family: "TTSmalls", sans-serif;
+  -webkit-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+h1, h2, h3 {
+  font-family: "TTRuns", sans-serif;
+  text-wrap: balance;
+}
+
+<span style="color:#8a8a8a">/* Лонгрид: максимальная оптимизация */</span>
+.single-blog .section-content {
+  background: #faf9f6;
+}
+.single-blog .section-content p {
+  font-size: 17px;
+  line-height: 1.68;
+  letter-spacing: 0.01em;
+  word-spacing: 0.05em;
+  hyphens: auto;
+  text-wrap: pretty;
+  color: #222;
+  hanging-punctuation: first last;
+}</code></pre>
+
+  <!-- ── 7. Что мы уже сделали ── -->
+  <h3 style="margin-top: 32px;">7. Что уже реализовано (2026-02-22/23)</h3>
+  <ul>
+    <li><strong>Hub /blog/</strong> &rarr; TTSmalls optimized (16px, lh 1.62, subpixel) + TTRuns заголовки — <span style="color:#4caf50">ЗАДЕПЛОЕНО</span></li>
+    <li><strong>Hub rendering</strong> &rarr; <code>text-rendering: optimizeLegibility</code> + <code>font-feature-settings</code> (помогают TTSmalls) — <span style="color:#4caf50">ЗАДЕПЛОЕНО</span></li>
+    <li><strong>Статьи .single-blog</strong> &rarr; Inter 17px, lh 1.58, antialiased — <span style="color:#4caf50">ЗАДЕПЛОЕНО</span></li>
+    <li><strong>Статьи: тёплый фон</strong> <code>#faf9f6</code> + мягкий контраст <code>#222</code> — <span style="color:#4caf50">ЗАДЕПЛОЕНО</span></li>
+    <li><strong>Статьи: EXPERT rendering</strong> (<code>text-wrap</code>, <code>optimizeLegibility</code>, <code>font-feature-settings</code>, <code>hanging-punctuation</code>, <code>word-spacing</code>, <code>hyphens</code>) — <span style="color:#e65100">УБРАНО</span> (ломало раскладку строк Inter, см. предупреждение выше)</li>
+    <li><strong>Мост</strong>: общие цвета (#c01020), spacing (8px grid) — <span style="color:#4caf50">ЗАДЕПЛОЕНО</span></li>
+    <li><strong>Editorial Dark</strong>: TTRuns 700 на тёмных слайдах — <span style="color:#4caf50">ЗАДЕПЛОЕНО</span></li>
+    <li><strong>Line-clamp 3</strong>, equal-height cards, чекбоксы 18px, висячие предлоги — <span style="color:#4caf50">ЗАДЕПЛОЕНО</span></li>
+  </ul>
+
+</div>
+
+</div>
+</body>
+</html>

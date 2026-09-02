@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блок "Нам доверяют" — варианты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c01020;
+    --red-hover: #b10e1d;
+    --black: #1a1a1a;
+    --gray: #888;
+    --border: #e4e4e4;
+    --surface: #f2f2f2;
+    --warm: #fff9f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--black);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .variant-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    padding: 6px 14px;
+    background: #fde8e8;
+    display: inline-block;
+    border-radius: 4px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 2px dashed var(--border);
+    margin: 60px 0;
+  }
+
+  .variant-desc {
+    font-size: 14px; color: var(--gray); margin-bottom: 24px; line-height: 1.5;
+  }
+  .review {
+    margin-top: 20px;
+    padding: 20px 24px;
+    background: #fafafa;
+    border-left: 3px solid var(--border);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+  }
+  .review strong { color: var(--black); }
+  .review .score {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 13px;
+    margin-left: 4px;
+  }
+  .score--red { background: #fde8e8; color: var(--red); }
+  .score--orange { background: #fff3e0; color: #e67700; }
+  .score--green { background: #e8f5e9; color: #2e7d32; }
+
+  /* ============================================
+     LOGO PLACEHOLDERS (заменить на реальные SVG)
+     ============================================ */
+  .logo-placeholder {
+    background: var(--surface);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray);
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+  }
+  .logo-placeholder:hover {
+    background: #e8e8e8;
+  }
+
+  /* ============================================
+     ВАРИАНТ A — Центрированный, статы в ряд
+     ============================================ */
+  .trust-a {
+    text-align: center;
+    padding: 80px 0;
+  }
+  .trust-a__heading {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .trust-a__sub {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--gray);
+    max-width: 520px;
+    margin: 0 auto 48px;
+  }
+  .trust-a__stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+  }
+  .trust-a__stat {
+    text-align: center;
+    min-width: 140px;
+  }
+  .trust-a__stat-number {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+  .trust-a__stat-label {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+  .trust-a__logos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .trust-a__logos .logo-placeholder {
+    height: 80px;
+  }
+
+  @media (max-width: 768px) {
+    .trust-a { padding: 48px 0; }
+    .trust-a__heading { font-size: 30px; }
+    .trust-a__stats { gap: 24px; }
+    .trust-a__stat-number { font-size: 34px; }
+    .trust-a__stat-label { font-size: 13px; }
+  }
+  @media (max-width: 480px) {
+    .trust-a__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  }
+
+  /* ============================================
+     ВАРИАНТ B — Две колонки: статы слева, логотипы справа
+     ============================================ */
+  .trust-b {
+    padding: 80px 0;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .trust-b__left {
+    position: sticky;
+    top: 100px;
+  }
+  .trust-b__heading {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .trust-b__sub {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--gray);
+    margin-bottom: 40px;
+  }
+  .trust-b__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .trust-b__stat {
+    padding: 20px;
+    background: var(--surface);
+    border-radius: 12px;
+  }
+  .trust-b__stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .trust-b__stat-label {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+  .trust-b__logos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .trust-b__logos .logo-placeholder {
+    height: 90px;
+  }
+
+  @media (max-width: 900px) {
+    .trust-b {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .trust-b__left { position: static; }
+    .trust-b__logos {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .trust-b__heading { font-size: 30px; }
+    .trust-b__stat-number { font-size: 28px; }
+  }
+
+  /* ============================================
+     ВАРИАНТ C — Тёмный фон, статы горизонтально,
+     логотипы в строку (как Stripe/Linear)
+     ============================================ */
+  .trust-c {
+    background: var(--black);
+    border-radius: 20px;
+    padding: 64px 56px;
+    color: #fff;
+    overflow: hidden;
+  }
+  .trust-c__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .trust-c__heading {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.15;
+    flex: 0 0 auto;
+  }
+  .trust-c__stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .trust-c__stat {
+    text-align: right;
+  }
+  .trust-c__stat-number {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .trust-c__stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+  .trust-c__divider {
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+    margin-bottom: 40px;
+  }
+  .trust-c__logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .trust-c__logos .logo-placeholder {
+    height: 64px;
+    width: 140px;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.35);
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .trust-c__logos .logo-placeholder:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  @media (max-width: 768px) {
+    .trust-c { padding: 40px 24px; border-radius: 16px; }
+    .trust-c__top { flex-direction: column; gap: 28px; }
+    .trust-c__heading { font-size: 28px; }
+    .trust-c__stat { text-align: left; }
+    .trust-c__stat-number { font-size: 30px; }
+    .trust-c__stats { gap: 24px; }
+  }
+  @media (max-width: 480px) {
+    .trust-c__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .trust-c__logos .logo-placeholder {
+      width: calc(50% - 6px);
+      flex: 0 0 calc(50% - 6px);
+    }
+  }
+
+  /* ============================================
+     ВАРИАНТ D — Карточки-статы сверху, лого-лента снизу
+     (как Notion/Figma social proof)
+     ============================================ */
+  .trust-d {
+    padding: 80px 0;
+    text-align: center;
+  }
+  .trust-d__eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .trust-d__heading {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 48px;
+  }
+  .trust-d__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+  .trust-d__stat {
+    padding: 32px 20px;
+    background: var(--surface);
+    border-radius: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .trust-d__stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .trust-d__stat-number {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .trust-d__stat-label {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.45;
+  }
+  .trust-d__logos-label {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+  .trust-d__logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .trust-d__logos .logo-placeholder {
+    height: 72px;
+    width: 150px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .trust-d__logos .logo-placeholder:hover {
+    border-color: var(--red);
+    background: #fff5f5;
+  }
+
+  @media (max-width: 768px) {
+    .trust-d { padding: 48px 0; }
+    .trust-d__heading { font-size: 30px; margin-bottom: 32px; }
+    .trust-d__stats {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .trust-d__stat { padding: 24px 16px; }
+    .trust-d__stat-number { font-size: 32px; }
+  }
+  @media (max-width: 480px) {
+    .trust-d__logos .logo-placeholder {
+      width: calc(50% - 6px);
+      flex: 0 0 calc(50% - 6px);
+      height: 60px;
+    }
+  }
+
+  /* ============================================
+     ВАРИАНТ E — Горизонтальная лента (marquee-стиль)
+     со статами в акцентной полосе
+     ============================================ */
+  .trust-e {
+    padding: 80px 0;
+  }
+  .trust-e__stats-bar {
+    background: var(--red);
+    border-radius: 16px;
+    padding: 36px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .trust-e__stat {
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+  .trust-e__stat-number {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .trust-e__stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+  .trust-e__heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray);
+    text-align: center;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .trust-e__logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  .trust-e__logos .logo-placeholder {
+    height: 70px;
+    width: 155px;
+    background: var(--surface);
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .trust-e__stats-bar {
+      padding: 24px 20px;
+      border-radius: 12px;
+    }
+    .trust-e__stat-number { font-size: 30px; }
+    .trust-e__stat-label { font-size: 12px; }
+    .trust-e__heading { font-size: 15px; }
+  }
+  @media (max-width: 480px) {
+    .trust-e__stats-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .trust-e__logos .logo-placeholder {
+      width: calc(50% - 8px);
+      flex: 0 0 calc(50% - 8px);
+    }
+  }
+
+  /* ============================================
+     ВАРИАНТ F — Единая сетка
+     ============================================ */
+  .trust-f { padding: 64px 0; }
+  .trust-f__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .trust-f__stat { background: var(--black); border-radius: 12px; padding: 28px 24px; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; min-height: 120px; }
+  .trust-f__stat--hero { grid-column: span 2; grid-row: span 2; padding: 36px 32px; justify-content: space-between; }
+  .trust-f__stat--hero .trust-f__stat-heading { font-size: 36px; font-weight: 700; line-height: 1.1; }
+  .trust-f__stat--hero .trust-f__stat-sub { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.5; max-width: 280px; }
+  .trust-f__stat-number { font-size: 32px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .trust-f__stat-label { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.35; }
+  .trust-f__logo { height: auto; min-height: 100px; }
+  @media (max-width: 900px) { .trust-f__grid { grid-template-columns: repeat(3, 1fr); } .trust-f__stat--hero { grid-column: span 3; grid-row: span 1; } .trust-f__stat--hero .trust-f__stat-heading { font-size: 28px; } }
+  @media (max-width: 600px) { .trust-f__grid { grid-template-columns: 1fr 1fr; gap: 8px; } .trust-f__stat--hero { grid-column: span 2; } .trust-f__stat { padding: 20px 16px; min-height: 90px; } .trust-f__stat-number { font-size: 26px; } .trust-f__stat--hero .trust-f__stat-heading { font-size: 24px; } .trust-f__logo { min-height: 80px; } }
+
+  /* ============================================
+     ВАРИАНТ G — Бенто-сетка
+     ============================================ */
+  .trust-g { padding: 64px 0; }
+  .trust-g__grid { display: grid; grid-template-columns: repeat(5, 1fr); grid-auto-rows: minmax(100px, auto); gap: 10px; }
+  .trust-g__cell { border-radius: 14px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px 16px; }
+  .trust-g__cell--heading { grid-column: span 2; grid-row: span 2; background: var(--red); color: #fff; justify-content: flex-end; align-items: flex-start; text-align: left; padding: 32px 28px; }
+  .trust-g__heading { font-size: 34px; font-weight: 700; line-height: 1.1; margin-bottom: 10px; }
+  .trust-g__sub { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.45; }
+  .trust-g__cell--stat { background: var(--surface); }
+  .trust-g__stat-number { font-size: 30px; font-weight: 700; line-height: 1; color: var(--red); margin-bottom: 4px; }
+  .trust-g__stat-label { font-size: 12px; color: var(--gray); line-height: 1.35; }
+  .trust-g__cell--logo { background: #fff; border: 1px solid var(--border); font-size: 11px; color: var(--gray); transition: border-color 0.2s; }
+  .trust-g__cell--logo:hover { border-color: var(--red); }
+  @media (max-width: 900px) { .trust-g__grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 600px) { .trust-g__grid { grid-template-columns: 1fr 1fr; gap: 8px; } .trust-g__cell--heading { grid-column: span 2; grid-row: span 1; padding: 24px 20px; } .trust-g__heading { font-size: 26px; } .trust-g__stat-number { font-size: 24px; } .trust-g__cell { padding: 16px 12px; min-height: 80px; } }
+
+  /* ============================================
+     ВАРИАНТ H — Колонка + стена
+     ============================================ */
+  .trust-h { padding: 64px 0; display: grid; grid-template-columns: 300px 1fr; gap: 16px; align-items: stretch; }
+  .trust-h__stats { display: flex; flex-direction: column; gap: 10px; }
+  .trust-h__title-card { background: var(--black); border-radius: 14px; padding: 32px 28px; color: #fff; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+  .trust-h__heading { font-size: 30px; font-weight: 700; line-height: 1.1; margin-bottom: 8px; }
+  .trust-h__sub { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.45; }
+  .trust-h__stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trust-h__stat { background: var(--surface); border-radius: 12px; padding: 20px 16px; }
+  .trust-h__stat-number { font-size: 26px; font-weight: 700; line-height: 1; color: var(--red); margin-bottom: 3px; }
+  .trust-h__stat-label { font-size: 12px; color: var(--gray); line-height: 1.35; }
+  .trust-h__logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .trust-h__logos .logo-placeholder { min-height: 90px; border: 1px solid var(--border); background: #fff; }
+  .trust-h__logos .logo-placeholder:hover { border-color: var(--red); background: #fff5f5; }
+  @media (max-width: 900px) { .trust-h { grid-template-columns: 1fr; } .trust-h__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .trust-h__title-card { grid-column: span 2; } .trust-h__stat-row { grid-column: span 2; } .trust-h__logos { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); } }
+  @media (max-width: 480px) { .trust-h__stats { grid-template-columns: 1fr; } .trust-h__title-card { grid-column: span 1; } .trust-h__stat-row { grid-column: span 1; } .trust-h__heading { font-size: 26px; } }
+
+  /* ============================================
+     ВАРИАНТ I — Чередующиеся ряды
+     ============================================ */
+  .trust-i { padding: 64px 0; }
+  .trust-i__row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+  .trust-i__stat { background: var(--black); border-radius: 12px; padding: 24px 28px; color: #fff; flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; min-width: 160px; }
+  .trust-i__stat--wide { min-width: 240px; }
+  .trust-i__stat-number { font-size: 30px; font-weight: 700; line-height: 1; margin-bottom: 3px; }
+  .trust-i__stat-label { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.35; }
+  .trust-i__logo { flex: 1 1 140px; min-height: 80px; max-width: 200px; border: 1px solid var(--border); background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--gray); transition: border-color 0.2s; }
+  .trust-i__logo:hover { border-color: var(--red); }
+  .trust-i__heading-cell { background: var(--red); border-radius: 12px; padding: 24px 32px; color: #fff; flex: 0 0 auto; min-width: 220px; display: flex; align-items: center; }
+  .trust-i__heading-cell h2 { font-size: 24px; font-weight: 700; line-height: 1.15; }
+  @media (max-width: 600px) { .trust-i__row { gap: 8px; } .trust-i__stat { min-width: calc(50% - 4px); padding: 18px 16px; } .trust-i__stat--wide { min-width: calc(50% - 4px); } .trust-i__stat-number { font-size: 24px; } .trust-i__logo { min-height: 64px; min-width: calc(50% - 4px); max-width: none; flex: 1 1 calc(50% - 4px); } .trust-i__heading-cell { min-width: 100%; } .trust-i__heading-cell h2 { font-size: 20px; } }
+
+  /* ============================================
+     ВАРИАНТ J — Masonry-микс
+     ============================================ */
+  .trust-j { padding: 64px 0; }
+  .trust-j__grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 90px; gap: 10px; }
+  .trust-j__cell { border-radius: 14px; display: flex; flex-direction: column; justify-content: center; padding: 20px; }
+  .trust-j__cell--title { grid-column: 1 / 3; grid-row: 1 / 3; background: linear-gradient(135deg, var(--red), #d42030); color: #fff; justify-content: flex-end; padding: 28px; }
+  .trust-j__title { font-size: 34px; font-weight: 700; line-height: 1.1; }
+  .trust-j__title-sub { font-size: 14px; color: rgba(255,255,255,0.75); margin-top: 8px; line-height: 1.45; }
+  .trust-j__cell--stat { background: var(--black); color: #fff; align-items: center; text-align: center; }
+  .trust-j__num { font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 3px; }
+  .trust-j__label { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.35; }
+  .trust-j__cell--stat-wide { grid-column: span 2; flex-direction: row; align-items: center; gap: 16px; text-align: left; }
+  .trust-j__cell--stat-wide .trust-j__num { font-size: 34px; margin-bottom: 0; }
+  .trust-j__cell--stat-wide .trust-j__label { font-size: 13px; }
+  .trust-j__cell--logo { background: #fff; border: 1px solid var(--border); align-items: center; text-align: center; font-size: 11px; color: var(--gray); transition: border-color 0.2s, background 0.2s; }
+  .trust-j__cell--logo:hover { border-color: var(--red); background: #fff5f5; }
+  @media (max-width: 768px) { .trust-j__grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 80px; } .trust-j__cell--title { grid-column: 1 / 3; grid-row: auto / span 2; } .trust-j__cell--stat-wide { grid-column: span 2; } .trust-j__title { font-size: 26px; } .trust-j__num { font-size: 24px; } }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ========== ВАРИАНТ A ========== -->
+  <div class="variant-label">Вариант A — Центрированный</div>
+  <section class="trust-a">
+    <h2 class="trust-a__heading">Нам доверяют</h2>
+    <p class="trust-a__sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</p>
+    <div class="trust-a__stats">
+      <div class="trust-a__stat">
+        <div class="trust-a__stat-number">400+</div>
+        <div class="trust-a__stat-label">проектов</div>
+      </div>
+      <div class="trust-a__stat">
+        <div class="trust-a__stat-number">12</div>
+        <div class="trust-a__stat-label">лет на рынке</div>
+      </div>
+      <div class="trust-a__stat">
+        <div class="trust-a__stat-number">8 млрд ₽</div>
+        <div class="trust-a__stat-label">управляемого<br>CRM-оборота в год</div>
+      </div>
+      <div class="trust-a__stat">
+        <div class="trust-a__stat-number">90%</div>
+        <div class="trust-a__stat-label">клиентов работают<br>2+ года</div>
+      </div>
+    </div>
+    <div class="trust-a__logos">
+      <div class="logo-placeholder">La Roche-Posay</div>
+      <div class="logo-placeholder">L'Oreal</div>
+      <div class="logo-placeholder">Puma</div>
+      <div class="logo-placeholder">Tinkoff</div>
+      <div class="logo-placeholder">Miele</div>
+      <div class="logo-placeholder">Vichy</div>
+      <div class="logo-placeholder">Benetton</div>
+      <div class="logo-placeholder">Nordman</div>
+      <div class="logo-placeholder">Gulliver</div>
+      <div class="logo-placeholder">Metro</div>
+      <div class="logo-placeholder">Dodo</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>A — Центрированный</strong> <span class="score score--red">4/10</span><br>
+    Генерик. Каждый Webflow-шаблон. Для агентства с оборотом 8 млрд — слишком «шаблонно». &lt;br&gt; в подписях ломает ритм центрированного текста. 42px заголовок vs 44px числа — конкуренция, нет иерархии. Подзаголовок дублирует статы.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ B ========== -->
+  <div class="variant-label">Вариант B — Две колонки (статы + логотипы)</div>
+  <section class="trust-b">
+    <div class="trust-b__left">
+      <h2 class="trust-b__heading">Нам доверяют</h2>
+      <p class="trust-b__sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</p>
+      <div class="trust-b__stats">
+        <div class="trust-b__stat">
+          <div class="trust-b__stat-number">400+</div>
+          <div class="trust-b__stat-label">проектов</div>
+        </div>
+        <div class="trust-b__stat">
+          <div class="trust-b__stat-number">12 лет</div>
+          <div class="trust-b__stat-label">на рынке</div>
+        </div>
+        <div class="trust-b__stat">
+          <div class="trust-b__stat-number">8 млрд ₽</div>
+          <div class="trust-b__stat-label">CRM-оборота в год</div>
+        </div>
+        <div class="trust-b__stat">
+          <div class="trust-b__stat-number">90%</div>
+          <div class="trust-b__stat-label">клиентов 2+ года</div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-b__logos">
+      <div class="logo-placeholder">La Roche-Posay</div>
+      <div class="logo-placeholder">L'Oreal</div>
+      <div class="logo-placeholder">Puma</div>
+      <div class="logo-placeholder">Tinkoff</div>
+      <div class="logo-placeholder">Miele</div>
+      <div class="logo-placeholder">Vichy</div>
+      <div class="logo-placeholder">Benetton</div>
+      <div class="logo-placeholder">Nordman</div>
+      <div class="logo-placeholder">Gulliver</div>
+      <div class="logo-placeholder">Metro</div>
+      <div class="logo-placeholder">Dodo</div>
+      <div class="logo-placeholder">Kerastase</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>B — Две колонки</strong> <span class="score score--orange">5/10</span><br>
+    Sticky left — хороший паттерн, но блок ~500px высотой = скролла не будет, sticky бессмысленна. 380px колонка слишком широка для 2 слов. 38px заголовок vs 36px числа — разница 2px невидима, конкуренция. Правильная идея, неверные пропорции.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ C ========== -->
+  <div class="variant-label">Вариант C — Тёмный (Stripe-стиль)</div>
+  <section class="trust-c">
+    <div class="trust-c__top">
+      <h2 class="trust-c__heading">Нам доверяют</h2>
+      <div class="trust-c__stats">
+        <div class="trust-c__stat">
+          <div class="trust-c__stat-number">400+</div>
+          <div class="trust-c__stat-label">проектов</div>
+        </div>
+        <div class="trust-c__stat">
+          <div class="trust-c__stat-number">12 лет</div>
+          <div class="trust-c__stat-label">на рынке</div>
+        </div>
+        <div class="trust-c__stat">
+          <div class="trust-c__stat-number">8 млрд ₽</div>
+          <div class="trust-c__stat-label">CRM-оборота</div>
+        </div>
+        <div class="trust-c__stat">
+          <div class="trust-c__stat-number">90%</div>
+          <div class="trust-c__stat-label">клиентов 2+ года</div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-c__divider"></div>
+    <div class="trust-c__logos">
+      <div class="logo-placeholder">La Roche-Posay</div>
+      <div class="logo-placeholder">L'Oreal</div>
+      <div class="logo-placeholder">Puma</div>
+      <div class="logo-placeholder">Tinkoff</div>
+      <div class="logo-placeholder">Miele</div>
+      <div class="logo-placeholder">Vichy</div>
+      <div class="logo-placeholder">Benetton</div>
+      <div class="logo-placeholder">Nordman</div>
+      <div class="logo-placeholder">Gulliver</div>
+      <div class="logo-placeholder">Metro</div>
+      <div class="logo-placeholder">Dodo</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>C — Тёмный (Stripe-стиль)</strong> <span class="score score--green">7/10 — лучший</span><br>
+    Premium feel. Тёмный rounded-блок создаёт контраст на странице. Горизонтальный layout — sophisticated. Числа 40px > заголовок 36px — правильно, числа = герой. Divider работает как визуальная пауза. Минус: логотипы 64px мелковаты, фон rgba(0.06) невидим на некоторых мониторах.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ D ========== -->
+  <div class="variant-label">Вариант D — Карточки + бордер-логотипы (Notion-стиль)</div>
+  <section class="trust-d">
+    <div class="trust-d__eyebrow">Доверие и результат</div>
+    <h2 class="trust-d__heading">Нам доверяют</h2>
+    <div class="trust-d__stats">
+      <div class="trust-d__stat">
+        <div class="trust-d__stat-number">400+</div>
+        <div class="trust-d__stat-label">проектов</div>
+      </div>
+      <div class="trust-d__stat">
+        <div class="trust-d__stat-number">12</div>
+        <div class="trust-d__stat-label">лет на рынке</div>
+      </div>
+      <div class="trust-d__stat">
+        <div class="trust-d__stat-number">8 млрд ₽</div>
+        <div class="trust-d__stat-label">управляемого<br>CRM-оборота в год</div>
+      </div>
+      <div class="trust-d__stat">
+        <div class="trust-d__stat-number">90%</div>
+        <div class="trust-d__stat-label">клиентов работают<br>2+ года</div>
+      </div>
+    </div>
+    <div class="trust-d__logos-label">Нам доверяют лидеры рынка</div>
+    <div class="trust-d__logos">
+      <div class="logo-placeholder">La Roche-Posay</div>
+      <div class="logo-placeholder">L'Oreal</div>
+      <div class="logo-placeholder">Puma</div>
+      <div class="logo-placeholder">Tinkoff</div>
+      <div class="logo-placeholder">Miele</div>
+      <div class="logo-placeholder">Vichy</div>
+      <div class="logo-placeholder">Benetton</div>
+      <div class="logo-placeholder">Nordman</div>
+      <div class="logo-placeholder">Gulliver</div>
+      <div class="logo-placeholder">Metro</div>
+      <div class="logo-placeholder">Dodo</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>D — Карточки (Notion-стиль)</strong> <span class="score score--red">4/10</span><br>
+    ТРИ текстовых элемента говорят одно и то же: eyebrow «Доверие и результат» + заголовок «Нам доверяют» + подпись «Нам доверяют лидеры рынка». Overwritten. Hover translateY на стат-карточках — шум. Bordered logos с красным hover выглядят как кнопки (ложная affordance). 42px числа vs 40px заголовок — конкуренция.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ E ========== -->
+  <div class="variant-label">Вариант E — Красная полоса статов + логотипы</div>
+  <section class="trust-e">
+    <div class="trust-e__stats-bar">
+      <div class="trust-e__stat">
+        <div class="trust-e__stat-number">400+</div>
+        <div class="trust-e__stat-label">проектов</div>
+      </div>
+      <div class="trust-e__stat">
+        <div class="trust-e__stat-number">12 лет</div>
+        <div class="trust-e__stat-label">на рынке</div>
+      </div>
+      <div class="trust-e__stat">
+        <div class="trust-e__stat-number">8 млрд ₽</div>
+        <div class="trust-e__stat-label">CRM-оборота в год</div>
+      </div>
+      <div class="trust-e__stat">
+        <div class="trust-e__stat-number">90%</div>
+        <div class="trust-e__stat-label">клиентов 2+ года</div>
+      </div>
+    </div>
+    <div class="trust-e__heading">Нам доверяют</div>
+    <div class="trust-e__logos">
+      <div class="logo-placeholder">La Roche-Posay</div>
+      <div class="logo-placeholder">L'Oreal</div>
+      <div class="logo-placeholder">Puma</div>
+      <div class="logo-placeholder">Tinkoff</div>
+      <div class="logo-placeholder">Miele</div>
+      <div class="logo-placeholder">Vichy</div>
+      <div class="logo-placeholder">Benetton</div>
+      <div class="logo-placeholder">Nordman</div>
+      <div class="logo-placeholder">Gulliver</div>
+      <div class="logo-placeholder">Metro</div>
+      <div class="logo-placeholder">Dodo</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>E — Красная полоса</strong> <span class="score score--orange">5/10</span><br>
+    Дерзко, энергично. Но два разных блока (красная полоса + логотипы) не связаны визуально. «Нам доверяют» как 18px uppercase потерялось между ними. Uppercase кириллица с letter-spacing — трудночитаемая. Скачок масштабов: 40px → 18px → 12px — нет ритма.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ F ========== -->
+  <div class="variant-label">F — Единая сетка (статы среди логотипов)</div>
+  <p class="variant-desc">Заголовок — большая тёмная ячейка. Статы — маленькие тёмные ячейки. Логотипы — светлые. Всё на одном уровне, как Bento-box.</p>
+  <section class="trust-f">
+    <div class="trust-f__grid">
+      <div class="trust-f__stat trust-f__stat--hero">
+        <div class="trust-f__stat-heading">Нам доверяют</div>
+        <div class="trust-f__stat-sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</div>
+      </div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">400+</div>
+        <div class="trust-f__stat-label">проектов</div>
+      </div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">12 лет</div>
+        <div class="trust-f__stat-label">на рынке</div>
+      </div>
+      <div class="logo-placeholder trust-f__logo">La Roche-Posay</div>
+      <div class="logo-placeholder trust-f__logo">L'Oreal</div>
+      <div class="logo-placeholder trust-f__logo">Puma</div>
+      <div class="logo-placeholder trust-f__logo">Tinkoff</div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">8 млрд ₽</div>
+        <div class="trust-f__stat-label">CRM-оборота</div>
+      </div>
+      <div class="logo-placeholder trust-f__logo">Miele</div>
+      <div class="logo-placeholder trust-f__logo">Vichy</div>
+      <div class="trust-f__stat">
+        <div class="trust-f__stat-number">90%</div>
+        <div class="trust-f__stat-label">клиентов 2+ года</div>
+      </div>
+      <div class="logo-placeholder trust-f__logo">Benetton</div>
+      <div class="logo-placeholder trust-f__logo">Nordman</div>
+      <div class="logo-placeholder trust-f__logo">Gulliver</div>
+      <div class="logo-placeholder trust-f__logo">Metro</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>F — Единая сетка</strong> <span class="score score--orange">5/10</span><br>
+    Шахматная доска из тёмных и светлых ячеек = визуальный шум. Статы рассыпаны — пользователь не может быстро их просканировать. Нарушение Gestalt-принципа близости. «8 млрд ₽» и «12 лет» имеют разную character width при одинаковых ячейках.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ G ========== -->
+  <div class="variant-label">G — Бенто-сетка (красный заголовок)</div>
+  <p class="variant-desc">Красная ячейка с заголовком, серые ячейки статов, белые ячейки логотипов — всё равноправно в одной сетке.</p>
+  <section class="trust-g">
+    <div class="trust-g__grid">
+      <div class="trust-g__cell trust-g__cell--heading">
+        <div class="trust-g__heading">Нам доверяют</div>
+        <div class="trust-g__sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">400+</div>
+        <div class="trust-g__stat-label">проектов</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">12</div>
+        <div class="trust-g__stat-label">лет на рынке</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">8 млрд</div>
+        <div class="trust-g__stat-label">CRM-оборота</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--logo">La Roche-Posay</div>
+      <div class="trust-g__cell trust-g__cell--logo">L'Oreal</div>
+      <div class="trust-g__cell trust-g__cell--logo">Puma</div>
+      <div class="trust-g__cell trust-g__cell--stat">
+        <div class="trust-g__stat-number">90%</div>
+        <div class="trust-g__stat-label">клиентов 2+ года</div>
+      </div>
+      <div class="trust-g__cell trust-g__cell--logo">Tinkoff</div>
+      <div class="trust-g__cell trust-g__cell--logo">Miele</div>
+      <div class="trust-g__cell trust-g__cell--logo">Vichy</div>
+      <div class="trust-g__cell trust-g__cell--logo">Benetton</div>
+      <div class="trust-g__cell trust-g__cell--logo">Nordman</div>
+      <div class="trust-g__cell trust-g__cell--logo">Gulliver</div>
+      <div class="trust-g__cell trust-g__cell--logo">Metro</div>
+      <div class="trust-g__cell trust-g__cell--logo">Dodo</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>G — Бенто с красным</strong> <span class="score score--orange">6/10</span><br>
+    Красная ячейка — сильный фокус. Цветовая таксономия (красный/серый/белый) — правильно. Но 5 колонок = ~220px на ячейку → логотипы сжаты. «8 млрд» обрезано — нет «₽». Красный в заголовке + красные числа в серых ячейках — красный конкурирует сам с собой.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ H ========== -->
+  <div class="variant-label">H — Колонка статов + стена логотипов</div>
+  <p class="variant-desc">Слева: тёмная карточка-заголовок + 4 стата (2x2). Справа: стена логотипов. Всё на одном уровне, заголовок сбоку.</p>
+  <section class="trust-h">
+    <div class="trust-h__stats">
+      <div class="trust-h__title-card">
+        <h2 class="trust-h__heading">Нам доверяют</h2>
+        <p class="trust-h__sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</p>
+      </div>
+      <div class="trust-h__stat-row">
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">400+</div>
+          <div class="trust-h__stat-label">проектов</div>
+        </div>
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">12 лет</div>
+          <div class="trust-h__stat-label">на рынке</div>
+        </div>
+      </div>
+      <div class="trust-h__stat-row">
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">8 млрд ₽</div>
+          <div class="trust-h__stat-label">CRM-оборота</div>
+        </div>
+        <div class="trust-h__stat">
+          <div class="trust-h__stat-number">90%</div>
+          <div class="trust-h__stat-label">клиентов 2+ года</div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-h__logos">
+      <div class="logo-placeholder">La Roche-Posay</div>
+      <div class="logo-placeholder">L'Oreal</div>
+      <div class="logo-placeholder">Puma</div>
+      <div class="logo-placeholder">Tinkoff</div>
+      <div class="logo-placeholder">Miele</div>
+      <div class="logo-placeholder">Vichy</div>
+      <div class="logo-placeholder">Benetton</div>
+      <div class="logo-placeholder">Nordman</div>
+      <div class="logo-placeholder">Gulliver</div>
+      <div class="logo-placeholder">Metro</div>
+      <div class="logo-placeholder">Dodo</div>
+      <div class="logo-placeholder">Kerastase</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>H — Колонка + стена</strong> <span class="score score--orange">6/10</span><br>
+    Лучшая информационная архитектура: слева «кто мы» + цифры, справа «кто нам доверяет». Самый удобный для сканирования. Но визуальный дисбаланс: тёмная левая = тяжёлая, белые логотипы = лёгкая. 30px заголовок мелковат для секции на 1200px. На мобилке коллапсирует в слабый вариант A.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ I ========== -->
+  <div class="variant-label">I — Чередующиеся ряды (стат - лого - стат - лого)</div>
+  <p class="variant-desc">Статы и логотипы в горизонтальных рядах, перемешаны. Заголовок — красная ячейка в первом ряду.</p>
+  <section class="trust-i">
+    <div class="trust-i__row">
+      <div class="trust-i__heading-cell"><h2>Нам доверяют</h2></div>
+      <div class="trust-i__stat">
+        <div class="trust-i__stat-number">400+</div>
+        <div class="trust-i__stat-label">проектов</div>
+      </div>
+      <div class="trust-i__logo">La Roche-Posay</div>
+      <div class="trust-i__logo">L'Oreal</div>
+      <div class="trust-i__logo">Puma</div>
+    </div>
+    <div class="trust-i__row">
+      <div class="trust-i__logo">Tinkoff</div>
+      <div class="trust-i__stat trust-i__stat--wide">
+        <div class="trust-i__stat-number">8 млрд ₽</div>
+        <div class="trust-i__stat-label">управляемого CRM-оборота</div>
+      </div>
+      <div class="trust-i__logo">Miele</div>
+      <div class="trust-i__logo">Vichy</div>
+    </div>
+    <div class="trust-i__row">
+      <div class="trust-i__logo">Benetton</div>
+      <div class="trust-i__logo">Nordman</div>
+      <div class="trust-i__stat">
+        <div class="trust-i__stat-number">12 лет</div>
+        <div class="trust-i__stat-label">на рынке</div>
+      </div>
+      <div class="trust-i__logo">Gulliver</div>
+    </div>
+    <div class="trust-i__row">
+      <div class="trust-i__stat">
+        <div class="trust-i__stat-number">90%</div>
+        <div class="trust-i__stat-label">клиентов 2+ года</div>
+      </div>
+      <div class="trust-i__logo">Metro</div>
+      <div class="trust-i__logo">Dodo</div>
+      <div class="trust-i__logo">Kerastase</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>I — Чередующиеся ряды</strong> <span class="score score--red">3/10</span><br>
+    Flex-wrap = непредсказуемый reflow на каждом viewport. Заголовок 24px vs числа 30px — иерархия перевёрнута. Heading должен быть доминантным. На мобилке развалится.
+  </div>
+
+  <hr class="divider">
+
+  <!-- ========== ВАРИАНТ J ========== -->
+  <div class="variant-label">J — Masonry-микс (разные размеры)</div>
+  <p class="variant-desc">Как Pinterest-доска: разные размеры ячеек. Красный заголовок 2x2, тёмные статы, логотипы с бордером.</p>
+  <section class="trust-j">
+    <div class="trust-j__grid">
+      <div class="trust-j__cell trust-j__cell--title">
+        <div class="trust-j__title">Нам доверяют</div>
+        <div class="trust-j__title-sub">400+ клиентов за 12 лет. 90% остаются с нами на годы</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--stat">
+        <div class="trust-j__num">400+</div>
+        <div class="trust-j__label">проектов</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--logo">La Roche-Posay</div>
+      <div class="trust-j__cell trust-j__cell--logo">L'Oreal</div>
+      <div class="trust-j__cell trust-j__cell--stat">
+        <div class="trust-j__num">12 лет</div>
+        <div class="trust-j__label">на рынке</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--stat trust-j__cell--stat-wide">
+        <div class="trust-j__num">8 млрд ₽</div>
+        <div class="trust-j__label">управляемого<br>CRM-оборота в год</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--logo">Puma</div>
+      <div class="trust-j__cell trust-j__cell--logo">Tinkoff</div>
+      <div class="trust-j__cell trust-j__cell--logo">Miele</div>
+      <div class="trust-j__cell trust-j__cell--logo">Vichy</div>
+      <div class="trust-j__cell trust-j__cell--stat">
+        <div class="trust-j__num">90%</div>
+        <div class="trust-j__label">клиентов 2+ года</div>
+      </div>
+      <div class="trust-j__cell trust-j__cell--logo">Benetton</div>
+      <div class="trust-j__cell trust-j__cell--logo">Nordman</div>
+      <div class="trust-j__cell trust-j__cell--logo">Gulliver</div>
+      <div class="trust-j__cell trust-j__cell--logo">Metro</div>
+      <div class="trust-j__cell trust-j__cell--logo">Dodo</div>
+    </div>
+  </section>
+  <div class="review">
+    <strong>J — Masonry-микс</strong> <span class="score score--orange">6/10</span><br>
+    Самый визуально динамичный. Grid-column spans создают ритм. Красный градиент — элегантный. Но два размера stat-чисел (28px и 34px) выглядят как ошибка. 11px labels — слишком мелко. На мобилке (2 col) всё span-2 = стопка одинаковых блоков.
+  </div>
+
+</div>
+
+</body>
+</html>

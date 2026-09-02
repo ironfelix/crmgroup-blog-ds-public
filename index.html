@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM-group Blog — Design System v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ─── DS TOKENS ─────────────────────────────────────────── */
+:root{
+  /* Бренд — красный #c01020 (WCAG AA 7.2:1 на белом) */
+  --red:#c01020; --red-light:#fde8e8; --warm:#fff9f0;
+  --black:#1a1a1a; --gray:#888; --border:#e4e4e4;
+  --white:#fff;
+
+  /* Типографика: 17px/1.58, ширина строки 660px */
+  --fs-body:17px; --lh-body:1.58; --measure:660px;
+
+  /* Система отступов 8px */
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px;
+
+  /* DS shell */
+  --ds-bg:#f0f0f0; --ds-card:#fff; --ds-border:#e8e8e8; --ds-label:#aaa;
+
+  /* Рекомендуемые улучшения */
+  --rec-bg:#f8f9fa; --rec-text:#2d3748; --rec-accent:#2563eb;
+  --rec-green:#16a34a; --rec-warn:#d97706;
+  --font:'Inter',system-ui,sans-serif;
+  --font-head:'Manrope',system-ui,sans-serif;
+}
+
+body{font-family:var(--font);font-size:16px;line-height:1.6;color:var(--black);background:#f0f0f0}
+a{color:var(--red);text-decoration:none}
+
+/* ─── DS SHELL ───────────────────────────────────────────── */
+.ds-wrap{max-width:1160px;margin:0 auto;padding:32px 24px 100px}
+
+.ds-topbar{
+  background:var(--black);color:#fff;
+  padding:36px 40px 28px;border-radius:14px;margin-bottom:40px;
+  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;
+}
+.ds-topbar h1{font-family:var(--font-head);font-size:26px;font-weight:800;margin-bottom:4px}
+.ds-topbar p{font-size:14px;opacity:0.5}
+.ds-topbar-meta{text-align:right;font-size:13px;opacity:0.5}
+
+.ds-nav{
+  display:flex;gap:8px;flex-wrap:nowrap;margin-bottom:40px;
+  position:sticky;top:0;z-index:100;
+  background:#f0f0f0;padding:12px 0;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:#ccc transparent;
+  mask-image:linear-gradient(to right,transparent 0,#000 12px,#000 calc(100% - 24px),transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 12px,#000 calc(100% - 24px),transparent 100%);
+}
+.ds-nav::-webkit-scrollbar{height:4px}
+.ds-nav::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px}
+.ds-nav a{
+  padding:7px 16px;border-radius:20px;font-size:13px;font-weight:600;
+  background:#fff;border:1px solid var(--border);color:var(--black);
+  transition:all .15s;white-space:nowrap;flex-shrink:0;
+}
+.ds-nav a:hover{background:var(--black);color:#fff;border-color:var(--black)}
+
+.ds-section{margin-bottom:60px;scroll-margin-top:56px}
+.ds-section-label{
+  font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:#aaa;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid #e0e0e0;
+  display:flex;align-items:center;gap:8px;
+}
+.ds-section-label .badge{
+  font-size:10px;padding:2px 8px;border-radius:10px;letter-spacing:0;text-transform:none;font-weight:600;
+}
+.badge-all{background:#d1fae5;color:#065f46}
+.badge-part{background:#fef3c7;color:#92400e}
+.badge-new{background:#dbeafe;color:#1e40af}
+
+.preview{
+  background:#fff;border-radius:12px;padding:36px;
+  border:1px solid var(--border);margin-bottom:12px;
+}
+.preview+.preview{margin-top:12px}
+.note{font-size:11.5px;color:#aaa;font-family:monospace;margin-top:8px;padding:0 4px}
+
+/* ─── COLORS ─────────────────────────────────────────────── */
+.palette{display:flex;flex-wrap:wrap;gap:16px}
+.swatch-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.swatch{width:72px;height:72px;border-radius:10px;border:1px solid rgba(0,0,0,.08)}
+.sw-name{font-size:12px;font-weight:600}
+.sw-hex{font-size:11px;color:#888;font-family:monospace}
+.sw-use{font-size:10px;color:#aaa}
+
+/* ─── ARTICLE TYPOGRAPHY (as-is) ────────────────────────── */
+.art{max-width:700px;font-size:16px;line-height:1.7;color:var(--black)}
+.art h1{font-size:34px;font-weight:700;line-height:1.2;margin-bottom:20px;letter-spacing:-.4px}
+.art h2.wp-block-heading{font-size:24px;font-weight:700;margin:36px 0 14px;line-height:1.3;scroll-margin-top:56px}
+.art h3.wp-block-heading{font-size:18px;font-weight:700;margin:24px 0 10px;line-height:1.35}
+.art p{margin-bottom:16px}
+
+/* ─── TOC ────────────────────────────────────────────────── */
+.navigation-page{
+  background:var(--warm);border-left:3px solid var(--red);
+  padding:20px 24px;margin-bottom:28px;border-radius:0 8px 8px 0;
+}
+.navigation-page .wp-block-group__inner-container>p:first-child{
+  font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--gray);margin-bottom:10px;
+}
+.navigation-page p[data-anchor]{margin-bottom:5px}
+.navigation-page p[data-anchor]::before{content:"→ ";color:var(--red);font-weight:600}
+.navigation-page .anchor{font-size:14px;color:var(--red);cursor:pointer}
+.navigation-page .anchor:hover{text-decoration:underline}
+
+/* ─── BLOCK-COMMENT ──────────────────────────────────────── */
+.block-comment{
+  background:var(--warm);padding:var(--s3) var(--s4);
+  border-radius:8px;margin:var(--s4) 0;max-width:var(--measure);
+}
+.wp-block-group.block-comment{
+  background:var(--warm);padding:var(--s3) var(--s4);
+  border-radius:8px;margin:var(--s4) 0;max-width:var(--measure);
+}
+.block-comment__text p{font-size:16px;line-height:1.65;margin:0}
+.block-comment__text p+p{margin-top:12px}
+.block-comment__autor{
+  display:flex;align-items:center;gap:14px;
+  margin-top:var(--s2);padding-top:var(--s2);border-top:1px solid rgba(0,0,0,.08);
+}
+.autor-photo img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.autor-name{font-size:14px;font-weight:700}
+.autor-post{font-size:13px;color:var(--gray);margin-top:1px}
+
+/* ─── BLOCK-RESULT ───────────────────────────────────────── */
+.block-result{background:var(--warm);padding:24px 28px;border-radius:8px;margin:28px 0}
+.block-result__heading{font-size:19px!important;font-weight:400!important;line-height:1.5!important;margin:0!important}
+.block-result__heading a{color:var(--red);font-weight:700}
+
+/* ─── TABLE ──────────────────────────────────────────────── */
+figure.wp-block-table{margin:28px 0;overflow-x:auto}
+.wp-block-table table{width:100%;border-collapse:collapse;font-size:15px}
+.wp-block-table thead tr{background:var(--red);color:#fff}
+.wp-block-table thead th{padding:11px 16px;text-align:left;font-weight:600;font-size:14px}
+.wp-block-table tbody tr:nth-child(even){background:rgba(0,0,0,.025)}
+.wp-block-table tbody td{padding:10px 16px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+
+/* ─── COLUMNS ────────────────────────────────────────────── */
+.wp-block-columns{display:flex;gap:24px;margin:24px 0;flex-wrap:wrap}
+.wp-block-column{flex:1;min-width:200px}
+
+/* ─── LISTS ──────────────────────────────────────────────── */
+.wp-block-list{padding-left:22px;margin:14px 0 20px}
+.wp-block-list li{margin-bottom:7px;font-size:16px;line-height:1.65}
+.wp-block-list li::marker{color:var(--red)}
+ol.wp-block-list li::marker{color:var(--red);font-weight:700}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.wp-block-buttons{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+.wp-block-button__link{
+  display:inline-block;padding:13px 26px;border-radius:6px;
+  font-size:15px;font-weight:600;text-decoration:none;transition:opacity .15s,transform .1s;
+}
+.wp-block-button__link:hover{opacity:.87;transform:translateY(-1px)}
+.btn-primary .wp-block-button__link{background:var(--red);color:#fff}
+.btn-outline .wp-block-button__link{background:transparent;color:var(--red);border:2px solid var(--red)}
+.btn-ghost .wp-block-button__link{background:var(--red-light);color:var(--red)}
+
+/* ─── SOCIAL ─────────────────────────────────────────────── */
+.social-networks{display:flex;gap:10px;margin:24px 0}
+.social-networks__button a{
+  display:inline-flex;align-items:center;gap:8px;padding:9px 18px;
+  border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .15s;
+}
+.social-networks__button a:hover{opacity:.8}
+.social-networks__button.vk a{background:var(--red-light);color:#2787f5}
+.social-networks__button.telegram a{background:#dff0ff;color:#0088cc}
+
+/* ─── STAT CARDS ─────────────────────────────────────────── */
+.stats-row{display:flex;gap:14px;flex-wrap:wrap;margin:24px 0}
+.stat-card{flex:1;min-width:120px;background:var(--warm);border-radius:10px;padding:18px;text-align:center}
+.stat-card__number{font-size:30px;font-weight:700;color:var(--red);line-height:1;margin-bottom:5px}
+.stat-card__label{font-size:12px;color:var(--gray);line-height:1.4}
+
+/* ─── FORM ───────────────────────────────────────────────── */
+.block-form{background:var(--black);color:#fff;padding:36px 40px;border-radius:12px;margin:36px 0}
+.block-form h2{font-size:21px;font-weight:700;margin-bottom:8px;color:#fff}
+.block-form p{font-size:15px;opacity:.65;margin-bottom:22px}
+.form-fields{display:flex;gap:10px;flex-wrap:wrap}
+.form-fields input{flex:1;min-width:190px;padding:12px 16px;border-radius:6px;border:none;font-size:15px;font-family:var(--font)}
+.form-fields button{padding:12px 22px;background:var(--red);color:#fff;border:none;border-radius:6px;font-size:15px;font-weight:600;font-family:var(--font);cursor:pointer}
+
+/* ─── YANDEX NEURO CARDS ─────────────────────────────────── */
+.neuro-section{margin:28px 0}
+.neuro-card{
+  border:1.5px solid var(--border);border-radius:10px;
+  padding:20px 24px;margin-bottom:12px;
+  transition:border-color .15s;
+}
+.neuro-card:hover{border-color:#bbb}
+.neuro-q{
+  font-size:16px;font-weight:700;color:var(--black);
+  margin-bottom:10px;display:flex;align-items:flex-start;gap:10px;
+}
+.neuro-q::before{
+  content:"?";flex-shrink:0;
+  width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  margin-top:1px;
+}
+.neuro-a{font-size:15px;line-height:1.65;color:#444;padding-left:34px}
+.neuro-a strong{color:var(--black)}
+
+/* ─── CLASSES BAR CHART ──────────────────────────────────── */
+.cls-row{display:flex;align-items:center;gap:10px;margin-bottom:5px;font-size:12px}
+.cls-name{font-family:monospace;color:#555;min-width:240px;font-size:11.5px}
+.cls-bar-wrap{flex:1}
+.cls-bar{height:14px;background:var(--red);border-radius:2px;min-width:2px;opacity:.7}
+.cls-cnt{color:#aaa;min-width:30px;text-align:right}
+
+/* ─── ARTICLES TABLE ─────────────────────────────────────── */
+.arts-table{width:100%;border-collapse:collapse;font-size:13px}
+.arts-table th{padding:9px 14px;text-align:left;background:#f8f8f8;font-weight:600;border-bottom:2px solid #eee}
+.arts-table td{padding:9px 14px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.arts-table tr:hover td{background:#fafafa}
+.arts-table a{color:var(--rec-accent)}
+
+/* ─── RECOMMENDATIONS ────────────────────────────────────── */
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:24px}
+.rec-card{border-radius:12px;padding:24px;border:1.5px solid var(--border)}
+.rec-card.critical{border-color:#fca5a5;background:#fff5f5}
+.rec-card.major{border-color:#fde68a;background:#fffbeb}
+.rec-card.minor{border-color:#bbf7d0;background:#f0fdf4}
+.rec-priority{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.rec-card.critical .rec-priority{color:#dc2626}
+.rec-card.major .rec-priority{color:#d97706}
+.rec-card.minor .rec-priority{color:#16a34a}
+.rec-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.rec-desc{font-size:13px;line-height:1.6;color:#555}
+.rec-code{background:#f1f5f9;border-radius:6px;padding:10px 14px;font-size:12px;font-family:monospace;margin-top:10px;color:#334155;line-height:1.8}
+
+/* ─── BEFORE/AFTER ───────────────────────────────────────── */
+.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.ba-col{}
+.ba-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding:5px 12px;border-radius:4px;display:inline-block}
+.ba-label.before{background:#fee2e2;color:#dc2626}
+.ba-label.after{background:#dcfce7;color:#16a34a}
+.ba-box{border-radius:8px;overflow:hidden;border:1.5px solid var(--border)}
+.ba-box.before-box{border-color:#fca5a5}
+.ba-box.after-box{border-color:#86efac}
+
+@media(max-width:680px){.ba-wrap{grid-template-columns:1fr}.rec-grid{grid-template-columns:1fr}}
+
+/* ─── NEW COMPONENTS (v3 additions) ─────────────────────── */
+
+/* Breadcrumbs */
+.bread-crumbs{font-size:13px;color:#8a8a8a;line-height:1.5;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;margin-bottom:16px}
+.bread-crumbs a{color:#8a8a8a;text-decoration:none}
+.bread-crumbs a:hover{color:#c01020}
+.bread-crumbs .sep{margin:0 6px;color:#ccc}
+
+/* Article Card */
+.article-card{border:1px solid #e4e2dc;border-radius:12px;overflow:hidden;background:#fff;transition:box-shadow .15s,transform .15s}
+.article-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.10);transform:translateY(-1px)}
+.article-card__img{width:100%;height:180px;object-fit:cover;display:block}
+.article-card__body{padding:16px 20px 20px}
+.article-card__meta{font-size:13px;color:#8a8a8a;margin-bottom:8px}
+.article-card__title{font-size:17px;font-weight:700;color:var(--black);line-height:1.35;margin-bottom:8px}
+.article-card__title:hover{color:#c01020}
+.article-card__desc{font-size:14px;color:#5a5a5a;line-height:1.5}
+.article-cards-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.article-cards-row{grid-template-columns:1fr}}
+
+/* Pagination */
+.pagination{display:flex;align-items:center;justify-content:center;gap:4px;margin:32px 0}
+.page-num{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:16px;color:#595959;text-decoration:none;transition:all .15s}
+.page-num:hover{border:1px solid #cbcbcb}
+.page-num.current{color:#fff;background:#595959}
+.page-num.dots{pointer-events:none}
+
+/* Code Block */
+.code-block{background:#1a1a1a;color:#e0e0e0;border-radius:10px;padding:20px 24px;font-family:'Fira Code',Consolas,monospace;font-size:14px;line-height:1.7;overflow-x:auto;margin:24px 0}
+.code-block .kw{color:#c792ea}
+.code-block .str{color:#c3e88d}
+.code-block .cm{color:#546e7a;font-style:italic}
+.code-block .fn{color:#82aaff}
+
+/* Accordion / FAQ */
+.faq-section details{border:1px solid #e4e2dc;border-radius:10px;margin-bottom:8px;overflow:hidden}
+.faq-section summary{padding:14px 18px;font-weight:600;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-section summary::-webkit-details-marker{display:none}
+.faq-section summary::after{content:'+';font-size:22px;color:#c01020;transition:transform .2s}
+.faq-section details[open] summary::after{transform:rotate(45deg)}
+.faq-section .faq-answer{padding:14px 18px 16px;font-size:15px;line-height:1.7;color:#555;border-top:1px solid #e4e2dc}
+
+/* Reading Progress */
+.progress-demo{position:relative;height:3px;background:rgba(0,0,0,.06);border-radius:2px;overflow:hidden;margin:12px 0}
+.progress-demo__bar{height:100%;width:65%;background:#c01020;border-radius:2px}
+
+/* Tooltip */
+.crm-term{border-bottom:2px dotted #8a8a8a;cursor:help;position:relative}
+.crm-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:13.5px;padding:10px 14px;border-radius:8px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.35);white-space:normal;z-index:10;line-height:1.5}
+.crm-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1a1a1a}
+
+/* Mobile TOC */
+.mobile-toc{background:#fff;border:1px solid #e4e2dc;border-radius:12px;padding:16px 18px;margin-bottom:28px}
+.mobile-toc summary{font-weight:600;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.mobile-toc summary::-webkit-details-marker{display:none}
+.mobile-toc summary::after{content:'↓';color:#c01020;font-size:16px}
+.mobile-toc[open] summary::after{content:'↑'}
+.mobile-toc__list{margin-top:12px;display:flex;flex-direction:column;gap:2px}
+.mobile-toc__link{display:block;padding:8px 12px;font-size:13.5px;color:#5a5a5a;text-decoration:none;border-radius:8px;transition:background .15s}
+.mobile-toc__link:hover{background:#fff5f5;color:#c01020}
+
+/* Block Picture */
+.block-picture{background:#fff;border:1px solid #e4e2dc;border-radius:12px;padding:20px;margin:24px 0;max-width:68ch;transition:box-shadow .15s,transform .15s}
+.block-picture:hover{box-shadow:0 4px 20px rgba(0,0,0,.10);transform:translateY(-1px)}
+.block-picture img{max-width:100%;height:auto;border-radius:8px;display:block}
+.block-picture figcaption{font-size:13px;color:#8a8a8a;text-align:center;margin-top:8px;line-height:1.5}
+
+/* Author Block */
+.block-autor{display:grid;grid-template-columns:52px 1fr;column-gap:14px;background:#fff;border:1px solid #e4e2dc;border-radius:12px;padding:20px;margin:24px 0}
+.block-autor__label{grid-column:1/-1;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#8a8a8a;margin-bottom:10px;font-weight:600}
+.block-autor img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.block-autor__name{font-size:15px;font-weight:600;color:var(--black)}
+.block-autor__role{font-size:13px;color:#5a5a5a}
+
+/* Experts Grid */
+.block-experts{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin:24px 0}
+.block-expert{height:190px;padding:12px 10px 9px;border:1px solid #e4e2dc;border-radius:12px;background:#fff;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.block-expert img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.block-expert__name{font-size:13px;font-weight:600;color:var(--black);line-height:1.3}
+.block-expert__role{font-size:11.5px;color:#8a8a8a;line-height:1.4}
+
+/* Site vs Blog comparison */
+.comparison-table{width:100%;border-collapse:collapse;font-size:14px}
+.comparison-table th{padding:12px 16px;text-align:left;background:#f4f3ef;font-weight:600;border-bottom:2px solid #e4e2dc}
+.comparison-table td{padding:10px 16px;border-bottom:1px solid #e4e2dc;vertical-align:top}
+.comparison-table tr:hover td{background:#fafaf8}
+.comparison-table .highlight{background:#fff5f5;font-weight:600;color:#c01020}
+</style>
+</head>
+<body>
+<div class="ds-wrap">
+
+<!-- TOPBAR -->
+<div class="ds-topbar">
+  <div>
+    <h1>CRM-group Blog — Design System v3</h1>
+    <p>На основе 30 статей · crmgroup.ru · Февраль 2026 · <span style="color:#c01020;font-weight:600">Красный #c01020</span></p>
+  </div>
+  <div class="ds-topbar-meta" style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+    <div>
+      30 статей проанализировано<br>
+      426 уникальных CSS-классов<br>
+      <a href="https://crmgroup.ru/blog/" target="_blank" style="color:#888;font-size:12px">→ Перейти в блог</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="ds-nav">
+  <a href="#colors">Цвета</a>
+  <a href="#typography">Типографика</a>
+  <a href="#toc">Оглавление</a>
+  <a href="#comment">Комментарий</a>
+  <a href="#result">CTA-блок</a>
+  <a href="#table">Таблицы</a>
+  <a href="#columns">Колонки</a>
+  <a href="#lists">Списки</a>
+  <a href="#buttons">Кнопки</a>
+  <a href="#social">Соцсети</a>
+  <a href="#stats">Статистика</a>
+  <a href="#form">Форма</a>
+  <a href="#neuro">Яндекс.Нейро</a>
+  <a href="#breadcrumbs">Хлебные крошки</a>
+  <a href="#article-card">Карточка статьи</a>
+  <a href="#pagination">Пагинация</a>
+  <a href="#code">Код</a>
+  <a href="#accordion">Аккордеон</a>
+  <a href="#progress">Прогресс-бар</a>
+  <a href="#tooltip">Тултип</a>
+  <a href="#mobile-toc">Мобильный TOC</a>
+  <a href="#block-picture">Изображения</a>
+  <a href="#author">Автор</a>
+  <a href="#experts">Эксперты</a>
+  <a href="#site-vs-blog">Сайт vs Блог</a>
+  <a href="#fullpage">Пример страницы</a>
+  <a href="#blocks-stat">Статистика блоков</a>
+  <a href="#articles">30 статей</a>
+  <a href="#recs">Рекомендации UX</a>
+  <a href="#hub-typography">Hub типографика</a>
+  <a href="#hub-components">Hub компоненты</a>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     COLORS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="colors">
+  <div class="ds-section-label">Цветовая палитра <span class="badge badge-all">все статьи</span></div>
+  <div class="preview">
+    <div class="palette">
+      <div class="swatch-wrap"><div class="swatch" style="background:#c01020"></div><div class="sw-name">Red</div><div class="sw-hex">#c01020</div><div class="sw-use">CTA, ссылки, кнопки</div></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#fde8e8;border-color:#f0c0c0"></div><div class="sw-name">Red Light</div><div class="sw-hex">#fde8e8</div><div class="sw-use">Соцсети, акцент bg</div></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#fff9f0;border-color:#eee"></div><div class="sw-name">Warm</div><div class="sw-hex">#fff9f0</div><div class="sw-use">Комментарии, CTA</div></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#1a1a1a"></div><div class="sw-name">Black</div><div class="sw-hex">#1a1a1a</div><div class="sw-use">Текст, форма</div></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#999999"></div><div class="sw-name">Gray</div><div class="sw-hex">#999999</div><div class="sw-use">Вторичный текст</div></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#ffffff;border-color:#ddd"></div><div class="sw-name">White</div><div class="sw-hex">#ffffff</div><div class="sw-use">Фон, карточки</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TYPOGRAPHY
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="typography">
+  <div class="ds-section-label">Типографика</div>
+  <div class="preview art">
+    <h1>CRM-маркетолог: чем занимается и стоит ли нанимать в 2026</h1>
+    <div class="note">h1 · 34px · 700 · lh 1.2 · ls -0.4px</div>
+    <h2 class="wp-block-heading" style="margin-top:28px">Что делает CRM-маркетолог — и чем отличается от email-специалиста</h2>
+    <div class="note">h2.wp-block-heading · 24px · 700 · lh 1.3 · id="anchor_N"</div>
+    <h3 class="wp-block-heading" style="margin-top:18px">Триггерные сценарии: с чего начать</h3>
+    <div class="note">h3.wp-block-heading · 18px · 700 · lh 1.35</div>
+    <p style="margin-top:16px">Обычный текст абзаца. CRM-маркетолог выстраивает систему коммуникаций с&nbsp;клиентами: <strong>email, SMS, мессенджеры, push</strong>. Его задача — удерживать клиентов и&nbsp;повышать их&nbsp;ценность для бизнеса. <a href="#">Ссылка выглядит так</a>.</p>
+    <div class="note">p · 16px · 400 · lh 1.7 · color #1a1a1a</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TOC
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="toc">
+  <div class="ds-section-label">Оглавление — .navigation-page <span class="badge badge-all">30/30 статей</span></div>
+  <div class="preview">
+    <div class="navigation-page">
+      <div class="wp-block-group__inner-container">
+        <p>Содержание:</p>
+        <p data-anchor="anchor_0"><span class="anchor">Кто такой CRM-маркетолог</span></p>
+        <p data-anchor="anchor_1"><span class="anchor">Чем занимается</span></p>
+        <p data-anchor="anchor_2"><span class="anchor">Отличие от email-маркетолога</span></p>
+        <p data-anchor="anchor_3"><span class="anchor">Как понять, что нужен</span></p>
+        <p data-anchor="anchor_4"><span class="anchor">Где найти</span></p>
+      </div>
+    </div>
+    <div class="note">.navigation-page · bg #fff9f0 · border-left 3px #c01020 · anchors data-anchor="anchor_N"</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOCK-COMMENT
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="comment">
+  <div class="ds-section-label">Комментарий эксперта <span class="badge badge-all">все статьи</span></div>
+  <div class="preview">
+    <div class="art">
+      <div class="block-comment">
+        <div class="block-comment__text">
+          <p>Главная трудность с подсчётом LTV — определиться, на каком интервале это делать. По определению, надо считать весь срок жизни клиента.</p>
+          <p>Но представим ситуацию: клиент регулярно покупал, а потом вдруг перестал. Мы посчитали его LTV. Через год он вернулся — нужно ли пересчитывать?</p>
+        </div>
+        <div class="block-comment__autor">
+          <div class="autor-photo"><img src="https://crmgroup.ru/wp-content/uploads/2023/03/Valera-Kurakin.png" alt="Валерий Куракин" style="width:44px;height:44px;border-radius:50%;"></div>
+          <div>
+            <div class="autor-name">Валерий Куракин</div>
+            <div class="autor-post">руководитель отдела аналитики</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note">line-height эксперт-блока — 1.65 (исключение из общего 1.58 — цитата требует чуть больше воздуха)</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOCK-RESULT
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="result">
+  <div class="ds-section-label">CTA-блок — .block-result <span class="badge badge-all">30/30 статей</span></div>
+  <div class="preview">
+    <div class="block-result wp-block-group has-background" style="background-color:#fff9f0">
+      <div class="wp-block-group__inner-container">
+        <h3 class="wp-block-heading block-result__heading">
+          <a style="color:#c01020;font-weight:700" href="#">Оставьте заявку</a>. Проведём бесплатную консультацию и подберём решение под ваши задачи.
+        </h3>
+      </div>
+    </div>
+    <div class="note">.block-result · bg #fff9f0 · ссылка-якорь #c01020 · 19px · font-weight 400 · lh 1.5</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TABLES
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="table">
+  <div class="ds-section-label">Таблицы — .wp-block-table <span class="badge badge-part">18/30 статей</span></div>
+  <div class="preview">
+    <figure class="wp-block-table table is-style-regular">
+      <table class="has-fixed-layout">
+        <thead><tr><th>Специалист</th><th>Зона ответственности</th><th>Канал</th></tr></thead>
+        <tbody>
+          <tr><td>CRM-маркетолог</td><td>Стратегия, автоматизация, аналитика</td><td>Все каналы</td></tr>
+          <tr><td>Email-маркетолог</td><td>Настройка и запуск рассылок</td><td>Email</td></tr>
+          <tr><td>Менеджер проекта</td><td>Координация, дедлайны, клиент</td><td>—</td></tr>
+          <tr><td>Аналитик</td><td>Сбор и интерпретация данных</td><td>Все каналы</td></tr>
+        </tbody>
+      </table>
+    </figure>
+    <div class="note">thead: bg #c01020 white · tbody even: rgba(0,0,0,.025) · td padding 10/16</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     COLUMNS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="columns">
+  <div class="ds-section-label">Колонки — .wp-block-columns <span class="badge badge-all">27/30 статей</span></div>
+  <div class="preview art">
+    <div class="wp-block-columns">
+      <div class="wp-block-column">
+        <h3 class="wp-block-heading">In-house команда</h3>
+        <ul class="wp-block-list">
+          <li>Полный контроль над процессами</li>
+          <li>Глубокое знание продукта</li>
+          <li>Скорость коммуникации</li>
+        </ul>
+      </div>
+      <div class="wp-block-column">
+        <h3 class="wp-block-heading">Агентство</h3>
+        <ul class="wp-block-list">
+          <li>Экспертиза из десятков проектов</li>
+          <li>Готовые фреймворки</li>
+          <li>Масштабируемость без найма</li>
+        </ul>
+      </div>
+      <div class="wp-block-column">
+        <h3 class="wp-block-heading">Гибрид</h3>
+        <ul class="wp-block-list">
+          <li>Стратегия внутри</li>
+          <li>Производство снаружи</li>
+          <li>Оптимальный баланс</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">.wp-block-columns · flex · gap 24px · .wp-block-column flex:1</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     LISTS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="lists">
+  <div class="ds-section-label">Списки — .wp-block-list <span class="badge badge-all">30/30 статей</span></div>
+  <div class="preview art">
+    <div class="wp-block-columns" style="gap:40px">
+      <div class="wp-block-column">
+        <p><strong>ul.wp-block-list</strong></p>
+        <ul class="wp-block-list">
+          <li>Настраивать email-рассылки и триггеры</li>
+          <li>Анализировать открытия и клики</li>
+          <li>Сегментировать аудиторию</li>
+          <li>Запускать A/B-тесты</li>
+        </ul>
+      </div>
+      <div class="wp-block-column">
+        <p><strong>ol.wp-block-list</strong></p>
+        <ol class="wp-block-list">
+          <li>Определить цели CRM</li>
+          <li>Сегментировать базу</li>
+          <li>Настроить сценарии</li>
+          <li>Измерить результат</li>
+        </ol>
+      </div>
+    </div>
+    <div class="note">marker: #c01020 · 16px · lh 1.65 · pl 22px · mb 7px per item</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     BUTTONS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="buttons">
+  <div class="ds-section-label">Кнопки — .wp-block-buttons <span class="badge badge-all">30/30 статей</span></div>
+  <div class="preview">
+    <div class="wp-block-buttons">
+      <div class="wp-block-button btn-primary"><a class="wp-block-button__link" href="#">Получить консультацию</a></div>
+      <div class="wp-block-button btn-outline"><a class="wp-block-button__link" href="#">Смотреть кейсы</a></div>
+      <div class="wp-block-button btn-ghost"><a class="wp-block-button__link" href="#">Подробнее</a></div>
+    </div>
+    <div class="note">primary: bg #c01020 · outline: border #c01020 · ghost: bg #fde8e8 · padding 13/26 · border-radius 6px</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SOCIAL
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="social">
+  <div class="ds-section-label">Соцсети — .social-networks <span class="badge badge-all">30/30 статей</span></div>
+  <div class="preview">
+    <div class="social-networks">
+      <div class="social-networks__button vk"><a href="#">ВКонтакте</a></div>
+      <div class="social-networks__button telegram"><a href="#">Telegram</a></div>
+    </div>
+    <div class="note">VK: bg #fedddd color #2787f5 · Telegram: bg #dff0ff color #0088cc · padding 9/18</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     STAT CARDS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="stats">
+  <div class="ds-section-label">Карточки статистики <span class="badge badge-part">15/30 статей</span></div>
+  <div class="preview">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-card__number">+32%</div><div class="stat-card__label">рост конверсии после внедрения CRM</div></div>
+      <div class="stat-card"><div class="stat-card__number">2.4×</div><div class="stat-card__label">увеличение LTV за 6 месяцев</div></div>
+      <div class="stat-card"><div class="stat-card__number">50+</div><div class="stat-card__label">проектов в портфеле</div></div>
+      <div class="stat-card"><div class="stat-card__number">78%</div><div class="stat-card__label">клиентов продлевают контракт</div></div>
+    </div>
+    <div class="note">bg #fff9f0 · число 30px #c01020 · лейбл 12px #888 · br 10px</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     FORM
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="form">
+  <div class="ds-section-label">Форма подписки — .block-form <span class="badge badge-all">30/30 статей</span></div>
+  <div class="preview" style="padding:0;overflow:hidden;border-radius:12px">
+    <div class="block-form">
+      <h2>Подпишитесь на рассылку о CRM&#8209;маркетинге</h2>
+      <p>Тренды, свежие кейсы и актуальные инструкции. Без спама.</p>
+      <div class="form-fields">
+        <input type="email" placeholder="ваш@email.ru">
+        <button type="button">Подписаться</button>
+      </div>
+    </div>
+  </div>
+  <div class="note">bg #1a1a1a · h2 21px white · input + кнопка в ряд · btn bg #c01020</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     ЯНДЕКС НЕЙРО — FAQ CARDS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="neuro">
+  <div class="ds-section-label">Карточки для Яндекс.Нейро — FAQPage Schema <span class="badge badge-new">SEO · новый блок</span></div>
+
+  <div class="preview">
+    <p style="font-size:14px;color:#555;margin-bottom:20px;line-height:1.6">
+      Яндекс.Нейро вытаскивает ответы прямо из первых абзацев и FAQ-разделов. Структурированный блок вопрос/ответ + Schema.org FAQPage = шанс появиться в «нейро-ответе» без клика. Добавить к каждой статье.
+    </p>
+
+    <div class="neuro-section">
+      <h3 style="font-size:14px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Пример — статья про CRM-маркетолога</h3>
+
+      <div class="neuro-card">
+        <div class="neuro-q">Чем занимается CRM-маркетолог?</div>
+        <div class="neuro-a">CRM-маркетолог выстраивает систему коммуникаций с клиентами через email, SMS, мессенджеры и push. Его задача — <strong>удерживать клиентов и повышать их ценность</strong> для бизнеса. В отличие от email-маркетолога, работает сразу со всеми каналами и отвечает за стратегию.</div>
+      </div>
+
+      <div class="neuro-card">
+        <div class="neuro-q">Когда компании нужен CRM-маркетолог?</div>
+        <div class="neuro-a">CRM-маркетолог нужен, когда: база контактов превышает <strong>10 000 человек</strong>, есть 3+ активных канала коммуникации, компания теряет клиентов после первой покупки. До этого порога достаточно email-маркетолога или агентства.</div>
+      </div>
+
+      <div class="neuro-card">
+        <div class="neuro-q">В чём разница между CRM-маркетологом и email-маркетологом?</div>
+        <div class="neuro-a">Email-маркетолог работает только с рассылками. CRM-маркетолог охватывает <strong>все каналы</strong> (email, SMS, push, мессенджеры), строит сценарии на основе поведения клиентов и отвечает за LTV и удержание, а не только за метрики писем.</div>
+      </div>
+
+      <div class="neuro-card">
+        <div class="neuro-q">Сколько стоит нанять CRM-маркетолога?</div>
+        <div class="neuro-a">Инхаус CRM-маркетолог в Москве стоит <strong>120–180 тыс. ₽/мес</strong> (зарплата + налоги + инструменты). Агентство — от 80 тыс. ₽/мес, при этом вы получаете команду: стратег, копирайтер, верстальщик, аналитик. Гибридная модель — оптимальна для большинства.</div>
+      </div>
+
+      <div class="neuro-card">
+        <div class="neuro-q">Как измерить эффективность CRM-маркетинга?</div>
+        <div class="neuro-a">Ключевые метрики: <strong>LTV</strong> (пожизненная ценность клиента), <strong>RR</strong> (коэффициент удержания), <strong>CR</strong> (отток), <strong>ROMI</strong> (возврат на инвестиции в маркетинг). Смотреть в динамике: квартал к кварталу, а не месяц к месяцу.</div>
+      </div>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:8px;padding:16px 20px;margin-top:20px;font-size:13px;font-family:monospace;line-height:2;color:#334155">
+      <strong style="font-family:var(--font);font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#888">Schema.org разметка в &lt;head&gt; каждой статьи:</strong><br><br>
+      &lt;script type="application/ld+json"&gt;<br>
+      {<br>
+      &nbsp;&nbsp;"@context": "https://schema.org",<br>
+      &nbsp;&nbsp;"@type": "FAQPage",<br>
+      &nbsp;&nbsp;"mainEntity": [<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"@type": "Question",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "Чем занимается CRM-маркетолог?",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"acceptedAnswer": {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"@type": "Answer",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"text": "CRM-маркетолог выстраивает систему..."<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      &nbsp;&nbsp;]<br>
+      }<br>
+      &lt;/script&gt;
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     FULL PAGE EXAMPLE
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="fullpage">
+  <div class="ds-section-label">Полный пример статьи — все блоки</div>
+  <div class="preview" style="max-width:720px">
+    <div class="art">
+      <h1>CRM-маркетолог: чем занимается и стоит ли нанимать</h1>
+      <div class="navigation-page">
+        <div class="wp-block-group__inner-container">
+          <p>Содержание:</p>
+          <p data-anchor="anchor_0"><span class="anchor">Кто такой CRM-маркетолог</span></p>
+          <p data-anchor="anchor_1"><span class="anchor">Что он делает</span></p>
+          <p data-anchor="anchor_2"><span class="anchor">Отличие от других</span></p>
+          <p data-anchor="anchor_3"><span class="anchor">Когда нанимать</span></p>
+        </div>
+      </div>
+      <h2 class="wp-block-heading" id="anchor_0">Кто такой CRM-маркетолог</h2>
+      <p>CRM-маркетолог — специалист, который выстраивает систему коммуникаций с клиентами. <strong>Его задача — удерживать клиентов и повышать LTV.</strong></p>
+      <div class="wp-block-group block-comment has-background" style="background-color:#fff9f0">
+        <div class="wp-block-group__inner-container">
+          <div class="block-comment__text"><p>Хороший CRM-маркетолог думает не письмами, а жизненным циклом клиента.</p></div>
+          <div class="block-comment__autor">
+            <div class="autor-photo"><img src="https://crmgroup.ru/wp-content/uploads/2024/07/sergey-semikin.jpg" alt=""></div>
+            <div><p class="autor-name">Сергей Семикин</p><p class="autor-post">Ведущий менеджер по развитию</p></div>
+          </div>
+        </div>
+      </div>
+      <h2 class="wp-block-heading" id="anchor_1">Что он делает</h2>
+      <ul class="wp-block-list">
+        <li>Разрабатывает стратегию CRM-коммуникаций</li>
+        <li>Настраивает триггерные сценарии и автоматизацию</li>
+        <li>Пишет ТЗ на письма, контролирует дизайн и вёрстку</li>
+        <li>Анализирует результаты и делает A/B-тесты</li>
+      </ul>
+      <h2 class="wp-block-heading" id="anchor_2">Отличие от других специалистов</h2>
+      <figure class="wp-block-table table is-style-regular">
+        <table class="has-fixed-layout">
+          <thead><tr><th>Специалист</th><th>Чем занимается</th></tr></thead>
+          <tbody>
+            <tr><td>CRM-маркетолог</td><td>Стратегия, все каналы, LTV</td></tr>
+            <tr><td>Email-маркетолог</td><td>Только email-рассылки</td></tr>
+            <tr><td>Аналитик</td><td>Сбор и интерпретация данных</td></tr>
+          </tbody>
+        </table>
+      </figure>
+      <h2 class="wp-block-heading" id="anchor_3">Когда нанимать</h2>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-card__number">10k+</div><div class="stat-card__label">контактов в базе</div></div>
+        <div class="stat-card"><div class="stat-card__number">3+</div><div class="stat-card__label">активных канала</div></div>
+        <div class="stat-card"><div class="stat-card__number">50k₽</div><div class="stat-card__label">бюджет на инструменты</div></div>
+      </div>
+      <div class="block-result wp-block-group has-background" style="background-color:#fff9f0">
+        <div class="wp-block-group__inner-container">
+          <h3 class="wp-block-heading block-result__heading"><a style="color:#c01020;font-weight:700" href="#">Оставьте заявку</a> — обсудим нужен ли вам CRM-маркетолог или достаточно агентства.</h3>
+        </div>
+      </div>
+      <!-- Neuro FAQ -->
+      <div class="neuro-section" style="margin-top:36px">
+        <h2 class="wp-block-heading">Частые вопросы</h2>
+        <div class="neuro-card"><div class="neuro-q">Чем занимается CRM-маркетолог?</div><div class="neuro-a">Выстраивает систему коммуникаций с клиентами через все каналы. Отвечает за удержание и LTV.</div></div>
+        <div class="neuro-card"><div class="neuro-q">Когда нужен CRM-маркетолог?</div><div class="neuro-a">При базе от 10 000 контактов и наличии 3+ каналов коммуникации.</div></div>
+      </div>
+      <div class="social-networks" style="margin-top:28px">
+        <div class="social-networks__button vk"><a href="#">ВКонтакте</a></div>
+        <div class="social-networks__button telegram"><a href="#">Telegram</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOCKS STATS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="blocks-stat">
+  <div class="ds-section-label">Статистика блоков — 30 статей</div>
+  <div class="preview">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px">
+<div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">30</div><div style="font-size:12px;color:#888;margin-top:2px">.navigation-page</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">30</div><div style="font-size:12px;color:#888;margin-top:2px">.wp-block-image</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">30</div><div style="font-size:12px;color:#888;margin-top:2px">.block-form</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">30</div><div style="font-size:12px;color:#888;margin-top:2px">.has-background</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">29</div><div style="font-size:12px;color:#888;margin-top:2px">.social-networks</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">29</div><div style="font-size:12px;color:#888;margin-top:2px">.wp-block-buttons</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">29</div><div style="font-size:12px;color:#888;margin-top:2px">.wp-block-list</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">28</div><div style="font-size:12px;color:#888;margin-top:2px">.wp-block-columns</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">19</div><div style="font-size:12px;color:#888;margin-top:2px">.block-comment</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">19</div><div style="font-size:12px;color:#888;margin-top:2px">.autor-name</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">18</div><div style="font-size:12px;color:#888;margin-top:2px">.block-result</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">14</div><div style="font-size:12px;color:#888;margin-top:2px">.wp-block-table</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">0</div><div style="font-size:12px;color:#888;margin-top:2px">.wp-block-quote</div></div><div style="background:#f8f8f8;border-radius:8px;padding:14px 18px"><div style="font-size:24px;font-weight:700;color:#c01020">0</div><div style="font-size:12px;color:#888;margin-top:2px">.stats-pattern</div></div>
+    </div>
+    <p style="font-size:13px;color:#999">Топ-40 CSS-классов по частоте использования</p>
+    <div style="margin-top:16px">
+<div class="cls-row"><span class="cls-name">.fsb-flexible-spacer__device</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">1722</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-group</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">956</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-group__inner-container</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">947</span></div>
+<div class="cls-row"><span class="cls-name">.is-layout-flow</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">689</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-fsb-flexible-spacer</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">574</span></div>
+<div class="cls-row"><span class="cls-name">.fsb-flexible-spacer</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">574</span></div>
+<div class="cls-row"><span class="cls-name">.fsb-flexible-spacer__device--lg</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">574</span></div>
+<div class="cls-row"><span class="cls-name">.fsb-flexible-spacer__device--md</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">574</span></div>
+<div class="cls-row"><span class="cls-name">.fsb-flexible-spacer__device--sm</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">574</span></div>
+<div class="cls-row"><span class="cls-name">.is-layout-constrained</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">511</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-group-is-layout-constrained</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">511</span></div>
+<div class="cls-row"><span class="cls-name">.has-background</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">477</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-group-is-layout-flow</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">406</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-heading</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">386</span></div>
+<div class="cls-row"><span class="cls-name">.size-full</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">335</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-image</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">304</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-column</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">283</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-column-is-layout-flow</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">283</span></div>
+<div class="cls-row"><span class="cls-name">.is-layout-flex</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">273</span></div>
+<div class="cls-row"><span class="cls-name">.anchor</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">217</span></div>
+<div class="cls-row"><span class="cls-name">.picture</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">200</span></div>
+<div class="cls-row"><span class="cls-name">.get-popup-content</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:100.0px"></div></div><span class="cls-cnt">200</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-columns</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:99.5px"></div></div><span class="cls-cnt">199</span></div>
+<div class="cls-row"><span class="cls-name">.wp-container-core-columns-is-layout-9d6595d7</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:99.5px"></div></div><span class="cls-cnt">199</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-columns-is-layout-flex</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:99.5px"></div></div><span class="cls-cnt">199</span></div>
+<div class="cls-row"><span class="cls-name">.block-picture</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:99.5px"></div></div><span class="cls-cnt">199</span></div>
+<div class="cls-row"><span class="cls-name">.has-white-background-color</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:99.5px"></div></div><span class="cls-cnt">199</span></div>
+<div class="cls-row"><span class="cls-name">.wp-block-list</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:96.5px"></div></div><span class="cls-cnt">193</span></div>
+<div class="cls-row"><span class="cls-name">.has-text-align-left</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:84.0px"></div></div><span class="cls-cnt">168</span></div>
+<div class="cls-row"><span class="cls-name">.wpcf7-form-control</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:75.0px"></div></div><span class="cls-cnt">150</span></div>
+<div class="cls-row"><span class="cls-name">.footnote</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:65.5px"></div></div><span class="cls-cnt">131</span></div>
+<div class="cls-row"><span class="cls-name">.has-text-color</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:58.5px"></div></div><span class="cls-cnt">117</span></div>
+<div class="cls-row"><span class="cls-name">.has-inline-color</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:50.0px"></div></div><span class="cls-cnt">100</span></div>
+<div class="cls-row"><span class="cls-name">.has-vivid-red-color</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:50.0px"></div></div><span class="cls-cnt">100</span></div>
+<div class="cls-row"><span class="cls-name">.block-sidenote__container</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:49.5px"></div></div><span class="cls-cnt">99</span></div>
+<div class="cls-row"><span class="cls-name">.block-sidenote__text</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:49.5px"></div></div><span class="cls-cnt">99</span></div>
+<div class="cls-row"><span class="cls-name">.block-sidenote</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:49.5px"></div></div><span class="cls-cnt">99</span></div>
+<div class="cls-row"><span class="cls-name">.block-sidenote__select-text</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:49.5px"></div></div><span class="cls-cnt">99</span></div>
+<div class="cls-row"><span class="cls-name">.block-sidenote__content</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:49.5px"></div></div><span class="cls-cnt">99</span></div>
+<div class="cls-row"><span class="cls-name">.autor-photo</span><div class="cls-bar-wrap"><div class="cls-bar" style="width:42.0px"></div></div><span class="cls-cnt">84</span></div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     ARTICLES LIST
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="articles">
+  <div class="ds-section-label">Все 30 проанализированных статей</div>
+  <div class="preview" style="padding:0;overflow:hidden">
+    <table class="arts-table">
+      <thead><tr><th>Заголовок</th><th>Дата</th><th>Description (Yoast)</th></tr></thead>
+      <tbody>
+<tr><td><a href="https://crmgroup.ru/blog/inhouse-vs-agency-crm/" target="_blank">In-house vs агентство: объективное сравнение для CRM-ма</a></td><td>2026-02-08</td><td>Разбор in-house и агентской модели CRM. Расчет реальной годовой стоимости, 3 гла…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/top10-game-mechanics/" target="_blank">Топ-10 проверенных игровых механик, чтобы вовлечь аудит</a></td><td>2025-04-08</td><td>Мини-игры, которые повышают активацию, вовлекают в продукт, растят продажи. Топ-…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/amp-emails-engagement/" target="_blank">Как AMP-письмо улучшает вовлечённость в email-рассылках</a></td><td>2025-03-21</td><td>Рассказываем, как AMP-письма повышают открываемость рассылок, вовлечённость и по…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/ai-email-generator-test/" target="_blank">Генерация писем с помощью нейросети: наш эксперимент с </a></td><td>2025-03-18</td><td>Насколько хороши письма, созданные нейросетью? Проверяем генератор писем и анали…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/gamification-in-marketing-tips-and-cases/" target="_blank">Геймификация в маркетинге: механики, кейсы, советы по в</a></td><td>2025-01-29</td><td>Узнайте, как геймификация помогает вовлекать клиентов и увеличивать продажи. Реа…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/crm-audit-metrics/" target="_blank">Что делать, если падают показатели в CRM-каналах: делим</a></td><td>2024-12-17</td><td>Узнайте, что делать, если падают метрики в CRM-каналах. Повышайте LTV и снижайте…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/10-vk-ads-mistakes/" target="_blank">Таргетированная реклама ВКонтакте: как избежать распрос</a></td><td>2024-10-17</td><td>Вместе с Hope Group разбираем 10 ошибок при запуске рекламы ВКонтакте и предлага…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/sales-growth-with-current-database/" target="_blank">Как увеличить продажи с помощью текущей клиентской базы</a></td><td>2024-09-10</td><td>Узнайте, как с помощью существующих клиентов увеличить продажи и сократить отток…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/top-five-crm-metrics-guide/" target="_blank">5 ключевых метрик для измерения эффективности CRM-страт</a></td><td>2024-08-15</td><td>Метрики CRM-маркетинга для бизнеса: узнайте, какие 5 показателей стоит отслежива…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/crm-marketer/" target="_blank">CRM-маркетолог: чем занимается, где его найти и стоит л</a></td><td>2024-07-24</td><td>Кто такой CRM-маркетолог, чем отличается от email-маркетолога и аккаунт-менеджер…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/domain-warmupstart-calculator/" target="_blank">Калькулятор прогрева: простой инструмент для прогрева п</a></td><td>2024-06-21</td><td>Что делать после ужесточения Gmail требований к отправителям писем: постепенный …</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/useless-benchmarks/" target="_blank">Бенчмарки полезны, но не все — где искать правильные ор</a></td><td>2024-06-07</td><td>Узнайте, в чём проблема с большинством бенчмарков и где искать статистику, котор…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/email-content/" target="_blank">Контентные рассылки: как они работают и&nbsp;правда&nbs</a></td><td>2024-04-22</td><td>Узнайте, какие задачи решит контент для рассылки. Повышаем лояльность клиентов и…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/welcome-emails-sales/" target="_blank">Как продавать в&nbsp;велком-цепочке</a></td><td>2024-04-09</td><td>Велком-цепочка — приветственные письма для только что подписавшихся. Рассказывае…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/personalization-and-automation/" target="_blank">Персонализация и автоматизация: как их подружить друг с</a></td><td>2024-04-05</td><td>Как использовать персонализацию и автоматизацию для лучших результатов. Плюсы и …</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/ctr-of-emails/" target="_blank">Как повысить кликабельность в email-рассылке: 7 способо</a></td><td>2024-02-29</td><td>Перевели статью Oracle и добавили опыт CRM-group. Как повысить CTA рассылок. Вве…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/gender-emails/" target="_blank">Тренды и антитренды в рассылках к гендерным праздникам</a></td><td>2024-02-21</td><td>Актуальные тренды и антитренды рассылок на 23 Февраля и 8 Марта. Как использоват…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/to-make-extra-money-for-the-holidays/" target="_blank">Как брендам больше заработать в праздники и сохранить п</a></td><td>2024-02-05</td><td>Поможем спланировать спецпроекты, чтобы заработать в праздники, даже если вы ран…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/doi/" target="_blank">Почему компании отказываются от DOI, и стоит ли это дел</a></td><td>2024-01-12</td><td>Double Opt-in — предмет споров маркетологов. Рассказываем, почему DOI усложняет …</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/incrementality/" target="_blank">Как правильно считать доходность в CRM-маркетинге</a></td><td>2023-12-27</td><td>Считаем доходность CRM-маркетинга через инкрементальность. Рассказываем, что так…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/barriers-in-the-customer-journey-map/" target="_blank">Работаем с барьерами клиента на каждом этапе Customer J</a></td><td>2023-12-14</td><td>С помощью Customer Journey Map помогаем клиенту преодолеть барьеры на пути к пок…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/how-to-build-omnichannel-communication/" target="_blank">Как связать общение с клиентами в единую омниканальную </a></td><td>2023-11-30</td><td>Когда разные каналы работают во взаимосвязи, создаётся омниканальная коммуникаци…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/email-checkers/" target="_blank">Как тестировать письма: что проверить перед отправкой и</a></td><td>2023-11-22</td><td>Ошибки, которые бывают в email-рассылках. Как проверить вёрстку письма, текст и …</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/promopages-cjm/" target="_blank">Как «ПромоСтраницы» помогают провести клиента по CJM</a></td><td>2023-11-08</td><td>Как «ПромоСтраницы» помогают провести клиента по этапам CJM. Какие использовать …</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/marketing-dashboard-data/" target="_blank">Как маркетологу собрать данные для дашборда</a></td><td>2023-10-31</td><td>Собираем данные для дашборда, чтобы этот инструмент решал поставленную задачу. С…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/ai-fatigue/" target="_blank">Усталость от искусственного интеллекта: почему возникае</a></td><td>2023-10-20</td><td>Почему мы устали от нейросетей. Как использовать прежний опыт, чтобы снизить уст…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/event-communication-mistakes/" target="_blank">Какие четыре ошибки в коммуникациях совершают организат</a></td><td>2023-10-11</td><td>Узнайте, как улучшить коммуникации на бизнес-мероприятиях. Как правильно взаимод…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/clickbait/" target="_blank">Стоит ли использовать кликбейтные заголовки в маркетинг</a></td><td>2023-09-28</td><td>Узнайте, как использовать кликбейтные заголовки для привлечения внимания аудитор…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/trigger-communications-map/" target="_blank">Это не просто красивые картинки: наши стандарты, чтобы </a></td><td>2023-09-21</td><td>Узнайте, какие стандарты используются в построении карты триггерных коммуникаций…</td></tr>
+<tr><td><a href="https://crmgroup.ru/blog/how-to-create-and-use-tone-of-voice/" target="_blank">Как создавать Tone of voice и редполитики, чтобы они не</a></td><td>2023-08-24</td><td>Руководство по созданию и успешному внедрению Tone of voice, редполитики и други…</td></tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     RECOMMENDATIONS
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="recs">
+  <div class="ds-section-label">⚠️ Рекомендации UX/типографа — что улучшить</div>
+
+  <div class="rec-grid">
+
+    <div class="rec-card critical" style="opacity:.5;position:relative">
+      <div class="rec-priority" style="color:#16a34a">✅ Сделано</div>
+      <div class="rec-title">Слишком яркий красный на белом</div>
+      <div class="rec-desc">#dc1327 заменён на #c01020 (-15% яркость, WCAG AA 7.2:1). Маркеры списков с opacity .75.</div>
+      <div class="rec-code">/* Было */ color: #dc1327;<br>/* Стало */ color: #c01020; /* -15% яркость */<br>/* Маркеры */ li::marker { color: #c01020; opacity: .75; }</div>
+    </div>
+
+    <div class="rec-card critical">
+      <div class="rec-priority">🔴 Критично</div>
+      <div class="rec-title">Нет FAQ-блока — упущен Яндекс.Нейро</div>
+      <div class="rec-desc">Ни в одной из 30 статей нет структурированного FAQ + Schema.org FAQPage. Яндекс.Нейро вытаскивает ответы именно из таких блоков. Это прямая потеря трафика из AI-поиска.</div>
+      <div class="rec-code">// Добавить в каждую статью:<br>// 1. Визуальный блок .neuro-card (см. выше)<br>// 2. Schema FAQPage в &lt;head&gt;<br>// 3. Ответы — 2–4 предложения, первое = прямой ответ</div>
+    </div>
+
+    <div class="rec-card critical">
+      <div class="rec-priority">🔴 Критично</div>
+      <div class="rec-title">line-height 1.7 — слишком свободно</div>
+      <div class="rec-desc">Межстрочный интервал 1.7 при font-size 16px создаёт ощущение «воздуха без смысла». Строки не считываются как единый блок, глаз теряет позицию. Оптимум для кириллицы — 1.55–1.6.</div>
+      <div class="rec-code">/* Было */ line-height: 1.7;<br>/* Стало */ line-height: 1.58;<br>/* Исключение: */ .block-comment p { line-height: 1.65; }</div>
+    </div>
+
+    <div class="rec-card major">
+      <div class="rec-priority">🟡 Важно</div>
+      <div class="rec-title">Нет визуальной иерархии между H2 и H3</div>
+      <div class="rec-desc">H2 = 24px bold, H3 = 18px bold — разница в 6px. На мониторе после 3–4 секций они сливаются. H3 нужно визуально отличать: цветом, весом или отступами.</div>
+      <div class="rec-code">h3.wp-block-heading {<br>  font-size: 17px;<br>  font-weight: 600; /* не 700 */<br>  color: #3d3d3d; /* чуть светлее h2 */<br>  padding-left: 12px;<br>  border-left: 2px solid #e8e8e8;<br>}</div>
+    </div>
+
+    <div class="rec-card major">
+      <div class="rec-priority">🟡 Важно</div>
+      <div class="rec-title">Ширина строки слишком большая</div>
+      <div class="rec-desc">Контент тянется до ~780px. При 16px это ~90–95 символов в строке. Комфортная читаемость кириллики — 65–75 символов (580–640px). Читать длинные строки утомительно.</div>
+      <div class="rec-code">/* Было */ max-width: 780px;<br>/* Стало */ max-width: 660px;<br>/* Сайдбар при этом расширить с 252 до 280px */</div>
+    </div>
+
+    <div class="rec-card major">
+      <div class="rec-priority">🟡 Важно</div>
+      <div class="rec-title">Фон страницы белый — нет разделения зон</div>
+      <div class="rec-desc">Статья на белом фоне без боковых отступов — нет ощущения «читалки». Лёгкий серый фон (#f8f9fa) и белая карточка контента создают фокус и снижают нагрузку на глаза.</div>
+      <div class="rec-code">body { background: #f5f5f5; }<br>.article-inner {<br>  background: #fff;<br>  border-radius: 12px;<br>  padding: 48px 52px;<br>  box-shadow: 0 1px 8px rgba(0,0,0,.06);<br>}</div>
+    </div>
+
+    <div class="rec-card major">
+      <div class="rec-priority">🟡 Важно</div>
+      <div class="rec-title">Отступы между блоками хаотичные</div>
+      <div class="rec-desc">fsb-flexible-spacer используется 156 раз — каждый редактор сам расставляет отступы. Нет единой системы: где-то 40px, где-то 24px. Нужна шкала 8px (8, 16, 24, 32, 48).</div>
+      <div class="rec-code">/* Система отступов 8px */ <br>--space-1: 8px;  /* внутри блока */<br>--space-2: 16px; /* между элементами */<br>--space-3: 24px; /* между блоками */<br>--space-4: 40px; /* между секциями */<br>--space-5: 64px; /* между крупными секциями */</div>
+    </div>
+
+    <div class="rec-card minor">
+      <div class="rec-priority">🟢 Улучшение</div>
+      <div class="rec-title">font-size 16px — мелковато для лонгридов</div>
+      <div class="rec-desc">Для статей 2000+ слов оптимально 17–18px. Меньше напряжения, особенно на ретине. 16px уместен для UI, но в теле длинного текста глаза устают быстрее.</div>
+      <div class="rec-code">/* Статьи */ .article-body { font-size: 17px; }<br>/* Сохранить */ .navigation-page { font-size: 14px; }<br>/* Сохранить */ figcaption { font-size: 13px; }</div>
+    </div>
+
+    <div class="rec-card minor">
+      <div class="rec-priority">🟢 Улучшение</div>
+      <div class="rec-title">Таблицы без hover и без responsive</div>
+      <div class="rec-desc">На мобиле таблицы не адаптируются — текст обрезается. Нет hover на строках. Добавить горизонтальный скролл и выделение строки при наведении.</div>
+      <div class="rec-code">figure.wp-block-table { overflow-x: auto; }<br>tbody tr:hover td {<br>  background: rgba(220,19,39,.04);<br>}</div>
+    </div>
+
+    <div class="rec-card minor">
+      <div class="rec-priority">🟢 Улучшение</div>
+      <div class="rec-title">Нет «Читайте также» между секциями</div>
+      <div class="rec-desc">Внутренняя перелинковка только в конце статьи. Вставка 1–2 ссылок внутри текста и блока «Читайте также» в середине снизит отказы и улучшит поведенческие факторы для Яндекса.</div>
+      <div class="rec-code">// Оптимальное место: после 3-го H2<br>// Формат: горизонтальные карточки 2-3 шт<br>// Якорный текст: ключевые слова, не "здесь"</div>
+    </div>
+
+    <div class="rec-card minor">
+      <div class="rec-priority">🟢 Улучшение</div>
+      <div class="rec-title">TOC без прогресс-индикатора</div>
+      <div class="rec-desc">navigation-page показывает разделы, но не подсвечивает текущий. Sticky TOC с active-состоянием держит читателя в контексте и снижает показатель отказов.</div>
+      <div class="rec-code">// IntersectionObserver на каждый anchor_N<br>// При входе в viewport → добавить .active<br>.navigation-page .anchor.active {<br>  font-weight: 700;<br>  border-left: 2px solid #dc1327;<br>  padding-left: 6px;<br>}</div>
+    </div>
+
+    <div class="rec-card minor">
+      <div class="rec-priority">🟢 Улучшение</div>
+      <div class="rec-title">Нет og:image в статьях</div>
+      <div class="rec-desc">При шаринге в Telegram/VK нет превью-картинки — пост выглядит голым текстом. Добавить og:image 1200×630px для каждой статьи через Yoast или кастомное поле.</div>
+      <div class="rec-code">&lt;meta property="og:image"<br>  content="https://crmgroup.ru/blog/SLUG/og.png"&gt;<br>&lt;meta property="og:image:width" content="1200"&gt;<br>&lt;meta property="og:image:height" content="630"&gt;</div>
+    </div>
+
+  </div>
+
+  <!-- BEFORE/AFTER -->
+  <div class="preview">
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">До и после — типографика</h3>
+    <p style="font-size:13px;color:#888;margin-bottom:20px">Как выглядит один и тот же абзац с текущими стилями и с рекомендуемыми</p>
+
+    <div class="ba-wrap">
+      <div class="ba-col">
+        <div class="ba-label before">Сейчас</div>
+        <div class="ba-box before-box" style="padding:24px">
+          <p style="font-size:16px;line-height:1.7;color:#1a1a1a;max-width:100%">
+            CRM-маркетолог выстраивает систему коммуникаций с клиентами через <a style="color:#dc1327" href="#">email, SMS, мессенджеры</a> и push-уведомления. Его задача — удерживать клиентов и повышать их ценность для бизнеса. Он не просто настраивает рассылки, а строит полноценную экосистему взаимодействия.
+          </p>
+        </div>
+      </div>
+      <div class="ba-col">
+        <div class="ba-label after">Рекомендации</div>
+        <div class="ba-box after-box" style="padding:24px;background:#fafafa">
+          <p style="font-size:17px;line-height:1.58;color:#1a1a1a;max-width:580px;font-family:'Inter',sans-serif">
+            CRM-маркетолог выстраивает систему коммуникаций с клиентами через <a style="color:#c01020" href="#">email, SMS, мессенджеры</a> и push-уведомления. Его задача — удерживать клиентов и повышать их ценность для бизнеса. Он не просто настраивает рассылки, а строит полноценную экосистему взаимодействия.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:8px">Слева: 16px lh1.7 #dc1327 ширина 780px · Справа: 17px lh1.58 #c01020 ширина 580px — заметна разница в читаемости</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOG HUB TYPOGRAPHY (2026-02-22)
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="hub-typography">
+  <div class="ds-section-label">Blog Hub /blog/ — Типографика <span class="badge" style="background:#e8f5e9;color:#2e7d32">TTSmalls/TTRuns</span></div>
+  <div class="preview" style="padding:24px">
+    <p style="font-size:14px;color:#555;margin-bottom:20px;line-height:1.6">
+      Хаб /blog/ использует <strong>TTSmalls/TTRuns</strong> (фирменный шрифт темы content_hub) с оптимизированной типографикой.
+      Статьи (.single-blog) используют <strong>Inter</strong> (DS v6).
+      <a href="font-comparison.html" style="color:#c01020">Сравнение шрифтов &rarr;</a>
+    </p>
+
+    <table class="comparison-table" style="margin-bottom:20px">
+      <thead><tr><th>Параметр</th><th>Hub (TTSmalls)</th><th>Articles (Inter)</th></tr></thead>
+      <tbody>
+        <tr><td>Font family</td><td>TTSmalls 400/500, TTRuns 700</td><td>Inter 400/500/600/700</td></tr>
+        <tr><td>Body font-size</td><td>17px</td><td>17px</td></tr>
+        <tr><td>Line-height</td><td>1.65</td><td>1.58</td></tr>
+        <tr><td>Letter-spacing</td><td>0.008em</td><td>0</td></tr>
+        <tr><td>Font smoothing</td><td class="highlight">auto (subpixel)</td><td>auto</td></tr>
+        <tr><td>Heading font</td><td>TTRuns 700</td><td>Inter 700</td></tr>
+        <tr><td>Heading letter-spacing</td><td>-0.03em</td><td>-0.4px</td></tr>
+        <tr><td>Heading text-wrap</td><td class="highlight">balance</td><td>balance</td></tr>
+        <tr><td>Desc text-wrap</td><td>pretty</td><td>—</td></tr>
+        <tr><td>Desc line-clamp</td><td class="highlight">3 строки</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note">font-smoothing: antialiased делает TTSmalls-400 слишком тонким. Используем subpixel (auto).</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOG HUB COMPONENTS (2026-02-22)
+═══════════════════════════════════════════════════════════ -->
+<div class="ds-section" id="hub-components">
+  <div class="ds-section-label">Blog Hub — Компоненты <span class="badge" style="background:#e3f2fd;color:#1565c0">NEW</span></div>
+  <div class="preview" style="padding:24px">
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Карточка статьи (.article)</h3>
+    <div style="background:#f8f8f8;border-radius:8px;padding:16px;margin-bottom:20px;font-size:13px;font-family:monospace;line-height:2;color:#334155">
+      .article { display:flex; flex-direction:column }<br>
+      .article-info { date + category + reading-time }<br>
+      .article-heading { _h3 + a link, line-height:1.35 }<br>
+      .article-desc { <strong>line-clamp:3</strong>, 17px, #4a4a4a, text-wrap:pretty }<br>
+      .button-read { margin-top:auto &rarr; all cards equal height }
+    </div>
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Чекбоксы формы (._form-checkbox)</h3>
+    <div style="background:#f8f8f8;border-radius:8px;padding:16px;margin-bottom:20px;font-size:13px;font-family:monospace;line-height:2;color:#334155">
+      input[type=checkbox] { display:none } /* hidden by theme */<br>
+      input + span::before { <strong>18x18px</strong> (was 12x12), border-radius:3px, border:1.5px solid #ccc }<br>
+      input:checked + span::before { background:#c01020, border-color:#c01020 }<br>
+      .wpcf7-not-valid-tip { <strong>position:absolute</strong> &rarr; no layout shift }
+    </div>
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Слайдер без картинки — Editorial Dark <span style="background:#e8f5e9;color:#2e7d32;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600">ACTIVE</span></h3>
+    <p style="font-size:13px;color:#555;margin-bottom:12px">Когда нет featured image, слайд становится тёмной "обложкой". Заголовок = визуал.
+      <a href="no-image-slide-concept.html" style="color:#c01020">Все 3 концепта &rarr;</a></p>
+    <div style="background:#1a1a1a;border-radius:12px;padding:24px;margin-bottom:8px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#c01020 0%,#c01020 30%,transparent)"></div>
+      <p style="color:rgba(255,255,255,0.4);font-size:12px;margin-bottom:12px">22.02.26 &middot; читать 11-18 минут</p>
+      <h3 style="color:#fff;font-family:TTRuns,sans-serif;font-size:28px;font-weight:700;line-height:1.1;margin-bottom:16px">CVM что это в&nbsp;маркетинге: полный гайд 2026</h3>
+      <span style="color:#c01020;font-weight:600;font-size:14px">Читать статью &nearr;</span>
+    </div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:16px;margin-bottom:12px;font-size:13px;font-family:monospace;line-height:2;color:#334155">
+      background: <strong>#1a1a1a</strong>, color: #fff<br>
+      ::before { height:4px; background: linear-gradient(90deg, #c01020 30%, transparent) }<br>
+      .new_article__title { font-size:<strong>42px</strong> (desktop) / <strong>36px</strong> (mobile); color:#fff }<br>
+      .button-read { color:#c01020; font-weight:600 }<br>
+      .new_article__info * { color:rgba(255,255,255,0.4) }
+    </div>
+    <details style="margin-bottom:12px">
+      <summary style="font-size:13px;font-weight:600;color:#888;cursor:pointer">Альтернативные концепты (B, C)</summary>
+      <div style="padding:12px 0;font-size:13px;color:#555;line-height:1.8">
+        <strong>B — Gradient Brand:</strong> linear-gradient(155deg, #1a1a1a, #2d1215 50%, #4a1a1f). Красная CTA-кнопка с заливкой. Нужно описание в HTML (нет).<br>
+        <strong>C — Magazine Typo:</strong> Светлый фон, ::before { content:"CVM"; font-size:160px; opacity:0.04 }. Журнальная эстетика.<br>
+        Прототип: <a href="no-image-slide-concept.html" style="color:#c01020">no-image-slide-concept.html</a>
+      </div>
+    </details>
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Висячие предлоги</h3>
+    <p style="font-size:13px;color:#555;line-height:1.6">
+      CSS <code>text-wrap: pretty/balance</code> НЕ убирает русские предлоги ("в", "и", "к") в середине строки.
+      Единственный способ: <code>&amp;nbsp;</code> в HTML-контенте. WP excerpts обновляются через REST API.
+    </p>
+  </div>
+</div>
+
+</div><!-- /ds-wrap -->
+</body>
+</html>

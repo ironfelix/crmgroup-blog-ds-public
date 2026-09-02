@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блог — CRM-Group (редизайн)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════════════════
+   CRM-GROUP BLOG HUB — REDESIGN PROTOTYPE
+   Design system: Inter / #c01020 / #1a1a1a / #f5f5f5
+   Approach: editorial, magazine-quality, Cyrillic-optimized
+   ══════════════════════════════════════════════════════════ */
+
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+
+/* ─── Design Tokens ─── */
+:root {
+  /* Brand */
+  --accent: #c01020;
+  --accent-hover: #a80e1b;
+  --accent-light: rgba(192, 16, 32, 0.06);
+  --accent-medium: rgba(192, 16, 32, 0.12);
+
+  /* Neutrals */
+  --text-primary: #1a1a1a;
+  --text-secondary: #5a5a5a;
+  --text-tertiary: #8a8a8a;
+  --text-quaternary: #b0b0b0;
+  --bg-primary: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-elevated: #fafafa;
+  --border: #e4e2dc;
+  --border-light: #eeece8;
+
+  /* Typography — Cyrillic optimized */
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+  /* Type scale (modular: 1.200 minor third) */
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 15px;
+  --fs-md: 16px;
+  --fs-lg: 18px;
+  --fs-xl: 21px;
+  --fs-2xl: 26px;
+  --fs-3xl: 34px;
+  --fs-4xl: 42px;
+
+  /* Line heights — Cyrillic needs slightly more leading */
+  --lh-tight: 1.2;
+  --lh-snug: 1.32;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.58;
+  --lh-loose: 1.72;
+
+  /* Letter spacing — Cyrillic-specific */
+  --ls-tight: -0.02em;
+  --ls-normal: 0;
+  --ls-wide: 0.02em;
+  --ls-caps: 0.08em;
+
+  /* Spacing (8px base) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 48px;
+  --sp-10: 56px;
+  --sp-11: 64px;
+  --sp-12: 80px;
+  --sp-13: 96px;
+
+  /* Layout */
+  --max-w: 1200px;
+  --content-padding: 40px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration: 0.2s;
+}
+
+/* ─── Base ─── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  font-feature-settings: 'cv01' 1, 'cv02' 1; /* Inter stylistic sets */
+}
+
+::selection {
+  background: var(--accent-medium);
+  color: var(--text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════════════════ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--text-primary);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  transition: box-shadow var(--duration) var(--ease);
+}
+.header.scrolled {
+  box-shadow: 0 1px 12px rgba(0,0,0,0.15);
+}
+.header__inner {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: var(--ls-tight);
+}
+.header__logo span { color: var(--accent); font-weight: 400; }
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-7);
+}
+.header__nav a {
+  color: rgba(255,255,255,0.75);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  transition: color var(--duration);
+  letter-spacing: var(--ls-wide);
+}
+.header__nav a:hover { color: #fff; }
+.header__nav a[aria-current="page"] { color: #fff; font-weight: 600; }
+
+.header__cta {
+  background: var(--accent);
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  transition: background var(--duration);
+}
+.header__cta:hover { background: var(--accent-hover); }
+
+/* ══════════════════════════════════════════════════════════
+   LAYOUT SHELL
+   ══════════════════════════════════════════════════════════ */
+.page-content {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+}
+
+/* ══════════════════════════════════════════════════════════
+   BREADCRUMBS
+   ══════════════════════════════════════════════════════════ */
+.breadcrumbs {
+  padding: var(--sp-5) 0 0;
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  letter-spacing: var(--ls-wide);
+}
+.breadcrumbs a {
+  color: var(--text-tertiary);
+  transition: color var(--duration);
+}
+.breadcrumbs a:hover { color: var(--accent); }
+.breadcrumbs__sep {
+  margin: 0 6px;
+  color: var(--text-quaternary);
+}
+
+/* ══════════════════════════════════════════════════════════
+   HERO SECTION
+   ══════════════════════════════════════════════════════════ */
+.hero {
+  padding: var(--sp-9) 0 var(--sp-8);
+}
+.hero__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--accent);
+  margin-bottom: var(--sp-4);
+}
+.hero__label::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.hero__title {
+  font-size: var(--fs-4xl);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-3);
+}
+.hero__subtitle {
+  font-size: var(--fs-lg);
+  color: var(--text-secondary);
+  line-height: var(--lh-normal);
+  max-width: 520px;
+  letter-spacing: var(--ls-normal);
+}
+
+/* ══════════════════════════════════════════════════════════
+   FEATURED ARTICLE (Hero Card)
+   ══════════════════════════════════════════════════════════ */
+.featured {
+  margin-bottom: var(--sp-11);
+}
+.featured__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+.featured__card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.featured__image {
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #e8e4dc 0%, #d4cfc5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.featured__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(192,16,32,0.08) 0%, transparent 60%);
+}
+.featured__image-placeholder {
+  font-size: 72px;
+  color: rgba(0,0,0,0.08);
+  z-index: 1;
+}
+.featured__body {
+  padding: var(--sp-9) var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.featured__cat {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--accent);
+  margin-bottom: var(--sp-4);
+  padding: 4px 10px;
+  background: var(--accent-light);
+  border-radius: 4px;
+  width: fit-content;
+}
+.featured__title {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--sp-4);
+  transition: color var(--duration);
+}
+.featured__card:hover .featured__title {
+  color: var(--accent);
+}
+.featured__excerpt {
+  font-size: var(--fs-base);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-6);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.featured__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+}
+.featured__meta-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-quaternary);
+}
+.featured__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--sp-6);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent);
+  transition: gap var(--duration);
+}
+.featured__card:hover .featured__cta {
+  gap: 10px;
+}
+.featured__cta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--duration);
+}
+.featured__card:hover .featured__cta svg {
+  transform: translateX(2px);
+}
+
+/* ══════════════════════════════════════════════════════════
+   CATEGORY FILTER (Horizontal pills)
+   ══════════════════════════════════════════════════════════ */
+.categories {
+  margin-bottom: var(--sp-8);
+  position: sticky;
+  top: 64px;
+  z-index: 50;
+  background: var(--bg-primary);
+  padding: var(--sp-4) 0;
+  /* Fade edges for scroll */
+}
+.categories__inner {
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 2px;
+}
+.categories__inner::-webkit-scrollbar { display: none; }
+
+.categories__pill {
+  white-space: nowrap;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: all var(--duration) var(--ease);
+  letter-spacing: var(--ls-wide);
+}
+.categories__pill:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+.categories__pill[aria-selected="true"],
+.categories__pill.active {
+  background: var(--text-primary);
+  color: #fff;
+  border-color: var(--text-primary);
+}
+.categories__count {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-left: 4px;
+}
+.categories__pill.active .categories__count {
+  color: rgba(255,255,255,0.5);
+}
+
+/* ══════════════════════════════════════════════════════════
+   ARTICLE GRID
+   ══════════════════════════════════════════════════════════ */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-7);
+  margin-bottom: var(--sp-11);
+}
+
+/* ──── Article Card ──── */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+.card__image {
+  aspect-ratio: 16/10;
+  background: linear-gradient(135deg, #eae6de 0%, #ddd8ce 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card__image-placeholder {
+  font-size: 36px;
+  color: rgba(0,0,0,0.06);
+}
+.card__body {
+  padding: var(--sp-5) var(--sp-6) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card__cat {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--accent);
+  margin-bottom: var(--sp-2);
+}
+.card__title {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--sp-3);
+  transition: color var(--duration);
+  /* Cyrillic: 2-3 lines max for card titles */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card:hover .card__title {
+  color: var(--accent);
+}
+.card__excerpt {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: var(--sp-5);
+  flex: 1;
+}
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border-light);
+}
+.card__date {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+.card__readtime {
+  font-size: var(--fs-xs);
+  color: var(--text-quaternary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.card__readtime svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.5;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION DIVIDER
+   ══════════════════════════════════════════════════════════ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-7);
+}
+.section-divider__title {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.section-divider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ══════════════════════════════════════════════════════════
+   COMPACT LIST (Older articles)
+   ══════════════════════════════════════════════════════════ */
+.articles-list {
+  margin-bottom: var(--sp-11);
+}
+.list-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--sp-7);
+  align-items: start;
+  padding: var(--sp-6) 0;
+  border-bottom: 1px solid var(--border-light);
+  transition: background var(--duration);
+}
+.list-item:first-child { border-top: 1px solid var(--border-light); }
+.list-item:hover {
+  background: var(--accent-light);
+  margin: 0 calc(-1 * var(--sp-5));
+  padding-left: var(--sp-5);
+  padding-right: var(--sp-5);
+  border-radius: 8px;
+  border-color: transparent;
+}
+.list-item:hover + .list-item { border-top-color: transparent; }
+.list-item__body {}
+.list-item__cat {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.list-item__title {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  transition: color var(--duration);
+}
+.list-item:hover .list-item__title { color: var(--accent); }
+.list-item__excerpt {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-normal);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.list-item__meta {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  padding-top: 3px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   NEWSLETTER CTA
+   ══════════════════════════════════════════════════════════ */
+.newsletter {
+  background: var(--text-primary);
+  border-radius: 16px;
+  padding: var(--sp-9) var(--sp-8);
+  margin-bottom: var(--sp-11);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-8);
+  align-items: center;
+}
+.newsletter__body {}
+.newsletter__label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--accent);
+  margin-bottom: var(--sp-3);
+}
+.newsletter__title {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  color: #fff;
+  margin-bottom: var(--sp-3);
+}
+.newsletter__desc {
+  font-size: var(--fs-sm);
+  color: rgba(255,255,255,0.55);
+  line-height: var(--lh-normal);
+}
+.newsletter__form {
+  display: flex;
+  gap: var(--sp-3);
+}
+.newsletter__input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  transition: border-color var(--duration);
+}
+.newsletter__input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+.newsletter__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.08);
+}
+.newsletter__btn {
+  padding: 14px 24px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  transition: background var(--duration);
+}
+.newsletter__btn:hover {
+  background: var(--accent-hover);
+}
+.newsletter__consent {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: var(--lh-normal);
+}
+.newsletter__consent a {
+  color: rgba(255,255,255,0.45);
+  text-decoration: underline;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PAGINATION
+   ══════════════════════════════════════════════════════════ */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-8) 0 var(--sp-12);
+}
+.pagination__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--duration) var(--ease);
+}
+.pagination__item:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+.pagination__item.current {
+  background: var(--text-primary);
+  color: #fff;
+  font-weight: 600;
+}
+.pagination__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: var(--text-tertiary);
+  transition: all var(--duration);
+}
+.pagination__arrow:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+.pagination__arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--text-primary);
+  color: rgba(255,255,255,0.45);
+  padding: var(--sp-9) 0;
+}
+.footer__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer__logo {
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+}
+.footer__logo span { color: var(--accent); }
+.footer__links {
+  display: flex;
+  gap: var(--sp-6);
+  font-size: var(--fs-xs);
+}
+.footer__links a {
+  color: rgba(255,255,255,0.45);
+  transition: color var(--duration);
+}
+.footer__links a:hover { color: #fff; }
+.footer__copy {
+  font-size: var(--fs-xs);
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE — Mobile first overrides
+   ══════════════════════════════════════════════════════════ */
+
+/* Tablet: 2-column grid */
+@media (max-width: 1024px) {
+  :root {
+    --content-padding: 32px;
+    --fs-4xl: 36px;
+    --fs-3xl: 30px;
+  }
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+  }
+  .featured__card {
+    grid-template-columns: 1fr 1.2fr;
+  }
+  .newsletter {
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
+  }
+}
+
+/* Mobile landscape / small tablet */
+@media (max-width: 768px) {
+  :root {
+    --content-padding: 20px;
+    --fs-4xl: 30px;
+    --fs-3xl: 26px;
+    --fs-2xl: 22px;
+    --fs-xl: 19px;
+  }
+
+  .header__nav a:not(.header__cta):not([aria-current]) {
+    display: none;
+  }
+  .header__nav a[aria-current="page"] {
+    display: none;
+  }
+
+  .featured__card {
+    grid-template-columns: 1fr;
+  }
+  .featured__image {
+    aspect-ratio: 16/9;
+    max-height: 220px;
+  }
+  .featured__body {
+    padding: var(--sp-6) var(--sp-5);
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+
+  .card {
+    flex-direction: row;
+  }
+  .card__image {
+    aspect-ratio: 1;
+    width: 120px;
+    flex-shrink: 0;
+  }
+  .card__body {
+    padding: var(--sp-4) var(--sp-5) var(--sp-4) 0;
+  }
+  .card__title {
+    font-size: var(--fs-md);
+    -webkit-line-clamp: 2;
+  }
+  .card__excerpt {
+    display: none;
+  }
+  .card__footer {
+    border-top: none;
+    padding-top: var(--sp-2);
+  }
+
+  .list-item {
+    grid-template-columns: 1fr;
+    gap: var(--sp-2);
+  }
+  .list-item__meta {
+    white-space: normal;
+  }
+
+  .newsletter {
+    padding: var(--sp-7) var(--sp-5);
+    border-radius: 12px;
+  }
+  .newsletter__form {
+    flex-direction: column;
+  }
+  .newsletter__title {
+    font-size: var(--fs-lg);
+  }
+
+  .footer__inner {
+    flex-direction: column;
+    gap: var(--sp-5);
+    text-align: center;
+  }
+  .footer__links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Mobile phone */
+@media (max-width: 480px) {
+  :root {
+    --content-padding: 16px;
+    --fs-4xl: 26px;
+    --fs-3xl: 22px;
+  }
+
+  .hero {
+    padding: var(--sp-7) 0 var(--sp-6);
+  }
+
+  .card__image {
+    width: 96px;
+  }
+
+  .categories__pill {
+    padding: 6px 14px;
+    font-size: var(--fs-xs);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ANIMATIONS
+   ══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: no-preference) {
+  .card,
+  .featured__card,
+  .list-item {
+    transition-duration: 0.25s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PRINT STYLES
+   ══════════════════════════════════════════════════════════ */
+@media print {
+  .header, .categories, .newsletter, .pagination, .footer { display: none; }
+  .card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  body { background: #fff; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════════════ -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="/" class="header__logo">CRM<span>Group</span></a>
+    <nav class="header__nav">
+      <a href="/services/">Услуги</a>
+      <a href="/cases/">Кейсы</a>
+      <a href="/blog/" aria-current="page">Блог</a>
+      <a href="/contacts/">Контакты</a>
+      <a href="#form" class="header__cta">Оставить заявку</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE CONTENT
+     ═══════════════════════════════════════════════════════ -->
+<main class="page-content">
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" aria-label="Навигация">
+    <a href="/">Главная</a>
+    <span class="breadcrumbs__sep">/</span>
+    <span>Блог</span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__label">Блог CRM-Group</div>
+    <h1 class="hero__title">Экспертиза<br>в CRM-маркетинге</h1>
+    <p class="hero__subtitle">Статьи про CRM-маркетинг, email-рассылки, аналитику и мессенджер-маркетинг от практикующих специалистов.</p>
+  </section>
+
+  <!-- Featured article -->
+  <section class="featured" aria-label="Главная статья">
+    <a href="/blog/customer-value-management/" class="featured__card">
+      <div class="featured__image">
+        <span class="featured__image-placeholder">CVM</span>
+      </div>
+      <div class="featured__body">
+        <span class="featured__cat">CRM-маркетинг</span>
+        <h2 class="featured__title">CVM что это в маркетинге: полный гайд 2026</h2>
+        <p class="featured__excerpt">CAC вырос на 50-70% за пять лет, и компании переходят от привлечения к удержанию. Что такое CVM (Customer Value Management), как управлять ценностью клиента и какие инструменты использовать для роста LTV.</p>
+        <div class="featured__meta">
+          <span>22 февраля 2026</span>
+          <span class="featured__meta-sep"></span>
+          <span>15 мин чтения</span>
+        </div>
+        <span class="featured__cta">
+          Читать статью
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </span>
+      </div>
+    </a>
+  </section>
+
+  <!-- Category filters -->
+  <nav class="categories" aria-label="Фильтр по рубрикам">
+    <div class="categories__inner">
+      <button class="categories__pill active" aria-selected="true">Все статьи <span class="categories__count">51</span></button>
+      <button class="categories__pill">CRM-маркетинг <span class="categories__count">33</span></button>
+      <button class="categories__pill">Email-маркетинг <span class="categories__count">21</span></button>
+      <button class="categories__pill">Аналитика <span class="categories__count">6</span></button>
+      <button class="categories__pill">Менеджмент <span class="categories__count">6</span></button>
+      <button class="categories__pill">Контент-маркетинг <span class="categories__count">4</span></button>
+      <button class="categories__pill">CJM <span class="categories__count">3</span></button>
+      <button class="categories__pill">Мессенджеры <span class="categories__count">2</span></button>
+      <button class="categories__pill">Омниканальность <span class="categories__count">2</span></button>
+      <button class="categories__pill">Дизайн <span class="categories__count">2</span></button>
+    </div>
+  </nav>
+
+  <!-- Article grid: Latest -->
+  <div class="section-divider">
+    <span class="section-divider__title">Последние статьи</span>
+    <span class="section-divider__line"></span>
+  </div>
+
+  <div class="articles-grid">
+
+    <!-- Card 1 -->
+    <a href="/blog/inhouse-vs-agency-crm/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">VS</span></div>
+      <div class="card__body">
+        <span class="card__cat">CRM-маркетинг</span>
+        <h3 class="card__title">In-house vs агентство: объективное сравнение для CRM-маркетинга</h3>
+        <p class="card__excerpt">CRM-маркетинг: нанимать сотрудников или работать с агентством? Перед вами стоит этот сложный выбор. Разбираем плюсы, минусы и реальные кейсы.</p>
+        <div class="card__footer">
+          <span class="card__date">8 февраля 2026</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            12 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="/blog/top10-game-mechanics/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">10</span></div>
+      <div class="card__body">
+        <span class="card__cat">CRM-маркетинг</span>
+        <h3 class="card__title">Топ-10 проверенных игровых механик, чтобы вовлечь аудиторию в продукт</h3>
+        <p class="card__excerpt">Как удержать внимание клиентов и повысить вовлеченность в маркетинговые кампании? Используйте игровые механики: от квизов до колеса фортуны.</p>
+        <div class="card__footer">
+          <span class="card__date">8 апреля 2025</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            10 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3 -->
+    <a href="/blog/amp-emails-engagement/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">AMP</span></div>
+      <div class="card__body">
+        <span class="card__cat">Email-маркетинг</span>
+        <h3 class="card__title">Как AMP-письмо улучшает вовлеченность в email-рассылках</h3>
+        <p class="card__excerpt">Как повысить CTR и оживить email? Попробуйте AMP-письмо! Узнайте, как интерактивные рассылки на AMP улучшают вовлеченность. Опыт Altcraft.</p>
+        <div class="card__footer">
+          <span class="card__date">21 марта 2025</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            8 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 4 -->
+    <a href="/blog/ai-email-generator-test/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">AI</span></div>
+      <div class="card__body">
+        <span class="card__cat">Email-маркетинг</span>
+        <h3 class="card__title">Генерация писем с помощью нейросети: наш эксперимент с EmailMaker</h3>
+        <p class="card__excerpt">Можно ли использовать ИИ-генератор писем для создания email-рассылок? Мы протестировали блочный конструктор и делимся результатами.</p>
+        <div class="card__footer">
+          <span class="card__date">18 марта 2025</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            7 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5 -->
+    <a href="/blog/gamification-in-marketing-tips-and-cases/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">&#9819;</span></div>
+      <div class="card__body">
+        <span class="card__cat">CRM-маркетинг</span>
+        <h3 class="card__title">Геймификация в маркетинге: механики, кейсы, советы по внедрению</h3>
+        <p class="card__excerpt">Геймификация в маркетинге: кейсы, механики, советы! Узнайте, как игровые подходы повышают продажи и лояльность клиентов.</p>
+        <div class="card__footer">
+          <span class="card__date">29 января 2025</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            14 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 6 -->
+    <a href="/blog/crm-audit-metrics/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">&#9660;</span></div>
+      <div class="card__body">
+        <span class="card__cat">Аналитика</span>
+        <h3 class="card__title">Что делать, если падают показатели в CRM-каналах</h3>
+        <p class="card__excerpt">Падает конверсия или растет стоимость привлечения клиентов? Разбираем, почему так происходит и как это диагностировать.</p>
+        <div class="card__footer">
+          <span class="card__date">17 декабря 2024</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            11 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 7 -->
+    <a href="/blog/10-vk-ads-mistakes/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">VK</span></div>
+      <div class="card__body">
+        <span class="card__cat">Реклама</span>
+        <h3 class="card__title">Таргетированная реклама ВКонтакте: как избежать ошибок и повысить эффективность</h3>
+        <p class="card__excerpt">Как настроить рекламу ВКонтакте и не допустить ошибок? Читайте советы маркетологов digital-агентства CRM-Group.</p>
+        <div class="card__footer">
+          <span class="card__date">17 октября 2024</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            9 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 8 -->
+    <a href="/blog/sales-growth-with-current-database/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">&#8593;</span></div>
+      <div class="card__body">
+        <span class="card__cat">CRM-маркетинг</span>
+        <h3 class="card__title">Как увеличить продажи с помощью текущей клиентской базы</h3>
+        <p class="card__excerpt">Как выжать максимум из текущей клиентской базы и увеличить продажи? А заодно сэкономить на привлечении новых клиентов.</p>
+        <div class="card__footer">
+          <span class="card__date">10 сентября 2024</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            10 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 9 -->
+    <a href="/blog/top-five-crm-metrics-guide/" class="card">
+      <div class="card__image"><span class="card__image-placeholder">5</span></div>
+      <div class="card__body">
+        <span class="card__cat">Аналитика</span>
+        <h3 class="card__title">5 ключевых метрик для измерения эффективности CRM-стратегии</h3>
+        <p class="card__excerpt">Пять ключевых показателей для бизнеса, которые помогут увеличить рост дохода от клиентов и добиться долгосрочного развития.</p>
+        <div class="card__footer">
+          <span class="card__date">15 августа 2024</span>
+          <span class="card__readtime">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            13 мин
+          </span>
+        </div>
+      </div>
+    </a>
+
+  </div><!-- /.articles-grid -->
+
+  <!-- Section: Older articles (compact list) -->
+  <div class="section-divider">
+    <span class="section-divider__title">Ранее в блоге</span>
+    <span class="section-divider__line"></span>
+  </div>
+
+  <div class="articles-list">
+
+    <a href="/blog/crm-marketer/" class="list-item">
+      <div class="list-item__body">
+        <span class="list-item__cat">CRM-маркетинг</span>
+        <h3 class="list-item__title">CRM-маркетолог: чем занимается, где его найти и стоит ли нанимать</h3>
+        <p class="list-item__excerpt">Как отличить CRM-маркетолога от других специалистов? Зачем он нужен компании, когда стоит его нанимать и какие задачи ставить.</p>
+      </div>
+      <span class="list-item__meta">24 июля 2024</span>
+    </a>
+
+    <a href="/blog/domain-warmupstart-calculator/" class="list-item">
+      <div class="list-item__body">
+        <span class="list-item__cat">Email-маркетинг</span>
+        <h3 class="list-item__title">Калькулятор прогрева: простой инструмент для прогрева почтового домена</h3>
+        <p class="list-item__excerpt">В феврале 2024 года Gmail ужесточил требования к отправителям писем. Теперь попасть в ящики подписчиков стало сложнее.</p>
+      </div>
+      <span class="list-item__meta">21 июня 2024</span>
+    </a>
+
+    <a href="/blog/useless-benchmarks/" class="list-item">
+      <div class="list-item__body">
+        <span class="list-item__cat">Аналитика</span>
+        <h3 class="list-item__title">Бенчмарки полезны, но не все -- где искать правильные ориентиры</h3>
+        <p class="list-item__excerpt">Признайтесь, качали отчеты с бенчмарками, которые подготовили другие компании? Разбираемся, какие бенчмарки действительно полезны.</p>
+      </div>
+      <span class="list-item__meta">7 июня 2024</span>
+    </a>
+
+    <a href="/blog/email-content/" class="list-item">
+      <div class="list-item__body">
+        <span class="list-item__cat">Email-маркетинг</span>
+        <h3 class="list-item__title">Контентные рассылки: как они работают и правда ли помогают бизнесу</h3>
+        <p class="list-item__excerpt">Чтобы контентные рассылки повышали лояльность и продажи, увеличивали Click Rate и Engagement Rate, нужно следовать определенным правилам.</p>
+      </div>
+      <span class="list-item__meta">22 апреля 2024</span>
+    </a>
+
+    <a href="/blog/welcome-emails-sales/" class="list-item">
+      <div class="list-item__body">
+        <span class="list-item__cat">Email-маркетинг</span>
+        <h3 class="list-item__title">Как продавать в велком-цепочке</h3>
+        <p class="list-item__excerpt">Традиционно велкомы создаются для онбординга пользователя, а не для продаж. Но что если велком-цепочка может делать и то, и другое?</p>
+      </div>
+      <span class="list-item__meta">9 апреля 2024</span>
+    </a>
+
+    <a href="/blog/personalization-and-automation/" class="list-item">
+      <div class="list-item__body">
+        <span class="list-item__cat">CRM-маркетинг</span>
+        <h3 class="list-item__title">Персонализация и автоматизация: как их подружить друг с другом</h3>
+        <p class="list-item__excerpt">На CRM-встречах только и разговоров, что о персонализации и автоматизации рассылок. Как найти баланс между ними?</p>
+      </div>
+      <span class="list-item__meta">5 апреля 2024</span>
+    </a>
+
+  </div>
+
+  <!-- Newsletter CTA -->
+  <section class="newsletter" aria-label="Подписка на рассылку">
+    <div class="newsletter__body">
+      <div class="newsletter__label">Рассылка CRM-Group</div>
+      <h2 class="newsletter__title">Получайте лучшие статьи на почту</h2>
+      <p class="newsletter__desc">Раз в две недели -- подборка свежих материалов по CRM-маркетингу, кейсы и полезные инструменты. Без спама.</p>
+    </div>
+    <form class="newsletter__form" action="#" method="post">
+      <input class="newsletter__input" type="email" placeholder="email@company.ru" required>
+      <button class="newsletter__btn" type="submit">Подписаться</button>
+    </form>
+    <div class="newsletter__consent">
+      Нажимая кнопку, вы соглашаетесь с <a href="/policy/">политикой конфиденциальности</a> и даете согласие на обработку персональных данных.
+    </div>
+  </section>
+
+  <!-- Pagination -->
+  <nav class="pagination" aria-label="Страницы блога">
+    <a href="#" class="pagination__arrow" aria-label="Предыдущая страница">
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4L6 9l5 5"/></svg>
+    </a>
+    <a href="#" class="pagination__item current" aria-current="page">1</a>
+    <a href="/blog/page/2/" class="pagination__item">2</a>
+    <a href="/blog/page/3/" class="pagination__item">3</a>
+    <a href="/blog/page/4/" class="pagination__item">4</a>
+    <a href="/blog/page/5/" class="pagination__item">5</a>
+    <a href="/blog/page/2/" class="pagination__arrow" aria-label="Следующая страница">
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4l5 5-5 5"/></svg>
+    </a>
+  </nav>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__logo">CRM<span>Group</span></div>
+    <div class="footer__links">
+      <a href="/services/">Услуги</a>
+      <a href="/cases/">Кейсы</a>
+      <a href="/blog/">Блог</a>
+      <a href="/contacts/">Контакты</a>
+      <a href="https://vk.com/crmgroup" target="_blank" rel="noopener">VK</a>
+      <a href="https://t.me/crmgroup" target="_blank" rel="noopener">Telegram</a>
+    </div>
+    <div class="footer__copy">&copy; 2026 CRM-Group</div>
+  </div>
+</footer>
+
+<!-- Minimal JS for header scroll effect -->
+<script>
+(function() {
+  var header = document.getElementById('header');
+  var last = 0;
+  window.addEventListener('scroll', function() {
+    var y = window.scrollY;
+    if (y > 10) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    last = y;
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>

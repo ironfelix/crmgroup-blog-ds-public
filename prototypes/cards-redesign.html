@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Group — Cards Redesign Prototype</title>
+
+<!-- Fonts -->
+<style>
+@font-face { font-family: "TTSmalls"; font-weight: 400; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Regular.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTSmalls"; font-weight: 500; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_Medium.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTSmalls"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Smalls/TT_Smalls_DemiBold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTRuns"; font-weight: 600; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_DemiBold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTRuns"; font-weight: 700; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_Bold.woff") format("woff"); font-display: swap; }
+@font-face { font-family: "TTRuns"; font-weight: 800; src: url("https://crmgroup.ru/wp-content/themes/content_hub/src/fonts/TT_Runs/TT_Runs_ExtraBold.woff") format("woff"); font-display: swap; }
+</style>
+
+<style>
+/* ─── Reset & Base ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #c01020;
+  --red-hover: #a00d1a;
+  --dark: #1a1a1a;
+  --dark-surface: #222;
+  --dark-border: #333;
+  --white-60: rgba(255,255,255,0.6);
+  --white-40: rgba(255,255,255,0.4);
+  --white-10: rgba(255,255,255,0.1);
+  --white-06: rgba(255,255,255,0.06);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --transition: 0s; }
+}
+
+body {
+  font-family: TTSmalls, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0e0e0e;
+  color: #fff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ─── Sticky Nav ─── */
+.proto-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14,14,14,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--dark-border);
+  padding: 0 24px;
+}
+.proto-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 56px;
+  overflow-x: auto;
+}
+.proto-nav__link {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white-60);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.proto-nav__link:hover { color: #fff; background: var(--white-06); }
+.proto-nav__link--active { color: #fff; background: var(--red); }
+.proto-nav__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--white-40);
+  font-weight: 600;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+/* ─── Sections ─── */
+.proto-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+.proto-section + .proto-section { border-top: 1px solid var(--dark-border); }
+.section-label {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 40px;
+}
+
+/* ═══════════════════════════════════════════
+   SERVICES A — Symmetric Grid 2×2
+   ═══════════════════════════════════════════ */
+.svc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.svc-card {
+  position: relative;
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 32px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.svc-card::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 3px;
+  height: 0;
+  background: var(--red);
+  border-radius: 0 3px 3px 0;
+  transition: height var(--transition);
+}
+.svc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+.svc-card:hover::after { height: 100%; }
+
+.svc-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--white-06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transition: background var(--transition);
+}
+.svc-card__icon svg { width: 26px; height: 26px; }
+.svc-card:hover .svc-card__icon { background: rgba(192,16,32,0.15); }
+
+.svc-card__title {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.svc-card__desc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--white-60);
+  flex: 1;
+}
+.svc-card__cta {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--dark-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white-60);
+  transition: color var(--transition);
+}
+.svc-card:hover .svc-card__cta { color: #fff; }
+.svc-card__cta-arrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.svc-card:hover .svc-card__cta-arrow { transform: translateX(4px); }
+
+/* ═══════════════════════════════════════════
+   SERVICES B — Featured Hero
+   ═══════════════════════════════════════════ */
+.svc-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 16px;
+}
+.svc-hero-card {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  position: relative;
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 40px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow var(--transition);
+}
+.svc-hero-card::before {
+  content: '';
+  position: absolute;
+  left: -40px; top: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(192,16,32,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.svc-hero-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+.svc-hero-card__eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 16px;
+  position: relative;
+}
+.svc-hero-card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--white-06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: background var(--transition);
+}
+.svc-hero-card__icon svg { width: 30px; height: 30px; }
+.svc-hero-card:hover .svc-hero-card__icon { background: rgba(192,16,32,0.15); }
+
+.svc-hero-card__title {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  position: relative;
+}
+.svc-hero-card__desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--white-60);
+  flex: 1;
+  position: relative;
+}
+.svc-hero-card__cta {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--dark-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+  transition: color var(--transition);
+}
+.svc-hero-card__cta-arrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.svc-hero-card:hover .svc-hero-card__cta-arrow { transform: translateX(4px); }
+
+/* Compact cards (right column) */
+.svc-compact {
+  grid-column: 2;
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.svc-compact::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 3px; height: 0;
+  background: var(--red);
+  border-radius: 0 3px 3px 0;
+  transition: height var(--transition);
+}
+.svc-compact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.svc-compact:hover::after { height: 100%; }
+
+.svc-compact__icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: var(--white-06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+.svc-compact__icon svg { width: 24px; height: 24px; }
+.svc-compact:hover .svc-compact__icon { background: rgba(192,16,32,0.15); }
+
+.svc-compact__text { flex: 1; min-width: 0; }
+.svc-compact__title {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.svc-compact__desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--white-60);
+  margin-bottom: 12px;
+}
+.svc-compact__cta {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white-40);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color var(--transition);
+}
+.svc-compact:hover .svc-compact__cta { color: #fff; }
+.svc-compact__cta-arrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.svc-compact:hover .svc-compact__cta-arrow { transform: translateX(3px); }
+
+/* ═══════════════════════════════════════════
+   CASES A — Metric-Forward Dark
+   ═══════════════════════════════════════════ */
+.cases-slider {
+  position: relative;
+}
+.cases-gallery {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.cases-gallery::-webkit-scrollbar { display: none; }
+
+.case-dark {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.case-dark:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.case-dark__logo {
+  height: 28px;
+  margin-bottom: 20px;
+  opacity: 0.55;
+  filter: brightness(0) invert(1);
+  object-fit: contain;
+  align-self: flex-start;
+  transition: opacity var(--transition);
+}
+.case-dark:hover .case-dark__logo { opacity: 0.8; }
+
+.case-dark__metric {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.case-dark__desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--white-60);
+  margin-bottom: 16px;
+  flex: 1;
+}
+.case-dark__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.case-dark__tag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--white-06);
+  font-size: 12px;
+  color: var(--white-40);
+  font-weight: 500;
+}
+.case-dark__cta {
+  padding-top: 16px;
+  border-top: 1px solid var(--dark-border);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white-60);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color var(--transition);
+}
+.case-dark:hover .case-dark__cta { color: #fff; }
+.case-dark__cta-arrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.case-dark:hover .case-dark__cta-arrow { transform: translateX(4px); }
+
+/* Slider controls */
+.slider-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+.slider-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--dark-border);
+  background: var(--dark);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.slider-btn:hover { background: var(--dark-surface); border-color: var(--white-40); }
+.slider-btn svg { width: 18px; height: 18px; }
+
+/* ═══════════════════════════════════════════
+   CASES B — Editorial White
+   ═══════════════════════════════════════════ */
+.cases-white-gallery {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.cases-white-gallery::-webkit-scrollbar { display: none; }
+
+.case-white {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.case-white:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.case-white__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.case-white__category {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--red);
+}
+.case-white__logo {
+  height: 24px;
+  object-fit: contain;
+  opacity: 0.35;
+  transition: opacity var(--transition);
+}
+.case-white:hover .case-white__logo { opacity: 0.6; }
+
+.case-white__metric {
+  font-family: TTRuns, sans-serif;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.case-white__desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 16px;
+}
+.case-white__divider {
+  height: 1px;
+  background: #e5e5e5;
+  margin-bottom: 16px;
+}
+.case-white__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.case-white__tag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #f5f5f5;
+  font-size: 12px;
+  color: #777;
+  font-weight: 500;
+  transition: all var(--transition);
+}
+.case-white:hover .case-white__tag { background: #fce8ea; color: var(--red); }
+
+.case-white__cta {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color var(--transition);
+}
+.case-white__cta-arrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.case-white:hover .case-white__cta-arrow { transform: translateX(4px); }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .svc-grid { grid-template-columns: 1fr; }
+
+  .svc-hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .svc-hero-card { grid-column: 1; grid-row: auto; }
+  .svc-compact { grid-column: 1; }
+  .svc-hero-card__title { font-size: 24px; }
+
+  .case-dark, .case-white { flex: 0 0 280px; }
+  .case-dark__metric { font-size: 40px; }
+  .case-white__metric { font-size: 36px; }
+
+  .slider-controls { display: none; }
+  .section-title { font-size: 26px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══ Sticky Nav ═══ -->
+<nav class="proto-nav">
+  <div class="proto-nav__inner">
+    <span class="proto-nav__label">Услуги:</span>
+    <a href="#svc-a" class="proto-nav__link proto-nav__link--active" data-target="svc-a">A. Grid 2&times;2</a>
+    <a href="#svc-b" class="proto-nav__link" data-target="svc-b">B. Featured Hero</a>
+    <span class="proto-nav__label" style="margin-left:12px">Кейсы:</span>
+    <a href="#cases-a" class="proto-nav__link" data-target="cases-a">A. Metric Dark</a>
+    <a href="#cases-b" class="proto-nav__link" data-target="cases-b">B. Editorial White</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     SERVICES A — Symmetric Grid 2×2
+     ═══════════════════════════════════════════ -->
+<section class="proto-section" id="svc-a">
+  <p class="section-label">Услуги &mdash; Вариант A</p>
+  <h2 class="section-title">Symmetric Grid 2&times;2</h2>
+
+  <div class="svc-grid">
+    <!-- Card 1: CRM-маркетинг -->
+    <a class="svc-card" href="https://crmgroup.ru/crm-marketing/">
+      <div class="svc-card__icon">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 1.875C3.05 1.875 1.875 3.05 1.875 4.5V25.5C1.875 26.95 3.05 28.125 4.5 28.125H31.5C32.95 28.125 34.125 26.95 34.125 25.5V4.5C34.125 3.05 32.95 1.875 31.5 1.875H4.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M13.764 28.125H22.236L29.058 32.023C29.598 32.331 29.785 33.019 29.477 33.558C29.169 34.098 28.481 34.285 27.942 33.977L19.125 28.939V33C19.125 33.621 18.621 34.125 18 34.125C17.379 34.125 16.875 33.621 16.875 33V28.939L8.058 33.977C7.519 34.285 6.832 34.098 6.523 33.558C6.215 33.019 6.402 32.331 6.942 32.023L13.764 28.125Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6.375 7.5C6.375 6.879 6.879 6.375 7.5 6.375H13.5C14.121 6.375 14.625 6.879 14.625 7.5C14.625 8.121 14.121 8.625 13.5 8.625H7.5C6.879 8.625 6.375 8.121 6.375 7.5Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6.375 12C6.375 11.379 6.879 10.875 7.5 10.875H15C15.621 10.875 16.125 11.379 16.125 12C16.125 12.621 15.621 13.125 15 13.125H7.5C6.879 13.125 6.375 12.621 6.375 12Z" fill="white"/><path d="M19.5 6.375C18.879 6.375 18.375 6.879 18.375 7.5V12C18.375 12.621 18.879 13.125 19.5 13.125H28.5C29.121 13.125 29.625 12.621 29.625 12V7.5C29.625 6.879 29.121 6.375 28.5 6.375H19.5Z" fill="white"/><path d="M7.5 15.375C6.879 15.375 6.375 15.879 6.375 16.5V22.5C6.375 23.121 6.879 23.625 7.5 23.625H15C15.621 23.625 16.125 23.121 16.125 22.5V16.5C16.125 15.879 15.621 15.375 15 15.375H7.5Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M19.5 16.875C20.121 16.875 20.625 17.379 20.625 18V22.5C20.625 23.121 20.121 23.625 19.5 23.625C18.879 23.625 18.375 23.121 18.375 22.5V18C18.375 17.379 18.879 16.875 19.5 16.875Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24 18.375C24.621 18.375 25.125 18.879 25.125 19.5V22.5C25.125 23.121 24.621 23.625 24 23.625C23.379 23.625 22.875 23.121 22.875 22.5V19.5C22.875 18.879 23.379 18.375 24 18.375Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M28.5 15.375C29.121 15.375 29.625 15.879 29.625 16.5V22.5C29.625 23.121 29.121 23.625 28.5 23.625C27.879 23.625 27.375 23.121 27.375 22.5V16.5C27.375 15.879 27.879 15.375 28.5 15.375Z" fill="white"/></svg>
+      </div>
+      <h3 class="svc-card__title">CRM-маркетинг</h3>
+      <p class="svc-card__desc">Построим персональную омниканальную коммуникацию с&nbsp;тысячами клиентов</p>
+      <span class="svc-card__cta">Подробнее про услугу <span class="svc-card__cta-arrow">&rarr;</span></span>
+    </a>
+
+    <!-- Card 2: Спецпроекты -->
+    <a class="svc-card" href="https://crmgroup.ru/special-projects/">
+      <div class="svc-card__icon">
+        <svg viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#sa2)"><path d="M27.625 16.875V6.375C27.625 3.268 25.107 0.75 22 0.75H7C3.893 0.75 1.375 3.268 1.375 6.375V27.375C1.375 30.482 3.893 33 7 33H12.222" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.375 9.375C7.375 8.754 7.879 8.25 8.5 8.25H20.5C21.121 8.25 21.625 8.754 21.625 9.375C21.625 9.996 21.121 10.5 20.5 10.5H8.5C7.879 10.5 7.375 9.996 7.375 9.375Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.375 16.875C7.375 16.254 7.879 15.75 8.5 15.75H20.5C21.121 15.75 21.625 16.254 21.625 16.875C21.625 17.496 21.121 18 20.5 18H8.5C7.879 18 7.375 17.496 7.375 16.875Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.375 24.375C7.375 23.754 7.879 23.25 8.5 23.25H14.5C15.121 23.25 15.625 23.754 15.625 24.375C15.625 24.996 15.121 25.5 14.5 25.5H8.5C7.879 25.5 7.375 24.996 7.375 24.375Z" fill="white"/></g><defs><clipPath id="sa2"><rect width="28.5" height="33.75" fill="white" transform="translate(0.25)"/></clipPath></defs></svg>
+      </div>
+      <h3 class="svc-card__title">Спецпроекты и&nbsp;геймификация</h3>
+      <p class="svc-card__desc">Придумаем и&nbsp;запустим игру, которая быстро монетизирует вашу базу клиентов</p>
+      <span class="svc-card__cta">Подробнее про услугу <span class="svc-card__cta-arrow">&rarr;</span></span>
+    </a>
+
+    <!-- Card 3: Дизайн-поддержка -->
+    <a class="svc-card" href="https://crmgroup.ru/design-support">
+      <div class="svc-card__icon">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.27 20.625C10.93 20.625 9.61 20.937 8.41 21.536L2.5 24.494C2.12 24.684 1.875 25.074 1.875 25.5C1.875 25.926 2.12 26.316 2.5 26.506L17.5 34.006C17.814 34.165 18.186 34.165 18.503 34.006L33.503 26.506C33.884 26.316 34.125 25.926 34.125 25.5C34.125 25.074 33.884 24.684 33.503 24.494L27.587 21.536C26.389 20.937 25.069 20.625 23.73 20.625H12.27Z" stroke="white" stroke-width="2" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.984 14.25L17.5 19.006C17.814 19.165 18.186 19.165 18.503 19.006L28.016 14.25L33.503 16.994C33.884 17.184 34.125 17.574 34.125 18C34.125 18.426 33.884 18.816 33.503 19.006L18.503 26.506C18.186 26.665 17.814 26.665 17.5 26.506L2.5 19.006C2.12 18.816 1.875 18.426 1.875 18C1.875 17.574 2.12 17.184 2.5 16.994L7.984 14.25Z" fill="white"/><path d="M18.503 1.994C18.186 1.835 17.814 1.835 17.5 1.994L2.5 9.494C2.12 9.684 1.875 10.074 1.875 10.5C1.875 10.926 2.12 11.316 2.5 11.506L17.5 19.006C17.814 19.165 18.186 19.165 18.503 19.006L33.503 11.506C33.884 11.316 34.125 10.926 34.125 10.5C34.125 10.074 33.884 9.684 33.503 9.494L18.503 1.994Z" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <h3 class="svc-card__title">Дизайн-поддержка</h3>
+      <p class="svc-card__desc">Запустим сайт или приложения, опираясь на&nbsp;исследования и&nbsp;собственный опыт</p>
+      <span class="svc-card__cta">Подробнее про услугу <span class="svc-card__cta-arrow">&rarr;</span></span>
+    </a>
+
+    <!-- Card 4: Email-шаблон -->
+    <a class="svc-card" href="https://crmgroup.ru/custom-template/">
+      <div class="svc-card__icon">
+        <svg viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.743 4.122S24.507 2.412 23.783 1.659C22.864.669 21.835.665 21.363.608 17.983.356 12.915.356 12.915.356h-.011S7.834.356 4.455.608C3.983.665 2.954.67 2.035 1.658 1.311 2.412 1.075 4.122 1.075 4.122S.834 6.13.834 8.139v1.883c0 2.009.241 4.017.241 4.017s.236 1.71.96 2.463c.919.989 2.126.958 2.663 1.061 1.932.19 8.211.25 8.211.25s5.075-.008 8.454-.26c.472-.058 1.502-.062 2.42-1.051.724-.753.96-2.463.96-2.463s.242-2.008.242-4.017V8.139c0-2.009-.242-4.017-.242-4.017zM1.433 7.099a.75.75 0 01.67-1.313l9.604 5.238a.75.75 0 00.576.001l10.357-5.243a.75.75 0 01.648 1.316L13.285 12.7a1.5 1.5 0 01-.909.001L1.432 7.098z" fill="white"/></svg>
+      </div>
+      <h3 class="svc-card__title">Email-шаблон</h3>
+      <p class="svc-card__desc">За&nbsp;3&nbsp;дня создадим фирменный шаблон письма, адаптированный под ваш бизнес</p>
+      <span class="svc-card__cta">Подробнее про услугу <span class="svc-card__cta-arrow">&rarr;</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SERVICES B — Featured Hero
+     ═══════════════════════════════════════════ -->
+<section class="proto-section" id="svc-b">
+  <p class="section-label">Услуги &mdash; Вариант B</p>
+  <h2 class="section-title">Featured Hero</h2>
+
+  <div class="svc-hero-grid">
+    <!-- Hero: CRM-маркетинг -->
+    <a class="svc-hero-card" href="https://crmgroup.ru/crm-marketing/">
+      <span class="svc-hero-card__eyebrow">Флагманская услуга</span>
+      <div class="svc-hero-card__icon">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 1.875C3.05 1.875 1.875 3.05 1.875 4.5V25.5C1.875 26.95 3.05 28.125 4.5 28.125H31.5C32.95 28.125 34.125 26.95 34.125 25.5V4.5C34.125 3.05 32.95 1.875 31.5 1.875H4.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M13.764 28.125H22.236L29.058 32.023C29.598 32.331 29.785 33.019 29.477 33.558C29.169 34.098 28.481 34.285 27.942 33.977L19.125 28.939V33C19.125 33.621 18.621 34.125 18 34.125C17.379 34.125 16.875 33.621 16.875 33V28.939L8.058 33.977C7.519 34.285 6.832 34.098 6.523 33.558C6.215 33.019 6.402 32.331 6.942 32.023L13.764 28.125Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6.375 7.5C6.375 6.879 6.879 6.375 7.5 6.375H13.5C14.121 6.375 14.625 6.879 14.625 7.5C14.625 8.121 14.121 8.625 13.5 8.625H7.5C6.879 8.625 6.375 8.121 6.375 7.5Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6.375 12C6.375 11.379 6.879 10.875 7.5 10.875H15C15.621 10.875 16.125 11.379 16.125 12C16.125 12.621 15.621 13.125 15 13.125H7.5C6.879 13.125 6.375 12.621 6.375 12Z" fill="white"/><path d="M19.5 6.375C18.879 6.375 18.375 6.879 18.375 7.5V12C18.375 12.621 18.879 13.125 19.5 13.125H28.5C29.121 13.125 29.625 12.621 29.625 12V7.5C29.625 6.879 29.121 6.375 28.5 6.375H19.5Z" fill="white"/><path d="M7.5 15.375C6.879 15.375 6.375 15.879 6.375 16.5V22.5C6.375 23.121 6.879 23.625 7.5 23.625H15C15.621 23.625 16.125 23.121 16.125 22.5V16.5C16.125 15.879 15.621 15.375 15 15.375H7.5Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M19.5 16.875C20.121 16.875 20.625 17.379 20.625 18V22.5C20.625 23.121 20.121 23.625 19.5 23.625C18.879 23.625 18.375 23.121 18.375 22.5V18C18.375 17.379 18.879 16.875 19.5 16.875Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24 18.375C24.621 18.375 25.125 18.879 25.125 19.5V22.5C25.125 23.121 24.621 23.625 24 23.625C23.379 23.625 22.875 23.121 22.875 22.5V19.5C22.875 18.879 23.379 18.375 24 18.375Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M28.5 15.375C29.121 15.375 29.625 15.879 29.625 16.5V22.5C29.625 23.121 29.121 23.625 28.5 23.625C27.879 23.625 27.375 23.121 27.375 22.5V16.5C27.375 15.879 27.879 15.375 28.5 15.375Z" fill="white"/></svg>
+      </div>
+      <h3 class="svc-hero-card__title">CRM-маркетинг</h3>
+      <p class="svc-hero-card__desc">Построим персональную омниканальную коммуникацию с&nbsp;тысячами клиентов. Сегментация, триггеры, A/B&#8209;тесты&nbsp;&mdash; всё под ключ.</p>
+      <span class="svc-hero-card__cta">Подробнее про услугу <span class="svc-hero-card__cta-arrow">&rarr;</span></span>
+    </a>
+
+    <!-- Compact 1: Спецпроекты -->
+    <a class="svc-compact" href="https://crmgroup.ru/special-projects/">
+      <div class="svc-compact__icon">
+        <svg viewBox="0 0 29 34" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#sb1)"><path d="M27.625 16.875V6.375C27.625 3.268 25.107 0.75 22 0.75H7C3.893 0.75 1.375 3.268 1.375 6.375V27.375C1.375 30.482 3.893 33 7 33H12.222" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.375 9.375C7.375 8.754 7.879 8.25 8.5 8.25H20.5C21.121 8.25 21.625 8.754 21.625 9.375C21.625 9.996 21.121 10.5 20.5 10.5H8.5C7.879 10.5 7.375 9.996 7.375 9.375Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.375 16.875C7.375 16.254 7.879 15.75 8.5 15.75H20.5C21.121 15.75 21.625 16.254 21.625 16.875C21.625 17.496 21.121 18 20.5 18H8.5C7.879 18 7.375 17.496 7.375 16.875Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.375 24.375C7.375 23.754 7.879 23.25 8.5 23.25H14.5C15.121 23.25 15.625 23.754 15.625 24.375C15.625 24.996 15.121 25.5 14.5 25.5H8.5C7.879 25.5 7.375 24.996 7.375 24.375Z" fill="white"/></g><defs><clipPath id="sb1"><rect width="28.5" height="33.75" fill="white" transform="translate(0.25)"/></clipPath></defs></svg>
+      </div>
+      <div class="svc-compact__text">
+        <h3 class="svc-compact__title">Спецпроекты и&nbsp;геймификация</h3>
+        <p class="svc-compact__desc">Придумаем и&nbsp;запустим игру, которая монетизирует базу клиентов</p>
+        <span class="svc-compact__cta">Подробнее <span class="svc-compact__cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+
+    <!-- Compact 2: Дизайн-поддержка -->
+    <a class="svc-compact" href="https://crmgroup.ru/design-support">
+      <div class="svc-compact__icon">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.27 20.625C10.93 20.625 9.61 20.937 8.41 21.536L2.5 24.494C2.12 24.684 1.875 25.074 1.875 25.5C1.875 25.926 2.12 26.316 2.5 26.506L17.5 34.006C17.814 34.165 18.186 34.165 18.503 34.006L33.503 26.506C33.884 26.316 34.125 25.926 34.125 25.5C34.125 25.074 33.884 24.684 33.503 24.494L27.587 21.536C26.389 20.937 25.069 20.625 23.73 20.625H12.27Z" stroke="white" stroke-width="2" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.984 14.25L17.5 19.006C17.814 19.165 18.186 19.165 18.503 19.006L28.016 14.25L33.503 16.994C33.884 17.184 34.125 17.574 34.125 18C34.125 18.426 33.884 18.816 33.503 19.006L18.503 26.506C18.186 26.665 17.814 26.665 17.5 26.506L2.5 19.006C2.12 18.816 1.875 18.426 1.875 18C1.875 17.574 2.12 17.184 2.5 16.994L7.984 14.25Z" fill="white"/><path d="M18.503 1.994C18.186 1.835 17.814 1.835 17.5 1.994L2.5 9.494C2.12 9.684 1.875 10.074 1.875 10.5C1.875 10.926 2.12 11.316 2.5 11.506L17.5 19.006C17.814 19.165 18.186 19.165 18.503 19.006L33.503 11.506C33.884 11.316 34.125 10.926 34.125 10.5C34.125 10.074 33.884 9.684 33.503 9.494L18.503 1.994Z" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="svc-compact__text">
+        <h3 class="svc-compact__title">Дизайн-поддержка</h3>
+        <p class="svc-compact__desc">Запустим сайт или приложения, опираясь на&nbsp;исследования и&nbsp;опыт</p>
+        <span class="svc-compact__cta">Подробнее <span class="svc-compact__cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+
+    <!-- Compact 3: Email-шаблон -->
+    <a class="svc-compact" href="https://crmgroup.ru/custom-template/">
+      <div class="svc-compact__icon">
+        <svg viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.743 4.122S24.507 2.412 23.783 1.659C22.864.669 21.835.665 21.363.608 17.983.356 12.915.356 12.915.356h-.011S7.834.356 4.455.608C3.983.665 2.954.67 2.035 1.658 1.311 2.412 1.075 4.122 1.075 4.122S.834 6.13.834 8.139v1.883c0 2.009.241 4.017.241 4.017s.236 1.71.96 2.463c.919.989 2.126.958 2.663 1.061 1.932.19 8.211.25 8.211.25s5.075-.008 8.454-.26c.472-.058 1.502-.062 2.42-1.051.724-.753.96-2.463.96-2.463s.242-2.008.242-4.017V8.139c0-2.009-.242-4.017-.242-4.017zM1.433 7.099a.75.75 0 01.67-1.313l9.604 5.238a.75.75 0 00.576.001l10.357-5.243a.75.75 0 01.648 1.316L13.285 12.7a1.5 1.5 0 01-.909.001L1.432 7.098z" fill="white"/></svg>
+      </div>
+      <div class="svc-compact__text">
+        <h3 class="svc-compact__title">Email-шаблон</h3>
+        <p class="svc-compact__desc">За&nbsp;3&nbsp;дня создадим фирменный шаблон письма для вашего бизнеса</p>
+        <span class="svc-compact__cta">Подробнее <span class="svc-compact__cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CASES A — Metric-Forward Dark
+     ═══════════════════════════════════════════ -->
+<section class="proto-section" id="cases-a">
+  <p class="section-label">Кейсы &mdash; Вариант A</p>
+  <h2 class="section-title">Metric-Forward Dark</h2>
+
+  <div class="cases-slider">
+    <div class="cases-gallery" id="casesGalleryA">
+      <!-- 1. DonorSearch -->
+      <article class="case-dark" onclick="window.open('https://crmgroup.ru/cases/special-project-for-donorsearch/')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2024/07/DonorSearch-B4znt3UF.png" alt="DonorSearch">
+        <p class="case-dark__metric">4000+</p>
+        <p class="case-dark__desc">имейлов собрали для НКО без бюджета на&nbsp;продвижение</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">Лидогенерация</span>
+          <span class="case-dark__tag">Спецпроекты</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 2. Металлург -->
+      <article class="case-dark" onclick="window.open('https://crmgroup.ru/cases/advent-calendar-metallurg/')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2024/01/logo.png" alt="Металлург">
+        <p class="case-dark__metric">+14,43%</p>
+        <p class="case-dark__desc">выросла база подписчиков ХК&nbsp;&laquo;Металлург&raquo;</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">Лидогенерация</span>
+          <span class="case-dark__tag">Спорт</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 3. Tinkoff -->
+      <article class="case-dark" onclick="window.open('https://crmgroup.ru/cases/tinkoff-special-project/')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/light.png" alt="Tinkoff">
+        <p class="case-dark__metric">14%</p>
+        <p class="case-dark__desc">конверсия в&nbsp;заявку на&nbsp;кредит</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">Банки и финансы</span>
+          <span class="case-dark__tag">Спецпроекты</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 4. Самолёт -->
+      <article class="case-dark" onclick="window.open('https://crmgroup.ru/cases/design-system/')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/samolet_infoblock_rgb-blue.png" alt="Самолёт">
+        <p class="case-dark__metric">в 3 раза</p>
+        <p class="case-dark__desc">быстрее собираем макет письма после внедрения дизайн-системы</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">Дизайн-поддержка</span>
+          <span class="case-dark__tag">Недвижимость</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 5. Miele -->
+      <article class="case-dark" onclick="window.open('https://emailsoldiers.ru/cases/miele')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/Miele_Logo_M_Red_sRGB.png" alt="Miele">
+        <p class="case-dark__metric">94 млн&nbsp;&#8381;</p>
+        <p class="case-dark__desc">принесли рассылки с&nbsp;1448 заказов</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">E-commerce</span>
+          <span class="case-dark__tag">Email-маркетинг</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 6. Vichy -->
+      <article class="case-dark" onclick="window.open('https://emailsoldiers.ru/cases/vichy-triggers')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/logo.svg" alt="Vichy">
+        <p class="case-dark__metric">+36%</p>
+        <p class="case-dark__desc">вырос средний чек по триггерным письмам</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">Email-маркетинг</span>
+          <span class="case-dark__tag">Бьюти</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 7. Burger King -->
+      <article class="case-dark" onclick="window.open('https://emailsoldiers.ru/cases/who-the-hell-is-kolya')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/Без-названия.png" alt="Burger King">
+        <p class="case-dark__metric">+75%</p>
+        <p class="case-dark__desc">выросла база адресов за&nbsp;полгода работы</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">CRM-маркетинг</span>
+          <span class="case-dark__tag">HoReCa</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 8. SPA Dream -->
+      <article class="case-dark" onclick="window.open('https://emailsoldiers.ru/cases/spadream-260')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/spadream.png" alt="SPA Dream">
+        <p class="case-dark__metric">+260%</p>
+        <p class="case-dark__desc">к&nbsp;продажам в&nbsp;интернет-магазине косметики</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">Email-маркетинг</span>
+          <span class="case-dark__tag">Бьюти</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 9. Kérastase -->
+      <article class="case-dark" onclick="window.open('https://emailsoldiers.ru/cases/kerastase-widget')">
+        <img class="case-dark__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/kerastaselogo.png" alt="Kérastase">
+        <p class="case-dark__metric">+80%</p>
+        <p class="case-dark__desc">к&nbsp;конверсии с&nbsp;помощью маленького виджета для карточки товара</p>
+        <div class="case-dark__tags">
+          <span class="case-dark__tag">CRM-маркетинг</span>
+          <span class="case-dark__tag">Бьюти</span>
+        </div>
+        <span class="case-dark__cta">Читать кейс <span class="case-dark__cta-arrow">&rarr;</span></span>
+      </article>
+    </div>
+
+    <div class="slider-controls">
+      <button class="slider-btn" aria-label="Назад" onclick="scrollSlider('casesGalleryA', -1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="slider-btn" aria-label="Вперёд" onclick="scrollSlider('casesGalleryA', 1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CASES B — Editorial White
+     ═══════════════════════════════════════════ -->
+<section class="proto-section" id="cases-b">
+  <p class="section-label">Кейсы &mdash; Вариант B</p>
+  <h2 class="section-title">Editorial White</h2>
+
+  <div class="cases-slider">
+    <div class="cases-white-gallery" id="casesGalleryB">
+      <!-- 1. DonorSearch -->
+      <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/special-project-for-donorsearch/')">
+        <div class="case-white__header">
+          <span class="case-white__category">Спецпроекты</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2024/07/DonorSearch-B4znt3UF.png" alt="DonorSearch">
+        </div>
+        <p class="case-white__metric">4000+</p>
+        <p class="case-white__desc">имейлов собрали для НКО без бюджета на&nbsp;продвижение</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">Лидогенерация</span>
+          <span class="case-white__tag">Сайты и лендинги</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 2. Металлург -->
+      <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/advent-calendar-metallurg/')">
+        <div class="case-white__header">
+          <span class="case-white__category">Спорт</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2024/01/logo.png" alt="Металлург">
+        </div>
+        <p class="case-white__metric">+14,43%</p>
+        <p class="case-white__desc">выросла база подписчиков ХК&nbsp;&laquo;Металлург&raquo;</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">Лидогенерация</span>
+          <span class="case-white__tag">Спецпроекты</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 3. Tinkoff -->
+      <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/tinkoff-special-project/')">
+        <div class="case-white__header">
+          <span class="case-white__category">Банки и финансы</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/light.png" alt="Tinkoff">
+        </div>
+        <p class="case-white__metric">14%</p>
+        <p class="case-white__desc">конверсия в&nbsp;заявку на&nbsp;кредит</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">Спецпроекты</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 4. Самолёт -->
+      <article class="case-white" onclick="window.open('https://crmgroup.ru/cases/design-system/')">
+        <div class="case-white__header">
+          <span class="case-white__category">Недвижимость</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/samolet_infoblock_rgb-blue.png" alt="Самолёт">
+        </div>
+        <p class="case-white__metric">в 3 раза</p>
+        <p class="case-white__desc">быстрее собираем макет письма после внедрения дизайн-системы</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">Бэкстейдж</span>
+          <span class="case-white__tag">Дизайн-поддержка</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 5. Miele -->
+      <article class="case-white" onclick="window.open('https://emailsoldiers.ru/cases/miele')">
+        <div class="case-white__header">
+          <span class="case-white__category">E-commerce</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/Miele_Logo_M_Red_sRGB.png" alt="Miele">
+        </div>
+        <p class="case-white__metric">94 млн&nbsp;&#8381;</p>
+        <p class="case-white__desc">принесли рассылки с&nbsp;1448 заказов</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">Email-маркетинг</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 6. Vichy -->
+      <article class="case-white" onclick="window.open('https://emailsoldiers.ru/cases/vichy-triggers')">
+        <div class="case-white__header">
+          <span class="case-white__category">Бьюти-индустрия</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/logo.svg" alt="Vichy">
+        </div>
+        <p class="case-white__metric">+36%</p>
+        <p class="case-white__desc">вырос средний чек по триггерным письмам</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">Email-маркетинг</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 7. Burger King -->
+      <article class="case-white" onclick="window.open('https://emailsoldiers.ru/cases/who-the-hell-is-kolya')">
+        <div class="case-white__header">
+          <span class="case-white__category">HoReCa</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/Без-названия.png" alt="Burger King">
+        </div>
+        <p class="case-white__metric">+75%</p>
+        <p class="case-white__desc">выросла база адресов за&nbsp;полгода работы</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">CRM-маркетинг</span>
+          <span class="case-white__tag">Лидогенерация</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 8. SPA Dream -->
+      <article class="case-white" onclick="window.open('https://emailsoldiers.ru/cases/spadream-260')">
+        <div class="case-white__header">
+          <span class="case-white__category">Бьюти-индустрия</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/spadream.png" alt="SPA Dream">
+        </div>
+        <p class="case-white__metric">+260%</p>
+        <p class="case-white__desc">к&nbsp;продажам в&nbsp;интернет-магазине косметики</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">Email-маркетинг</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+
+      <!-- 9. Kérastase -->
+      <article class="case-white" onclick="window.open('https://emailsoldiers.ru/cases/kerastase-widget')">
+        <div class="case-white__header">
+          <span class="case-white__category">Бьюти-индустрия</span>
+          <img class="case-white__logo" src="https://crmgroup.ru/wp-content/uploads/2023/08/kerastaselogo.png" alt="Kérastase">
+        </div>
+        <p class="case-white__metric">+80%</p>
+        <p class="case-white__desc">к&nbsp;конверсии с&nbsp;помощью маленького виджета для карточки товара</p>
+        <div class="case-white__divider"></div>
+        <div class="case-white__tags">
+          <span class="case-white__tag">CRM-маркетинг</span>
+          <span class="case-white__tag">Сайты и лендинги</span>
+        </div>
+        <span class="case-white__cta">Читать кейс <span class="case-white__cta-arrow">&rarr;</span></span>
+      </article>
+    </div>
+
+    <div class="slider-controls">
+      <button class="slider-btn" style="border-color:#ddd;background:#fff;color:#333" aria-label="Назад" onclick="scrollSlider('casesGalleryB', -1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="slider-btn" style="border-color:#ddd;background:#fff;color:#333" aria-label="Вперёд" onclick="scrollSlider('casesGalleryB', 1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ JavaScript ═══ -->
+<script>
+// Slider scroll
+function scrollSlider(id, dir) {
+  var gallery = document.getElementById(id);
+  var card = gallery.querySelector(':scope > *');
+  var step = card.offsetWidth + 16; // card width + gap
+  gallery.scrollBy({ left: dir * step, behavior: 'smooth' });
+}
+
+// Sticky nav active state
+(function() {
+  var links = document.querySelectorAll('.proto-nav__link[data-target]');
+  var sections = [];
+
+  links.forEach(function(link) {
+    var id = link.getAttribute('data-target');
+    var el = document.getElementById(id);
+    if (el) sections.push({ link: link, el: el });
+  });
+
+  function update() {
+    var scrollY = window.scrollY + 80;
+    var active = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].el.offsetTop <= scrollY) active = sections[i];
+    }
+    links.forEach(function(l) { l.classList.remove('proto-nav__link--active'); });
+    if (active) active.link.classList.add('proto-nav__link--active');
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+
+</body>
+</html>

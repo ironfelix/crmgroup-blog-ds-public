@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM-group Blog — Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   DESIGN SYSTEM PAGE SHELL
+   ============================================================ */
+:root {
+  /* --- Brand Colors --- */
+  --red:        #dc1327;
+  --red-light:  #fedddd;
+  --warm-bg:    #fff9f0;
+  --gray:       #999999;
+  --black:      #1a1a1a;
+  --white:      #ffffff;
+
+  /* --- Table accent colors (semi-transparent) --- */
+  --table-green: rgba(123,219,181,0.15);
+  --table-pink:  rgba(247,141,168,0.15);
+
+  /* --- Typography --- */
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --text-base:   16px;
+  --text-sm:     14px;
+  --text-lg:     18px;
+  --lh:          1.7;
+
+  /* --- Layout --- */
+  --max-width:   780px;
+  --gap:         32px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  font-size: var(--text-base);
+  line-height: var(--lh);
+  color: var(--black);
+  background: #f4f4f4;
+}
+
+a { color: var(--red); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---- DS page layout ---- */
+.ds-page { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+
+.ds-header {
+  background: var(--black);
+  color: #fff;
+  padding: 40px 40px 32px;
+  border-radius: 12px;
+  margin-bottom: 48px;
+}
+.ds-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.ds-header p  { font-size: 15px; opacity: 0.6; }
+
+.ds-section { margin-bottom: 56px; }
+.ds-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ds-row   { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
+.ds-label {
+  font-size: 11px;
+  color: #999;
+  margin-top: 8px;
+  font-family: 'SFMono-Regular', monospace;
+}
+
+/* ---- Preview wrapper ---- */
+.ds-preview {
+  background: #fff;
+  border-radius: 10px;
+  padding: 32px;
+  border: 1px solid #e8e8e8;
+}
+.ds-preview + .ds-preview { margin-top: 16px; }
+
+/* ============================================================
+   COLORS
+   ============================================================ */
+.swatch {
+  width: 80px; height: 80px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.swatch-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.swatch-name { font-size: 12px; font-weight: 600; }
+.swatch-hex  { font-size: 11px; color: #888; font-family: monospace; }
+
+
+/* ============================================================
+   ARTICLE TYPOGRAPHY (реплика реального блога)
+   ============================================================ */
+.article-body {
+  max-width: var(--max-width);
+  font-size: var(--text-base);
+  line-height: var(--lh);
+  color: var(--black);
+}
+
+.article-body h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+.article-body h2.wp-block-heading {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 40px 0 16px;
+  scroll-margin-top: 80px;
+}
+.article-body h3.wp-block-heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 28px 0 12px;
+}
+.article-body p { margin-bottom: 16px; }
+.article-body strong { font-weight: 700; }
+
+
+/* ============================================================
+   TOC — navigation-page
+   ============================================================ */
+.navigation-page {
+  background: var(--warm-bg);
+  border-left: 3px solid var(--red);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  border-radius: 0 8px 8px 0;
+}
+.navigation-page .wp-block-group__inner-container > p:first-child {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+.navigation-page p[data-anchor] {
+  margin-bottom: 6px;
+}
+.navigation-page p[data-anchor] .anchor {
+  font-size: 15px;
+  color: var(--red);
+  cursor: pointer;
+}
+.navigation-page p[data-anchor] .anchor:hover {
+  text-decoration: underline;
+}
+.navigation-page p[data-anchor]::before {
+  content: '→ ';
+  color: var(--red);
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   BLOCK-COMMENT — цитата / экспертный комментарий
+   ============================================================ */
+.wp-block-group.block-comment {
+  background-color: var(--warm-bg);
+  padding: 28px 32px;
+  border-radius: 8px;
+  margin: 32px 0;
+}
+.block-comment__text {
+  margin-bottom: 20px;
+}
+.block-comment__text p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Author row */
+.block-comment__autor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.autor-photo {
+  flex: 0 0 48px;
+}
+.autor-photo img {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.autor-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px !important;
+}
+.autor-post {
+  font-size: 13px;
+  color: var(--gray);
+  margin: 0 !important;
+}
+
+
+/* ============================================================
+   BLOCK-RESULT — итоговый CTA блок
+   ============================================================ */
+.block-result {
+  background-color: var(--warm-bg);
+  padding: 28px 32px;
+  border-radius: 8px;
+  margin: 32px 0;
+}
+.block-result__heading {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+.block-result__heading a {
+  color: var(--red);
+  font-weight: 700;
+}
+.mb-30 { margin-bottom: 0 !important; }
+
+
+/* ============================================================
+   TABLES — wp-block-table
+   ============================================================ */
+figure.wp-block-table {
+  margin: 32px 0;
+  overflow-x: auto;
+}
+.wp-block-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.wp-block-table thead tr {
+  background: #f4f3ef;
+  color: #1a1a1a;
+}
+.wp-block-table thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+}
+.wp-block-table tbody tr:nth-child(even) {
+  background: rgba(0,0,0,0.03);
+}
+.wp-block-table tbody td {
+  padding: 11px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: top;
+}
+.wp-block-table.table-green thead tr { background: #2e8b6a; }
+.wp-block-table.table-neutral thead tr { background: #444; }
+
+
+/* ============================================================
+   COLUMNS — wp-block-columns
+   ============================================================ */
+.wp-block-columns {
+  display: flex;
+  gap: 24px;
+  margin: 28px 0;
+}
+.wp-block-column { flex: 1; min-width: 0; }
+.wp-block-column p { font-size: 15px; }
+
+
+/* ============================================================
+   IMAGES — block-picture
+   ============================================================ */
+figure.wp-block-image {
+  margin: 28px 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+figure.wp-block-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+.block-picture figcaption {
+  font-size: 13px;
+  color: var(--gray);
+  text-align: center;
+  margin-top: 8px;
+}
+
+
+/* ============================================================
+   LISTS — wp-block-list
+   ============================================================ */
+.wp-block-list {
+  padding-left: 24px;
+  margin: 16px 0 24px;
+}
+.wp-block-list li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+.wp-block-list li::marker { color: var(--red); }
+
+ol.wp-block-list { list-style: decimal; }
+ol.wp-block-list li::marker { color: var(--red); font-weight: 700; }
+
+
+/* ============================================================
+   CTA BUTTONS — wp-block-buttons
+   ============================================================ */
+.wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+}
+.wp-block-button a.wp-block-button__link {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+  cursor: pointer;
+}
+.wp-block-button a.wp-block-button__link:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* Primary — красная */
+.btn-primary a.wp-block-button__link {
+  background: var(--red);
+  color: #fff;
+}
+/* Secondary — красный контур */
+.btn-outline a.wp-block-button__link {
+  background: transparent;
+  color: var(--red);
+  border: 2px solid var(--red);
+}
+/* Ghost — светло-красный */
+.btn-ghost a.wp-block-button__link {
+  background: var(--red-light);
+  color: var(--red);
+}
+
+
+/* ============================================================
+   SOCIAL SHARE — social-networks
+   ============================================================ */
+.social-networks {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 32px 0;
+}
+.social-networks__button a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.social-networks__button a:hover { opacity: 0.8; }
+.social-networks__button.vk a {
+  background: var(--red-light);
+  color: #2787F5;
+}
+.social-networks__button.telegram a {
+  background: #dff0ff;
+  color: #0088cc;
+}
+
+
+/* ============================================================
+   FLEXIBLE SPACER — fsb-flexible-spacer
+   ============================================================ */
+.wp-block-fsb-flexible-spacer {
+  display: block;
+}
+.fsb-flexible-spacer__device--lg { height: 40px; }
+.fsb-flexible-spacer__device--md { height: 24px; display: none; }
+.fsb-flexible-spacer__device--sm { height: 16px; display: none; }
+@media (max-width: 1024px) {
+  .fsb-flexible-spacer__device--lg { display: none; }
+  .fsb-flexible-spacer__device--md { display: block; }
+}
+@media (max-width: 640px) {
+  .fsb-flexible-spacer__device--md { display: none; }
+  .fsb-flexible-spacer__device--sm { display: block; }
+}
+
+
+/* ============================================================
+   HIGHLIGHTED SECTION — has-background
+   ============================================================ */
+.section-highlight {
+  background: var(--warm-bg);
+  padding: 28px 32px;
+  border-radius: 8px;
+  margin: 28px 0;
+}
+.section-highlight-pink {
+  background: var(--red-light);
+  padding: 28px 32px;
+  border-radius: 8px;
+  margin: 28px 0;
+}
+.has-inline-color.has-vivid-red-color { color: var(--red); }
+
+
+/* ============================================================
+   BLOCK-FORM — subscription CTA
+   ============================================================ */
+.block-form {
+  background: var(--black);
+  color: #fff;
+  padding: 40px 40px;
+  border-radius: 12px;
+  margin: 40px 0;
+}
+.block-form h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+}
+.block-form p {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+.form-fields {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.form-fields input[type="email"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 13px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  font-family: var(--font);
+  outline: none;
+}
+.form-fields button {
+  padding: 13px 24px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.form-fields button:hover { opacity: 0.88; }
+.form-consent {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-consent label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  opacity: 0.65;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.form-consent input[type="checkbox"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  accent-color: var(--red);
+  cursor: pointer;
+}
+.form-consent a { color: rgba(255,255,255,0.75); text-decoration: underline; }
+.form-consent a:hover { opacity: 1; }
+
+
+/* ============================================================
+   BLOCK-SIDENOTE — «Читайте также»
+   ============================================================ */
+.block-sidenote {
+  background: transparent;
+  border-left: 3px solid var(--red);
+  border-radius: 0 4px 4px 0;
+  padding: 10px 16px;
+  margin: 16px 0;
+  position: relative;
+}
+.block-sidenote__label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--gray);
+  margin-bottom: 4px;
+  display: block;
+}
+.block-sidenote a {
+  color: var(--red);
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.block-sidenote a:hover { text-decoration: underline; }
+
+
+/* ============================================================
+   CALLOUT / INFO BOX (дополнительный блок)
+   ============================================================ */
+.callout-info {
+  border-left: 3px solid #2196f3;
+  background: #e8f4fd;
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 24px 0;
+  font-size: 15px;
+}
+.callout-warning {
+  border-left: 3px solid var(--red);
+  background: var(--red-light);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 24px 0;
+  font-size: 15px;
+}
+
+
+/* ============================================================
+   СТАТИСТИКА-КАРТОЧКИ (паттерн из статей)
+   ============================================================ */
+.stats-row {
+  display: flex;
+  gap: 16px;
+  margin: 28px 0;
+  flex-wrap: wrap;
+}
+.stat-card {
+  flex: 1;
+  min-width: 140px;
+  background: var(--warm-bg);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-card__number {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-card__label {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.4;
+}
+
+
+/* ============================================================
+   DS PAGE UTILITIES
+   ============================================================ */
+.chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #eee;
+  color: #555;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+.chip.new { background: #d4edda; color: #2e7d32; }
+
+</style>
+</head>
+<body>
+<div class="ds-page">
+
+  <!-- HEADER -->
+  <div class="ds-header">
+    <h1>CRM-group Blog — Design System</h1>
+    <p>Компоненты, цвета и типографика на основе 10 живых статей crmgroup.ru · Февраль 2026</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════ COLORS ═══════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Цветовая палитра</div>
+    <div class="ds-row">
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#dc1327"></div>
+        <div class="swatch-name">Red</div>
+        <div class="swatch-hex">#dc1327</div>
+        <div class="chip">primary</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#fedddd; border-color:#f0c0c0"></div>
+        <div class="swatch-name">Red Light</div>
+        <div class="swatch-hex">#fedddd</div>
+        <div class="chip">bg / socials</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#fff9f0; border-color:#eee"></div>
+        <div class="swatch-name">Warm BG</div>
+        <div class="swatch-hex">#fff9f0</div>
+        <div class="chip">comment / result</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#1a1a1a"></div>
+        <div class="swatch-name">Black</div>
+        <div class="swatch-hex">#1a1a1a</div>
+        <div class="chip">text / form bg</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#999999"></div>
+        <div class="swatch-name">Gray</div>
+        <div class="swatch-hex">#999999</div>
+        <div class="chip">secondary text</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#ffffff; border-color:#ddd"></div>
+        <div class="swatch-name">White</div>
+        <div class="swatch-hex">#ffffff</div>
+        <div class="chip">bg</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ TYPOGRAPHY ═══════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Типографика</div>
+    <div class="ds-preview article-body">
+      <h1>Заголовок статьи H1 — CRM-маркетинг 2026</h1>
+      <div class="ds-label">.article-body h1 · 36px · 700 · ls -0.5px</div>
+
+      <h2 class="wp-block-heading" style="margin-top:32px">H2 — Раздел статьи с якорем <span style="font-size:13px;color:#999;font-weight:400">#anchor_1</span></h2>
+      <div class="ds-label">.wp-block-heading · 24px · 700</div>
+
+      <h3 class="wp-block-heading" style="margin-top:20px">H3 — Подраздел или подпункт</h3>
+      <div class="ds-label">.wp-block-heading · 18px · 700</div>
+
+      <p style="margin-top:20px">Обычный текст абзаца. Агентство специализируется на CRM-маркетинге: <strong>email-рассылки</strong>, мессенджеры, push-уведомления. Работаем с базами от 10&nbsp;000 контактов и выстраиваем автоматизацию под бизнес-цели клиента. <a href="#">Ссылка выглядит так — красный цвет</a>.</p>
+      <div class="ds-label">body · 16px · 400 · lh 1.7</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ TOC ══════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Оглавление — .navigation-page</div>
+    <div class="ds-preview">
+      <div class="navigation-page">
+        <div class="wp-block-group__inner-container">
+          <p>Содержание:</p>
+          <p data-anchor="anchor_0"><span class="anchor">Кто такой CRM-маркетолог</span></p>
+          <p data-anchor="anchor_1"><span class="anchor">Чем занимается специалист</span></p>
+          <p data-anchor="anchor_2"><span class="anchor">Отличие от email-маркетолога</span></p>
+          <p data-anchor="anchor_3"><span class="anchor">Как понять, нужен ли он компании</span></p>
+          <p data-anchor="anchor_4"><span class="anchor">Где найти CRM-маркетолога</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ BLOCK-COMMENT ════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Экспертный комментарий — .block-comment</div>
+
+    <div class="ds-preview">
+      <!-- Вариант без автора -->
+      <div class="wp-block-group block-comment has-background" style="background-color:#fff9f0">
+        <div class="wp-block-group__inner-container">
+          <div class="block-comment__text">
+            <p><strong>Для агентства репутация — это всё.</strong> Мы не можем позволить себе провалить проект клиента, потому что наш доход напрямую зависит от измеримого результата. Варимся в десятках проектов — видим больше решений.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ds-label">Без автора · bg: #fff9f0</div>
+    </div>
+
+    <div class="ds-preview">
+      <!-- Вариант с автором -->
+      <div class="wp-block-group block-comment has-background" style="background-color:#fff9f0">
+        <div class="wp-block-group__inner-container">
+          <div class="block-comment__text">
+            <p>Хороший CRM-маркетолог думает не письмами, а жизненным циклом клиента. Его главный вопрос: «что происходит с человеком между касаниями?»</p>
+          </div>
+          <div class="block-comment__autor">
+            <div class="autor-photo">
+              <img src="https://crmgroup.ru/wp-content/uploads/2024/07/sergey-semikin.jpg" alt="Сергей Семикин">
+            </div>
+            <div>
+              <p class="autor-name">Сергей Семикин</p>
+              <p class="autor-post">Ведущий менеджер по развитию</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-label">С автором · фото 48px круглое · .autor-name + .autor-post</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ BLOCK-RESULT ═════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">CTA-блок результата — .block-result</div>
+    <div class="ds-preview">
+      <div class="wp-block-group block-result has-background" style="background-color:#fff9f0">
+        <div class="wp-block-group__inner-container">
+          <h3 class="wp-block-heading h2-smalls block-result__heading mb-30">
+            <a style="color:#dc1327;font-weight:700" href="#">Оставьте заявку</a>. Проведём бесплатную консультацию и&nbsp;предложим решение под ваши задачи.
+          </h3>
+        </div>
+      </div>
+      <div class="ds-label">bg: #fff9f0 · ссылка-якорь: #dc1327 · 20px · lh 1.5</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ TABLES ═══════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Таблицы — .wp-block-table</div>
+    <div class="ds-preview">
+      <figure class="wp-block-table table is-style-regular">
+        <table class="has-fixed-layout">
+          <thead><tr>
+            <th>Специалист</th>
+            <th>Чем занимается</th>
+            <th>Канал</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>CRM-маркетолог</td><td>Разрабатывает CRM-стратегию, настраивает автоматизацию</td><td>Все каналы</td></tr>
+            <tr><td>Email-маркетолог</td><td>Настраивает рассылки в email-канале</td><td>Email</td></tr>
+            <tr><td>Менеджер проекта</td><td>Управляет процессом, координирует команду</td><td>—</td></tr>
+            <tr><td>Аналитик</td><td>Собирает и интерпретирует данные</td><td>Все каналы</td></tr>
+          </tbody>
+        </table>
+      </figure>
+      <div class="ds-label">.wp-block-table · thead: #f4f3ef (серо-бежевый) · even rows: rgba(0,0,0,.03)</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ COLUMNS ══════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Колонки — .wp-block-columns</div>
+    <div class="ds-preview article-body">
+      <div class="wp-block-columns">
+        <div class="wp-block-column">
+          <h3 class="wp-block-heading">In-house команда</h3>
+          <p>Полный контроль над процессами. Знание продукта изнутри. Быстрые итерации без согласований.</p>
+          <ul class="wp-block-list">
+            <li>Глубокое понимание бизнеса</li>
+            <li>Скорость коммуникации</li>
+            <li>Контроль данных</li>
+          </ul>
+        </div>
+        <div class="wp-block-column">
+          <h3 class="wp-block-heading">Агентство</h3>
+          <p>Экспертиза из десятков проектов. Готовые фреймворки. Масштабируемость без найма.</p>
+          <ul class="wp-block-list">
+            <li>Опыт разных ниш</li>
+            <li>Скорость запуска</li>
+            <li>Прогнозируемые расходы</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ds-label">.wp-block-columns · gap 24px · flex · равные колонки</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ LISTS ════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Списки — .wp-block-list</div>
+    <div class="ds-preview article-body">
+      <p><strong>Маркированный список:</strong></p>
+      <ul class="wp-block-list">
+        <li>Настраивать отправку писем, рассылок в мессенджерах и других каналах</li>
+        <li>Контролировать авторов, дизайнеров, верстальщиков</li>
+        <li>Отслеживать результаты кампаний и делать выводы</li>
+        <li>Внедрять инструменты автоматизации и A/B-тесты</li>
+      </ul>
+
+      <p style="margin-top:24px"><strong>Нумерованный список:</strong></p>
+      <ol class="wp-block-list">
+        <li>Определить цели CRM-стратегии</li>
+        <li>Сегментировать клиентскую базу</li>
+        <li>Настроить триггерные сценарии</li>
+        <li>Запустить и измерить результат</li>
+      </ol>
+      <div class="ds-label">marker-color: #dc1327 · 16px · lh 1.65 · mb 8px per item</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ BUTTONS ══════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Кнопки — .wp-block-buttons</div>
+    <div class="ds-preview">
+      <div class="wp-block-buttons">
+        <div class="wp-block-button btn-primary">
+          <a class="wp-block-button__link has-background wp-element-button" href="#">Получить консультацию</a>
+        </div>
+        <div class="wp-block-button btn-outline">
+          <a class="wp-block-button__link wp-element-button" href="#">Смотреть кейсы</a>
+        </div>
+        <div class="wp-block-button btn-ghost">
+          <a class="wp-block-button__link has-background wp-element-button" href="#">Подробнее</a>
+        </div>
+      </div>
+      <div class="ds-label">primary: bg #dc1327 · outline: border #dc1327 · ghost: bg #fedddd</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ SOCIAL ═══════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Соцсети — .social-networks</div>
+    <div class="ds-preview">
+      <div class="wp-block-buttons social-networks" style="justify-content:flex-start">
+        <div class="wp-block-button social-networks__button vk">
+          <a class="wp-block-button__link has-background wp-element-button" href="https://vk.com/crm_group" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2zm3.05 13.76h-1.6c-.6 0-.79-.48-1.87-1.58-.94-.92-1.35-.93-1.58-.93-.32 0-.41.09-.41.53v1.44c0 .38-.12.6-1.12.6-1.65 0-3.48-1-4.77-2.86C5.4 10.82 5 9.15 5 8.78c0-.23.09-.45.53-.45h1.6c.4 0 .55.18.7.6.77 2.22 2.06 4.17 2.6 4.17.2 0 .29-.09.29-.59V10.2c-.06-1.06-.62-1.15-.62-1.53 0-.18.15-.37.39-.37h2.52c.34 0 .46.18.46.57v3.06c0 .34.15.46.25.46.2 0 .37-.12.74-.49 1.15-1.28 1.97-3.26 1.97-3.26.11-.23.29-.44.69-.44h1.6c.48 0 .59.25.48.57-.2.93-2.16 3.7-2.16 3.7-.17.28-.23.4 0 .71.17.23.72.71 1.09 1.14.67.77 1.19 1.41 1.33 1.85.12.44-.11.67-.55.67z"/></svg>
+            ВКонтакте
+          </a>
+        </div>
+        <div class="wp-block-button social-networks__button telegram">
+          <a class="wp-block-button__link has-background wp-element-button" href="#" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.55-.47.68-.94.42l-2.6-1.91-1.25 1.2c-.14.14-.26.26-.53.26l.19-2.67 4.84-4.37c.21-.19-.05-.29-.32-.1L8.03 14.7l-2.54-.8c-.55-.17-.56-.55.12-.82l9.92-3.83c.46-.17.86.11.71.82l-.6-.07z"/></svg>
+            Telegram
+          </a>
+        </div>
+      </div>
+      <div class="ds-label">VK: bg #fedddd · Telegram: bg #dff0ff · gap 10px · centered</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ HIGHLIGHTED SECTIONS ═════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Выделенные блоки — has-background</div>
+    <div class="ds-preview article-body">
+      <div class="section-highlight">
+        <p><strong>Важно:</strong> Перед тем как нанимать CRM-маркетолога, убедитесь что у вас есть база от 10&nbsp;000 контактов и настроена CRM-система. Без этого специалист не сможет раскрыть потенциал.</p>
+      </div>
+      <div class="ds-label">Тёплый фон: bg #fff9f0 · padding 28/32 · border-radius 8px</div>
+
+      <div class="section-highlight-pink" style="margin-top:16px">
+        <p><strong>Осторожно:</strong> Не путайте CRM-маркетолога с аккаунт-менеджером. Это разные роли с разными зонами ответственности.</p>
+      </div>
+      <div class="ds-label">Светло-красный: bg #fedddd · используется реже</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ STAT CARDS ═══════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Карточки статистики (паттерн из статей)</div>
+    <div class="ds-preview">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-card__number">+32%</div>
+          <div class="stat-card__label">рост конверсии после внедрения CRM</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">2.4×</div>
+          <div class="stat-card__label">увеличение LTV за 6 месяцев</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">50+</div>
+          <div class="stat-card__label">проектов в портфеле агентства</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">78%</div>
+          <div class="stat-card__label">клиентов продлевают контракт</div>
+        </div>
+      </div>
+      <div class="ds-label">bg #fff9f0 · число: 32px #dc1327 · лейбл: 13px #999</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ BLOCK-SIDENOTE ══════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">«Читайте также» — .block-sidenote</div>
+    <div class="ds-preview">
+      <div class="block-sidenote">
+        <span class="block-sidenote__label">Читайте также</span>
+        <a href="#">Как правильно считать доходность в CRM-маркетинге</a>
+      </div>
+    </div>
+    <div class="ds-label">bg: прозрачный · left-border: 3px #dc1327 · лейбл: 11px uppercase #999 · ссылка: 16px #dc1327</div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ FORM ═════════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Форма подписки — .block-form</div>
+    <div class="ds-preview" style="padding:0; overflow:hidden; border-radius:10px">
+      <div class="block-form">
+        <h2>Подпишитесь на рассылку о&nbsp;CRM&#8209;маркетинге</h2>
+        <p>Тренды, свежие кейсы и актуальные инструкции. Без спама.</p>
+        <div class="form-fields">
+          <input type="email" placeholder="ваш@email.ru">
+          <button type="button">Подписаться</button>
+          <div class="form-consent">
+            <label>
+              <input type="checkbox" required>
+              Я&nbsp;согласен(а) на&nbsp;<a href="https://crmgroup.ru/politika-konfidencialnosti/" target="_blank">обработку персональных данных</a>
+            </label>
+            <label>
+              <input type="checkbox">
+              Я&nbsp;согласен(а) получать рекламные и&nbsp;маркетинговые материалы по&nbsp;электронной почте
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">bg #1a1a1a · заголовок белый 22px · input + кнопка в ряд · 2 чекбокса (обязательный: ПД, опциональный: рассылка)</div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ FULL ARTICLE PREVIEW ═════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Полный пример статьи — все блоки вместе</div>
+    <div class="ds-preview" style="max-width:780px">
+      <div class="article-body">
+
+        <h1>CRM-маркетолог: чем занимается и стоит ли нанимать</h1>
+
+        <div class="navigation-page">
+          <div class="wp-block-group__inner-container">
+            <p>Содержание:</p>
+            <p data-anchor="anchor_0"><span class="anchor">Кто такой CRM-маркетолог</span></p>
+            <p data-anchor="anchor_1"><span class="anchor">Что он делает</span></p>
+            <p data-anchor="anchor_2"><span class="anchor">Отличие от других специалистов</span></p>
+            <p data-anchor="anchor_3"><span class="anchor">Когда нанимать</span></p>
+          </div>
+        </div>
+
+        <h2 class="wp-block-heading" id="anchor_0">Кто такой CRM-маркетолог</h2>
+
+        <p>CRM-маркетолог — специалист, который выстраивает систему коммуникаций с клиентами через email, SMS, мессенджеры и push. Его задача — <strong>удерживать клиентов и повышать их ценность</strong> для бизнеса.</p>
+
+        <div class="wp-block-group block-comment has-background" style="background-color:#fff9f0">
+          <div class="wp-block-group__inner-container">
+            <div class="block-comment__text">
+              <p>Хороший CRM-маркетолог думает не письмами, а жизненным циклом клиента. Его главный вопрос: «что происходит с человеком между касаниями?»</p>
+            </div>
+            <div class="block-comment__autor">
+              <div class="autor-photo">
+                <img src="https://crmgroup.ru/wp-content/uploads/2024/07/sergey-semikin.jpg" alt="Сергей Семикин">
+              </div>
+              <div>
+                <p class="autor-name">Сергей Семикин</p>
+                <p class="autor-post">Ведущий менеджер по развитию</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="wp-block-heading" id="anchor_1">Что он делает</h2>
+
+        <p>Типичный список задач CRM-маркетолога в агентстве или инхаус:</p>
+
+        <ul class="wp-block-list">
+          <li>Разрабатывает стратегию CRM-коммуникаций</li>
+          <li>Настраивает триггерные сценарии и автоматизацию</li>
+          <li>Пишет ТЗ на письма, контролирует дизайн и вёрстку</li>
+          <li>Анализирует результаты и делает A/B-тесты</li>
+        </ul>
+
+        <h2 class="wp-block-heading" id="anchor_2">Отличие от других специалистов</h2>
+
+        <figure class="wp-block-table table is-style-regular">
+          <table class="has-fixed-layout">
+            <thead><tr><th>Специалист</th><th>Чем занимается</th></tr></thead>
+            <tbody>
+              <tr><td>CRM-маркетолог</td><td>Стратегия, автоматизация, все каналы</td></tr>
+              <tr><td>Email-маркетолог</td><td>Только email-рассылки</td></tr>
+              <tr><td>Менеджер проекта</td><td>Координация, дедлайны, клиент</td></tr>
+            </tbody>
+          </table>
+        </figure>
+
+        <h2 class="wp-block-heading" id="anchor_3">Когда нанимать</h2>
+
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-card__number">10k+</div><div class="stat-card__label">контактов в базе</div></div>
+          <div class="stat-card"><div class="stat-card__number">3+</div><div class="stat-card__label">активных канала</div></div>
+          <div class="stat-card"><div class="stat-card__number">50k₽</div><div class="stat-card__label">бюджет на инструменты</div></div>
+        </div>
+
+        <div class="wp-block-group block-result has-background" style="background-color:#fff9f0">
+          <div class="wp-block-group__inner-container">
+            <h3 class="wp-block-heading block-result__heading">
+              <a style="color:#dc1327;font-weight:700" href="#">Оставьте заявку</a> — обсудим, нужен ли вам CRM-маркетолог или достаточно агентства.
+            </h3>
+          </div>
+        </div>
+
+        <div class="wp-block-buttons social-networks" style="margin-top:24px">
+          <div class="wp-block-button social-networks__button vk">
+            <a class="wp-block-button__link has-background" style="background:#fedddd;color:#2787F5;padding:10px 20px;border-radius:6px;font-weight:600;font-size:14px" href="#">ВКонтакте</a>
+          </div>
+          <div class="wp-block-button social-networks__button telegram">
+            <a class="wp-block-button__link has-background" style="background:#dff0ff;color:#0088cc;padding:10px 20px;border-radius:6px;font-weight:600;font-size:14px" href="#">Telegram</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ CSS CLASSES REFERENCE ════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">Справочник CSS-классов</div>
+    <div class="ds-preview" style="font-family:monospace;font-size:13px;line-height:2">
+      <strong>Структура:</strong><br>
+      .navigation-page — оглавление<br>
+      .wp-block-group — универсальный контейнер<br>
+      .wp-block-group__inner-container — внутренний wrapper<br>
+      .wp-block-columns / .wp-block-column — сетка колонок<br>
+      .wp-block-fsb-flexible-spacer — адаптивный отступ<br><br>
+
+      <strong>Блоки:</strong><br>
+      .block-comment — цитата/комментарий эксперта<br>
+      .block-comment__text — текст цитаты<br>
+      .block-comment__autor — строка автора<br>
+      .autor-photo / .autor-name / .autor-post — данные автора<br>
+      .block-result — CTA-блок с результатом<br>
+      .block-result__heading — заголовок CTA (.h2-smalls)<br>
+      .block-form — форма подписки<br>
+      .block-picture / .picture — обёртка изображения<br><br>
+
+      <strong>Типографика:</strong><br>
+      .wp-block-heading — заголовки H2/H3<br>
+      .wp-block-list — списки ul/ol<br>
+      .wp-block-table / .table — таблицы<br>
+      .has-inline-color.has-vivid-red-color — красный текст<br>
+      .h2-smalls — уменьшенный H2 (для CTA)<br><br>
+
+      <strong>Кнопки:</strong><br>
+      .wp-block-buttons — контейнер кнопок<br>
+      .wp-block-button — обёртка кнопки<br>
+      .wp-block-button__link — сама кнопка (тег &lt;a&gt;)<br>
+      .social-networks / .social-networks__button — соцсети<br>
+      .social-networks__button.vk / .telegram — конкретная сеть<br><br>
+
+      <strong>Модификаторы:</strong><br>
+      .has-background — блок с фоном<br>
+      .alignfull — блок на всю ширину<br>
+      .is-layout-flex / .is-layout-flow / .is-layout-constrained<br>
+      .is-style-regular / .is-style-default — стили таблиц<br>
+      data-anchor="anchor_N" — якорь для TOC
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════ JAVASCRIPT ════════════════ -->
+  <div class="ds-section">
+    <div class="ds-section-title">JavaScript — сниппеты для темы</div>
+
+    <div class="ds-preview" style="background:#1a1a1a; color:#e8e8e8; font-family:monospace; font-size:13px; line-height:1.7; padding:24px 28px; border-radius:10px;">
+      <div style="color:#999; font-size:11px; text-transform:uppercase; letter-spacing:0.7px; margin-bottom:12px;">Прогресс-бар чтения · wp_head hook или плагин «Вставка кода»</div>
+<pre style="margin:0; white-space:pre-wrap; color:#e8e8e8;">document.addEventListener('DOMContentLoaded', () => {
+  document.body.insertAdjacentHTML('afterbegin',
+    '&lt;div class="reading-progress"&gt;&lt;div class="reading-progress__bar" id="rpBar"&gt;&lt;/div&gt;&lt;/div&gt;');
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement;
+    const pct = s.scrollTop / (s.scrollHeight - s.clientHeight) * 100;
+    document.getElementById('rpBar').style.width = pct + '%';
+  }, { passive: true });
+});</pre>
+      <div style="color:#999; font-size:12px; margin-top:12px;">CSS для бара — в WordPress Custom CSS (секция «Reading Progress Bar»)</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

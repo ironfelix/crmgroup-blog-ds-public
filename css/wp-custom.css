@@ -1,0 +1,2260 @@
+/* Inter font: загружается через <link> в mu-plugin (crm-custom-styles.php v1.3).
+   @import убран — создавал render-blocking chain +400ms. */
+
+/* ====================================================
+   P0 CHANGELOG (2026-02-22)
+   Бэкап: css/wp-custom-v6-backup-2026-02-22.css
+   Откат: cp css/wp-custom-v6-backup-2026-02-22.css css/wp-custom.css
+   ---
+   P0.1: #dc1327 → #c01020 (весь файл), hover #b80f1f → #b10e1d
+         rgba(220,19,39) → rgba(192,16,32)
+   P0.2: Blog hub font override → Inter (блок перед HEADER MENU)
+   P0.3: line-height 1.78 → 1.58 (уже в v4 overrides, строка ~979)
+   ==================================================== */
+
+/* ====================================================
+   READING PROGRESS BAR — красная полоска вверху статьи
+   ==================================================== */
+.reading-progress {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 0%;
+  right: auto !important;
+  height: 3px !important;
+  background: #c01020 !important;
+  z-index: 99999 !important;
+  transition: width 50ms linear !important;
+  pointer-events: none !important;
+}
+
+/* ====================================================
+   GLOBAL COLOR OVERRIDE — единый красный акцент
+   Тема использует --color-accent-red: #FD3939 повсюду.
+   Переопределяем на DS-токен #c01020 (WCAG AA 7.2:1).
+   Это фиксит: кнопки, ссылки, hover, footer, header, breadcrumbs.
+   ==================================================== */
+:root {
+  --color-accent-red: #c01020 !important;
+  --button-bg: #c01020 !important;
+  --button-bg-hover: #a80e1c !important;
+  --input-button: #c01020 !important;
+}
+
+/* ====================================================
+   СУЩЕСТВУЮЩИЙ CSS САЙТА (не трогаем)
+   ==================================================== */
+html, body { overflow-x: hidden; }
+body { max-width: 100vw; }
+.bann-bg-9  { background-image: url("/wp-content/themes/content_hub/public/img/bann-bg-9.svg");  background-size: cover; background-position: center; }
+.bann-bg-10 { background-image: url("/wp-content/themes/content_hub/public/img/bann-bg-10.svg"); background-size: cover; background-position: center; }
+.bann-bg-11 { background-image: url("/wp-content/themes/content_hub/public/img/bann-bg-11.svg"); background-size: cover; background-position: center; }
+.wp-block-list:not(.num-list) li:not([class])::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: currentColor; margin-right: 10px; vertical-align: middle; margin-top: -2px; }
+.policy_text { display: inline !important; }
+input[type=submit][disabled] { cursor: no-drop !important; opacity: 0.5 !important; }
+.wp-block-video video { max-height: 500px; background: black; }
+
+
+/* ====================================================
+   CRM DESIGN SYSTEM v6 — Blog Articles
+   ==================================================== */
+
+body.single-blog {
+  background: #f7f6f3 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* ── Layout: скрываем ghost-колонку, базовые отступы ── */
+.single-blog .column.footnotes-sidebar { display: none !important; }
+/* Статейная колонка — прямой потомок container-columns (не матчит sticky-block) */
+body.single-blog .singlepost .container-columns > .column {
+  flex-grow: 1 !important; min-width: 0 !important;
+  margin-left: 120px !important; margin-right: 120px !important;
+  padding: 0 !important; width: 100% !important; max-width: 100% !important;
+}
+
+/* ── Скрываем in-content оглавление (спейсеры внутри navigation-page скрываются вместе с ним) ── */
+.single-blog .navigation-page,
+.single-blog .section-content .navigation-page { display: none !important; }
+
+/* ── Базовая типографика ── */
+.single-blog .section-content,
+.single-blog .section-content p,
+.single-blog .section-content li,
+.single-blog .section-content td {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px; line-height: 1.78; color: #1a1a1a;
+}
+
+/* ── Отступы между абзацами ── */
+.single-blog .section-content p { margin-bottom: 24px !important; }
+.single-blog .section-content p:last-child { margin-bottom: 0 !important; }
+
+/* ── Лид-абзац: класс is-lead ставим на первый абзац вручную в WP ── */
+.single-blog .section-content .is-lead {
+  font-size: 18.5px !important; line-height: 1.72 !important; color: #2d2d2d !important;
+}
+
+/* ── Ссылки в тексте статьи ── */
+.single-blog .section-content a:not([class]) {
+  color: #c01020 !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(192,16,32,0.3) !important;
+}
+.single-blog .section-content a:not([class]):hover {
+  text-decoration-color: #c01020 !important;
+}
+
+/* ── Blockquote ── */
+.single-blog .section-content blockquote,
+.single-blog .section-content .wp-block-quote {
+  border-left: 3px solid #c01020 !important;
+  background: #fffbf5 !important;
+  margin: 28px 0 !important; padding: 16px 22px !important;
+  border-radius: 0 8px 8px 0 !important;
+}
+.single-blog .section-content blockquote p,
+.single-blog .section-content .wp-block-quote p {
+  font-size: 17px !important; font-style: italic !important;
+  color: #2a2a2a !important; margin: 0 !important;
+}
+
+/* ── Подписи к изображениям ── */
+.single-blog .section-content figcaption,
+.single-blog .section-content .wp-element-caption {
+  font-size: 13px !important; color: #8a8a8a !important;
+  text-align: center !important; margin-top: 8px !important;
+  line-height: 1.5 !important; font-style: normal !important;
+}
+
+/* ── Заголовки ── */
+.single-blog .section-content h2.wp-block-heading {
+  font-family: Inter, -apple-system, sans-serif !important;
+  font-size: 26px !important; font-weight: 700 !important; line-height: 1.25 !important;
+  color: #1a1a1a !important; border-top: 2px solid #e4e2dc !important;
+  padding-top: 24px !important; margin-top: 52px !important;
+  margin-bottom: 20px !important; letter-spacing: -0.2px !important;
+}
+.single-blog .section-content h3.wp-block-heading {
+  font-family: Inter, -apple-system, sans-serif !important;
+  font-size: 19px !important; font-weight: 600 !important; line-height: 1.35 !important;
+  color: #1a1a1a !important; margin-top: 32px !important; margin-bottom: 12px !important;
+}
+
+/* ── «Читайте также» / Словарь (block-sidenote) ── */
+.single-blog .section-content .block-sidenote::before,
+.single-blog .section-content .block-sidenote::after { display: none !important; content: none !important; }
+.single-blog .section-content .block-sidenote {
+  position: static !important; transform: none !important; left: auto !important;
+  max-width: 68ch !important; background: transparent !important;
+  background-color: transparent !important; border: none !important;
+  border-left: 3px solid #c01020 !important; border-radius: 0 4px 4px 0 !important;
+  padding: 10px 16px !important; margin: 8px 0 24px !important;
+  font-family: Inter, sans-serif !important;
+}
+.single-blog .section-content .block-sidenote__content .mb-16 {
+  font-size: 11px !important; font-weight: 600 !important; text-transform: uppercase !important;
+  letter-spacing: 0.7px !important; color: #8a8a8a !important; margin-bottom: 4px !important;
+  display: block !important; font-family: Inter, sans-serif !important;
+}
+.single-blog .section-content .block-sidenote a {
+  font-size: 16px !important; color: #c01020 !important; font-weight: 400 !important;
+  text-decoration: none !important; line-height: 1.5 !important;
+}
+.single-blog .section-content .block-sidenote a:hover { text-decoration: underline !important; }
+.single-blog .section-content .block-sidenote__select-text { display: none !important; }
+
+/* ── FSB-спейсеры: скрываем, отступы управляются через margin ── */
+.single-blog .section-content .wp-block-fsb-flexible-spacer { display: none !important; }
+
+/* ── Wrapper-группа вокруг block-picture: сброс отступов ── */
+.single-blog .section-content .wp-block-group:not([class*="block-"]):not(.has-background) {
+  margin: 0 !important; padding: 0 !important;
+}
+
+/* ── Формула / картинка (block-picture) ── */
+.single-blog .section-content .block-picture {
+  background: #ffffff !important; border: 1px solid #e4e2dc !important;
+  border-radius: 12px !important; padding: 20px !important; margin: 24px 0 !important;
+  text-align: center !important; box-shadow: none !important; max-width: 68ch !important;
+}
+.single-blog .section-content .block-picture p {
+  font-size: 15px !important; color: #8a8a8a !important; margin-top: 10px !important; line-height: 1.5 !important;
+}
+.single-blog .section-content .block-picture__formula {
+  font-size: 18px !important; font-weight: 600 !important; color: #1a1a1a !important;
+}
+
+/* ── Экспертный комментарий (block-comment) ── */
+.single-blog .section-content .block-comment::before,
+.single-blog .section-content .block-comment::after { display: none !important; content: none !important; }
+.single-blog .section-content .block-comment {
+  background: #fffbf5 !important; background-color: #fffbf5 !important;
+  border: 1px solid #f0e8d4 !important; border-left: 4px solid #e8a838 !important;
+  border-radius: 0 12px 12px 0 !important; padding: 22px 24px 18px !important;
+  margin: 28px 0 !important; max-width: 68ch !important;
+}
+.single-blog .section-content .block-comment__text p {
+  font-size: 16px !important; line-height: 1.7 !important;
+  color: #1a1a1a !important; font-style: normal !important;
+}
+.single-blog .section-content .block-comment__autor {
+  display: flex !important; align-items: center !important; gap: 12px !important;
+  margin-top: 16px !important; padding-top: 14px !important;
+  border-top: 1px solid #f0e8d4 !important;
+}
+.single-blog .section-content .block-comment__autor .autor-photo {
+  flex: 0 0 44px !important; width: 44px !important; height: 44px !important;
+}
+.single-blog .section-content .block-comment__autor .autor-photo img {
+  width: 44px !important; height: 44px !important; border-radius: 50% !important;
+  object-fit: cover !important; display: block !important;
+}
+.single-blog .section-content .block-comment__autor .autor-name {
+  font-weight: 600 !important; font-size: 14px !important; color: #1a1a1a !important;
+  font-style: normal !important; margin: 0 0 2px !important; line-height: 1.3 !important;
+}
+.single-blog .section-content .block-comment__autor .autor-post {
+  font-size: 13px !important; color: #8a8a8a !important;
+  font-style: normal !important; margin: 0 !important; line-height: 1.3 !important;
+}
+
+/* Fix: WP генерирует wp-block-columns вместо простого flex */
+.single-blog .section-content .block-comment__autor.wp-block-columns {
+  gap: 12px !important; align-items: center !important;
+  flex-wrap: nowrap !important; margin: 16px 0 0 !important;
+  padding-top: 14px !important; border-top: 1px solid #f0e8d4 !important;
+}
+.single-blog .section-content .block-comment__autor .autor-photo.wp-block-column {
+  flex-basis: 44px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
+  min-width: 44px !important; width: 44px !important; padding: 0 !important; margin: 0 !important;
+}
+.single-blog .section-content .block-comment__autor .autor-photo figure,
+.single-blog .section-content .block-comment__autor .autor-photo figure.wp-block-image {
+  margin: 0 !important; padding: 0 !important; line-height: 0 !important;
+}
+.single-blog .section-content .block-comment__autor .autor-photo img {
+  width: 44px !important; height: 44px !important; border-radius: 50% !important;
+  object-fit: cover !important; display: block !important; margin: 0 !important;
+}
+.single-blog .section-content .block-comment__autor .block-comment__autor-about.wp-block-column {
+  flex-basis: auto !important; flex-grow: 1 !important; padding: 0 !important; margin: 0 !important;
+}
+
+/* ── Блок автора статьи (block-autor) ── */
+/* Grid-трюк: WP рендерит [title-label] → [photo | text], мы превращаем в [photo | label / name / post] */
+.single-blog .section-content .block-autor {
+  display: grid !important;
+  grid-template-columns: 52px 1fr !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 14px !important;
+  row-gap: 0 !important;
+  align-items: center !important;
+  margin-bottom: 20px !important;
+  background: #ffffff !important;
+  border: 1px solid #e4e2dc !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+}
+/* Пара автор+редактор — stretch для одинаковой высоты */
+.single-blog .section-content .block-autor + .block-autor { margin-top: 12px !important; }
+/* Wrapper .block-autor__content → display:contents: photo и text становятся прямыми grid-item */
+.single-blog .section-content .block-autor .block-autor__content {
+  display: contents !important;
+}
+/* Лейбл "Автор статьи" / "Редактор" — правая колонка, первая строка */
+.single-blog .section-content .block-autor p.block-autor__title {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  align-self: end !important;
+  font-size: 11px !important; font-weight: 600 !important; text-transform: uppercase !important;
+  letter-spacing: 0.8px !important; color: #8a8a8a !important;
+  margin: 0 0 3px !important; font-family: Inter, sans-serif !important; line-height: 1.2 !important;
+}
+/* Фото — левая колонка, span 2 строки, по центру */
+.single-blog .section-content .block-autor .block-autor__photo.wp-block-column {
+  grid-column: 1 !important;
+  grid-row: 1 / 3 !important;
+  align-self: center !important;
+  flex-basis: unset !important; flex-grow: 0 !important; flex-shrink: 0 !important;
+  padding: 0 !important; min-width: 0 !important;
+}
+.single-blog .section-content .block-autor .autor-photo.wp-block-group {
+  padding: 0 !important; margin: 0 !important;
+}
+.single-blog .section-content .block-autor .autor-photo figure { margin: 0 !important; line-height: 0 !important; }
+.single-blog .section-content .block-autor .autor-photo img {
+  width: 52px !important; height: 52px !important; border-radius: 50% !important;
+  object-fit: cover !important; display: block !important; margin: 0 !important;
+}
+/* Текстовая колонка — правая, вторая строка */
+.single-blog .section-content .block-autor .block-autor__text.wp-block-column {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  flex-basis: unset !important; padding: 0 !important; min-width: 0 !important;
+}
+.single-blog .section-content .block-autor p.block-autor__text__name {
+  font-weight: 600 !important; font-size: 15px !important; color: #1a1a1a !important;
+  font-family: Inter, sans-serif !important; margin: 0 0 2px !important; line-height: 1.3 !important;
+}
+.single-blog .section-content .block-autor p.block-autor__text__post {
+  font-size: 13px !important; color: #5a5a5a !important;
+  font-family: Inter, sans-serif !important; margin: 0 !important; line-height: 1.3 !important;
+}
+
+/* ── Блок экспертов (block-experts / block-expert) ── */
+.single-blog .section-content .block-experts {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+  gap: 12px !important; align-items: stretch !important;
+  margin: 32px 0 !important; padding: 24px !important;
+  background: #fffbf0 !important; border-radius: 12px !important;
+  border: 1px solid #f0e8d4 !important;
+}
+/* Заголовок "Эксперты" — на всю ширину */
+.single-blog .section-content .block-experts > p.block-experts__heading {
+  grid-column: 1 / -1 !important;
+  font-size: 12px !important; font-weight: 600 !important; text-transform: uppercase !important;
+  letter-spacing: 0.8px !important; color: #8a8a8a !important;
+  margin: 0 0 14px !important; font-family: Inter, sans-serif !important;
+}
+/* Карточка эксперта (display:flex перебивает WP-grid, stretch даёт одинаковую высоту) */
+.single-blog .section-content .block-expert {
+  display: flex !important; flex-direction: column !important; align-items: center !important;
+  justify-content: flex-start !important;
+  height: 100% !important; box-sizing: border-box !important;
+  background: #ffffff !important; border: 1px solid #e4e2dc !important;
+  border-radius: 12px !important; padding: 14px 12px 12px !important; text-align: center !important;
+}
+.single-blog .section-content .block-expert__photo { margin: 0 0 8px !important; }
+.single-blog .section-content .block-expert__photo img {
+  width: 52px !important; height: 52px !important; border-radius: 50% !important;
+  object-fit: cover !important; display: block !important; margin: 0 auto !important;
+}
+.single-blog .section-content .block-experts p.block-expert__name {
+  font-weight: 600 !important; font-size: 13px !important; color: #1a1a1a !important;
+  line-height: 1.3 !important; font-family: Inter, sans-serif !important; margin: 0 0 3px !important;
+}
+.single-blog .section-content .block-experts p.block-expert__post {
+  font-size: 11.5px !important; color: #8a8a8a !important;
+  line-height: 1.4 !important; font-family: Inter, sans-serif !important; margin: 0 !important;
+}
+
+/* ── Таблица (работает и с .table-wrapper, и с .wp-block-table) ── */
+.single-blog .section-content .wp-block-table,
+.single-blog .section-content .table-wrapper {
+  max-width: 68ch !important;
+  margin-bottom: 32px !important;
+}
+.single-blog .section-content .wp-block-table table,
+.single-blog .section-content .table-wrapper table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+.single-blog .section-content .wp-block-table thead th,
+.single-blog .section-content .table-wrapper thead th {
+  background: #f4f3ef !important;
+  font-weight: 600 !important;
+  padding: 12px 16px !important;
+  border-bottom: 2px solid #e4e2dc !important;
+  font-size: 13.5px !important;
+  color: #1a1a1a !important;
+  font-family: Inter, sans-serif !important;
+  text-align: left !important;
+}
+.single-blog .section-content .wp-block-table tbody td,
+.single-blog .section-content .table-wrapper tbody td {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid #e4e2dc !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 15px !important;
+  color: #444 !important;
+}
+.single-blog .section-content .wp-block-table tbody tr:last-child td,
+.single-blog .section-content .table-wrapper tbody tr:last-child td {
+  border-bottom: none !important;
+}
+.single-blog .section-content .wp-block-table tbody tr:hover td,
+.single-blog .section-content .table-wrapper tbody tr:hover td {
+  background: #fafaf8 !important;
+}
+/* Сбрасываем is-style-stripes (серые полоски WP) — DS использует свои стили */
+.single-blog .section-content .wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+  background-color: transparent !important;
+}
+.single-blog .section-content .wp-block-table.is-style-stripes td,
+.single-blog .section-content .wp-block-table.is-style-stripes th {
+  border-color: transparent !important;
+}
+/* Первая колонка таблицы (параметр) — жирная, как заголовок строки */
+.single-blog .section-content .wp-block-table tbody td:first-child,
+.single-blog .section-content .table-wrapper tbody td:first-child {
+  font-weight: 600 !important;
+  color: #1a1a1a !important;
+}
+
+/* ── Пара автор+редактор в строку ── */
+.single-blog .section-content .block-autors-row {
+  display: flex !important; flex-direction: row !important; flex-wrap: wrap !important;
+  gap: 12px !important; align-items: stretch !important;
+  margin-bottom: 0 !important; padding: 0 !important;
+}
+.single-blog .section-content .block-autors-row .block-autor {
+  flex: 1 1 0 !important; min-width: 220px !important;
+  margin-top: 0 !important; margin-bottom: 0 !important;
+}
+
+/* ── Блок авторов ── */
+.single-blog .section-content .author-block {
+  display: flex !important; align-items: center !important; gap: 14px !important;
+  padding: 20px !important; background: #ffffff !important;
+  border: 1px solid #e4e2dc !important; border-radius: 12px !important; margin: 8px 0 !important;
+}
+.single-blog .section-content .author-block img {
+  width: 52px !important; height: 52px !important; min-width: 52px !important;
+  border-radius: 50% !important; object-fit: cover !important; display: block !important; flex-shrink: 0 !important;
+}
+/* Label: явный display:block + правильное начертание */
+.single-blog .section-content .author-block__label,
+.single-blog .section-content p.author-block__label,
+.single-blog .section-content div.author-block__label {
+  display: block !important;
+  font-size: 11px !important; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: 0.8px !important;
+  color: #8a8a8a !important; margin: 0 0 5px 0 !important;
+  font-family: Inter, sans-serif !important; line-height: 1.2 !important;
+}
+.single-blog .section-content .author-block__name,
+.single-blog .section-content p.author-block__name,
+.single-blog .section-content div.author-block__name {
+  display: block !important;
+  font-weight: 600 !important; font-size: 15px !important;
+  color: #1a1a1a !important; font-family: Inter, sans-serif !important;
+  margin: 0 0 2px 0 !important; line-height: 1.3 !important;
+}
+.single-blog .section-content .author-block__post,
+.single-blog .section-content p.author-block__post,
+.single-blog .section-content div.author-block__post {
+  display: block !important;
+  font-size: 13px !important; color: #5a5a5a !important;
+  font-family: Inter, sans-serif !important; margin: 0 !important; line-height: 1.3 !important;
+}
+
+/* ── Эксперты статьи ── */
+.single-blog .section-content .experts-section {
+  margin-top: 32px !important; padding: 24px !important;
+  background: #fffbf0 !important; border-radius: 12px !important;
+}
+.single-blog .section-content .experts-section__title {
+  font-size: 12px !important; font-weight: 600 !important; text-transform: uppercase !important;
+  letter-spacing: 0.8px !important; color: #8a8a8a !important;
+  margin-bottom: 16px !important; font-family: Inter, sans-serif !important;
+}
+.single-blog .section-content .experts-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important; gap: 12px !important;
+}
+.single-blog .section-content .expert-card {
+  background: #ffffff !important; border: 1px solid #e4e2dc !important;
+  border-radius: 10px !important; padding: 14px 12px 12px !important; text-align: center !important;
+}
+.single-blog .section-content .expert-card img {
+  width: 52px !important; height: 52px !important; border-radius: 50% !important;
+  object-fit: cover !important; display: block !important; margin: 0 auto 8px !important;
+}
+/* expert-card: явный display:block + покрываем p и div варианты */
+.single-blog .section-content .expert-card__name,
+.single-blog .section-content p.expert-card__name,
+.single-blog .section-content div.expert-card__name {
+  display: block !important;
+  font-weight: 600 !important; font-size: 13px !important; color: #1a1a1a !important;
+  line-height: 1.3 !important; font-family: Inter, sans-serif !important; margin: 0 0 3px !important;
+}
+.single-blog .section-content .expert-card__post,
+.single-blog .section-content p.expert-card__post,
+.single-blog .section-content div.expert-card__post {
+  display: block !important;
+  font-size: 11.5px !important; color: #8a8a8a !important;
+  line-height: 1.4 !important; font-family: Inter, sans-serif !important; margin: 0 !important;
+}
+/* experts-section title тоже block */
+.single-blog .section-content .experts-section__title,
+.single-blog .section-content p.experts-section__title,
+.single-blog .section-content div.experts-section__title {
+  display: block !important;
+}
+
+/* ── TOC карточка (правый сайдбар) ── */
+.single-blog .singlepost .sticky-block { top: 76px !important; }
+.single-blog .singlepost .sticky-block .navigation {
+  background: #ffffff !important; border: 1px solid #e4e2dc !important;
+  border-radius: 12px !important; padding: 20px 20px 16px !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07) !important;
+  min-height: 0 !important; counter-reset: toc-num;
+}
+.single-blog .singlepost .sticky-block .navigation::before {
+  content: 'Содержание'; display: block; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.8px; color: #8a8a8a;
+  margin-bottom: 14px; font-family: Inter, -apple-system, sans-serif;
+}
+.single-blog .singlepost .sticky-block .navigation__item {
+  display: block !important; padding: 7px 10px !important; border-radius: 8px !important;
+  font-size: 13.5px !important; line-height: 1.4 !important; color: #5a5a5a !important;
+  text-decoration: none !important; margin-bottom: 0 !important; border-left: none !important;
+  font-family: Inter, -apple-system, sans-serif !important; counter-increment: toc-num;
+  transition: background .15s, color .15s !important;
+}
+.single-blog .singlepost .sticky-block .navigation__item::before {
+  content: counter(toc-num, decimal-leading-zero); display: inline-block; min-width: 22px;
+  font-weight: 600; color: rgba(192,16,32,0.6); font-size: 12px;
+  margin-right: 4px; font-family: Inter, sans-serif;
+}
+.single-blog .singlepost .sticky-block .navigation__item:hover,
+.single-blog .singlepost .sticky-block .navigation__item.active {
+  background: #fff5f5 !important; color: #c01020 !important; border-left: none !important;
+}
+.single-blog .singlepost .sticky-block .navigation::after {
+  content: 'Получить аудит CRM →'; display: block; margin-top: 16px;
+  background: #c01020; color: #fff; text-align: center; padding: 12px 16px;
+  border-radius: 8px; font-size: 14px; font-weight: 600;
+  font-family: Inter, -apple-system, sans-serif; cursor: pointer;
+}
+/* Скрываем ::after если есть JS-версия с контекстным текстом */
+.single-blog .singlepost .sticky-block .navigation.has-custom-cta::after {
+  display: none !important;
+}
+/* Контекстная CTA-кнопка (инжектится через JS в каждом посте) */
+.single-blog .singlepost .sidebar-cta {
+  display: block !important; margin-top: 16px !important;
+  background: #c01020 !important; color: #fff !important;
+  text-align: center !important; padding: 12px 16px !important;
+  border-radius: 8px !important; font-size: 13px !important; font-weight: 600 !important;
+  line-height: 1.4 !important; font-family: Inter, -apple-system, sans-serif !important;
+  text-decoration: none !important; transition: background .15s !important;
+}
+.single-blog .singlepost .sidebar-cta:hover { background: #b10e1d !important; }
+
+/* ── Subscription — скрыта ── */
+.single-blog .singlepost .sticky-block .subscription { display: none !important; }
+
+/* ── Social-networks: скрываем иконки соцсетей в статьях (не нужны) ── */
+.single-blog .section-content .social-networks { display: none !important; }
+
+/* ── Нумерованный список (num-list) ── */
+/* Убираем стандартный отступ ul — список на одном краю с абзацами */
+.single-blog .section-content .num-list {
+  padding-left: 0 !important; list-style: none !important; margin-left: 0 !important;
+}
+/* Hanging indent: число на краю, перенос текста под текст (не под число) */
+.single-blog .section-content .num-list li {
+  padding-left: 2em !important; text-indent: -2em !important;
+  margin-bottom: 12px !important;
+}
+/* Стиль числа: красный жирный, без фона */
+.single-blog .section-content .num-list li mark {
+  background: transparent !important; color: #c01020 !important;
+  font-weight: 700 !important; font-style: normal !important;
+}
+
+/* ── Схема потока данных / block-flow ── */
+.block-flow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 20px 0 28px; max-width: 660px; font-family: Inter, system-ui, sans-serif; }
+.block-flow__step { background: #fff9f0; border: 1px solid #e4e2dc; border-radius: 8px; padding: 10px 14px; flex-shrink: 0; max-width: 140px; }
+.block-flow__step strong { display: block; font-size: 13px; font-weight: 700; color: #1a1a1a; line-height: 1.3; margin-bottom: 3px; }
+.block-flow__step span { font-size: 12px; color: #666; line-height: 1.35; display: block; }
+.block-flow__step--end { border-color: #c01020; border-width: 2px; background: #fff5f5; }
+.block-flow__arrow { color: #c01020; font-size: 18px; font-weight: 400; flex-shrink: 0; line-height: 1; }
+@media (max-width: 640px) {
+  .block-flow { flex-direction: column; align-items: stretch; gap: 0; }
+  .block-flow__step { max-width: 100%; }
+  .block-flow__arrow { align-self: flex-start; padding: 4px 16px; font-size: 16px; transform: rotate(90deg); }
+}
+
+/* ── Сценарий каскада / block-scenario (Intercom/Klaviyo-style) ── */
+.block-scenario { display: flex; flex-direction: column; align-items: center; font-family: Inter, system-ui, sans-serif; max-width: 540px; margin: 24px 0 32px; }
+.bs-node { display: flex; align-items: center; gap: 10px; background: #fff; border: 1.5px solid #e4e4e4; border-left-width: 4px; border-radius: 10px; padding: 10px 14px; width: 100%; max-width: 280px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.bs-node__icon { font-size: 17px; width: 24px; text-align: center; flex-shrink: 0; line-height: 1; }
+.bs-node__body strong { display: block; font-size: 13px; font-weight: 700; color: #1a1a1a; line-height: 1.3; }
+.bs-node__body span { font-size: 12px; color: #888; display: block; line-height: 1.35; }
+.bs-node--trigger { border-left-color: #c01020; background: #fff5f5; }
+.bs-node--action  { border-left-color: #2563eb; background: #eff6ff; }
+.bs-node--wait    { border-left-color: #d97706; background: #fffbeb; }
+.bs-node--end     { border-left-color: #16a34a; background: #f0fdf4; }
+.bs-conn { width: 2px; height: 18px; background: #d0d0d0; }
+.bs-branch { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.bs-branch__cond { display: flex; align-items: center; gap: 8px; border: 1.5px dashed #bbb; border-radius: 10px; padding: 9px 14px; width: 100%; max-width: 280px; font-size: 13px; font-weight: 600; color: #555; background: #f8f8f8; }
+.bs-branch__cond-icon { font-size: 14px; flex-shrink: 0; }
+.bs-branch__paths { display: flex; gap: 0; width: 100%; border-top: 2px solid #d0d0d0; }
+.bs-branch__path { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0; }
+.bs-branch__path:first-child { border-right: 1px solid #e8e8e8; }
+.bs-branch__label { font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 3px 10px; border-radius: 0 0 8px 8px; margin-bottom: 8px; }
+.bs-branch__path--yes .bs-branch__label { background: #dcfce7; color: #16a34a; }
+.bs-branch__path--no  .bs-branch__label { background: #fee2e2; color: #dc2626; }
+@media (max-width: 540px) {
+  .bs-branch__paths { flex-direction: column; border-top: none; border-left: 2px solid #d0d0d0; align-items: flex-start; padding-left: 16px; gap: 12px; }
+  .bs-branch__path:first-child { border-right: none; border-bottom: 1px solid #e8e8e8; padding-bottom: 12px; width: 100%; }
+  .bs-branch__label { border-radius: 20px; margin-bottom: 6px; }
+  .bs-node { max-width: 100%; }
+}
+
+/* ── CJM-схема этапов / block-cjm ── */
+.block-cjm { display: flex; align-items: center; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 4px 0 16px; margin: 20px 0 28px; font-family: Inter, system-ui, sans-serif; }
+.bcjm-stage { flex-shrink: 0; scroll-snap-align: start; width: 150px; background: #fff; border: 1px solid #e8e8e8; border-top: 4px solid #94a3b8; border-radius: 0 0 10px 10px; padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 8px; align-self: flex-start; }
+.bcjm-stage--positive { border-top-color: #16a34a; }
+.bcjm-stage--neutral  { border-top-color: #94a3b8; }
+.bcjm-stage--doubt    { border-top-color: #d97706; }
+.bcjm-stage--risk     { border-top-color: #ea580c; }
+.bcjm-stage--negative { border-top-color: #c01020; }
+.bcjm-stage__name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #1a1a1a; line-height: 1.3; }
+.bcjm-stage__points { margin: 0; padding: 0 0 0 14px; font-size: 12px; color: #555; line-height: 1.5; display: flex; flex-direction: column; gap: 2px; }
+.bcjm-stage__points li { margin: 0; }
+.bcjm-stage__emotion { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; align-self: flex-start; line-height: 1.4; margin-top: auto; }
+.bcjm-em--positive { background: #dcfce7; color: #15803d; }
+.bcjm-em--neutral  { background: #f1f5f9; color: #475569; }
+.bcjm-em--doubt    { background: #fef3c7; color: #92400e; }
+.bcjm-em--risk     { background: #ffedd5; color: #c2410c; }
+.bcjm-em--negative { background: #fee2e2; color: #991b1b; }
+.bcjm-stage__barrier { font-size: 11px; color: #888; font-style: italic; border-top: 1px solid #f0f0f0; padding-top: 6px; line-height: 1.4; }
+.bcjm-arrow { flex-shrink: 0; color: #ccc; font-size: 16px; padding: 0 4px; margin-bottom: 40px; }
+
+/* ── FAQ ── */
+#crm-faq details { border: 1px solid #e4e2dc; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+#crm-faq summary { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; cursor: pointer; font-weight: 600; font-size: 15px !important; list-style: none; gap: 12px; font-family: Inter, system-ui, sans-serif; color: #1a1a1a; }
+#crm-faq summary::-webkit-details-marker { display: none; }
+#crm-faq summary::after { content: '+'; font-size: 22px; font-weight: 300; color: #c01020; flex-shrink: 0; transition: transform .2s; }
+#crm-faq details[open] summary::after { transform: rotate(45deg); }
+#crm-faq .fb { padding: 14px 18px 16px; font-size: 15px !important; line-height: 1.7; color: #555; border-top: 1px solid #e4e2dc; font-family: Inter, system-ui, sans-serif; }
+
+/* ── Тултипы inline (.explain / .explain-card) — глобальные стили для всех статей ── */
+.explain { position: relative; border-bottom: 1px dashed #c01020; cursor: help; color: inherit; }
+.explain-card { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 100; background: #fff; border: 1px solid #e4e2dc; border-radius: 10px; padding: 14px 16px; width: 290px; max-width: min(290px, calc(100vw - 32px)); font-size: 13px; line-height: 1.55; color: #1a1a1a; box-shadow: 0 4px 20px rgba(0,0,0,.12); pointer-events: none; font-style: normal; }
+.explain:hover .explain-card, .explain:focus-within .explain-card { display: block; }
+.explain-card strong { display: block; margin-bottom: 5px; }
+@media (max-width: 768px) {
+  .explain-card { position: relative; left: auto; top: auto; display: none; width: 100%; max-width: none; margin: 8px 0 4px; box-shadow: 0 2px 12px rgba(0,0,0,.10); }
+  .explain:hover .explain-card, .explain:focus-within .explain-card { display: block; }
+}
+
+/* ── Тултипы ── */
+.crm-term { border-bottom: 2px dotted #8a8a8a !important; cursor: help !important; color: inherit !important; text-decoration: none !important; }
+.crm-tip {
+  position: fixed !important; background: #1a1a1a; color: #fff;
+  font-family: Inter, sans-serif !important; font-size: 13.5px !important;
+  line-height: 1.55; font-weight: 400; padding: 10px 14px; border-radius: 8px;
+  max-width: 260px; box-shadow: 0 4px 24px rgba(0,0,0,.35);
+  z-index: 99999; display: none; opacity: 0; transition: opacity .15s; pointer-events: none;
+}
+.crm-tip.on { opacity: 1; pointer-events: auto; }
+.crm-tip::after { content: ''; position: absolute; left: var(--ax, 50%); transform: translateX(-50%); border: 6px solid transparent; }
+.crm-tip:not(.below)::after { bottom: -12px; border-top-color: #1a1a1a; }
+.crm-tip.below::after { top: -12px; border-bottom-color: #1a1a1a; }
+
+
+/* ====================================================
+   ADDITIONS
+   ==================================================== */
+
+/* ── Прогресс-бар чтения — см. блок в начале файла ── */
+
+/* ── Чекбоксы в форме подписки ── */
+.single-blog .form-consent { width: 100%; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.single-blog .form-consent label { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; opacity: 0.65; line-height: 1.5; cursor: pointer; color: #fff; }
+.single-blog .form-consent input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; width: 14px; height: 14px; accent-color: #c01020; }
+.single-blog .form-consent a { color: rgba(255,255,255,0.75); text-decoration: underline; }
+
+/* ── Header: скрыть баннер ── */
+body.single-blog .post-banner.wp-post-image { display: none !important; }
+
+/* ── Header: контейнер шапки ── */
+body.single-blog .container-min.top-page {
+  display: flex !important; flex-direction: column !important;
+  background: transparent !important;
+  padding-top: 20px !important; padding-bottom: 32px !important;
+  margin-left: 120px !important; max-width: 784px !important;
+}
+
+/* ── Header: хлебные крошки (order 1, над H1) ── */
+body.single-blog .container-min.top-page .bread-crumbs {
+  order: 1 !important;
+  font-size: 13px !important; color: #8a8a8a !important;
+  background: transparent !important;
+  margin: 0 0 8px 0 !important; padding: 0 !important; line-height: 1.5 !important;
+}
+body.single-blog .container-min.top-page .bread-crumbs a { color: #8a8a8a !important; text-decoration: none !important; }
+body.single-blog .container-min.top-page .bread-crumbs a:hover { color: #c01020 !important; }
+
+/* ── Header: дата (order 2) ── */
+body.single-blog .container-min.top-page .date-post {
+  order: 2 !important;
+  font-size: 13px !important; color: #8a8a8a !important;
+  background: transparent !important;
+  margin: 0 0 20px 0 !important; padding: 0 !important;
+}
+
+/* ── Header: H1 (order 3) ── */
+body.single-blog .container-min.top-page h1,
+body.single-blog .container-min.top-page .main-heading {
+  order: 3 !important;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 38px !important; font-weight: 700 !important;
+  line-height: 1.2 !important; letter-spacing: -0.3px !important;
+  color: #1a1a1a !important;
+  background: transparent !important; background-color: transparent !important;
+  max-width: 784px !important; margin: 0 !important; padding: 0 !important;
+}
+
+/* ── CTA-блок (anchor_9): тёмная карточка, не похожа на раздел статьи ── */
+#anchor_9 {
+  background: #1a1a1a !important; border-radius: 16px !important;
+  padding: 36px !important; margin: 48px 0 32px !important;
+}
+#anchor_9 h2.wp-block-heading {
+  color: #ffffff !important; border-top: none !important;
+  padding-top: 0 !important; margin-top: 0 !important; font-size: 22px !important;
+  letter-spacing: -0.2px !important;
+}
+#anchor_9 p { color: rgba(255,255,255,0.72) !important; margin-top: 8px !important; }
+#anchor_9 .block-result { background: transparent !important; padding: 0 !important; margin-top: 24px !important; }
+body.single-blog .section-content .wp-block-group.block-result { margin-bottom: 40px !important; }
+#anchor_9 .block-result .wp-block-heading { border-top: none !important; padding-top: 0 !important; margin-top: 0 !important; }
+#anchor_9 .block-result a {
+  display: inline-block !important; background: #c01020 !important;
+  color: #fff !important; padding: 12px 26px !important;
+  border-radius: 8px !important; text-decoration: none !important;
+  font-weight: 600 !important; font-size: 15px !important;
+  transition: background .15s !important;
+}
+#anchor_9 .block-result a:hover { background: #b10e1d !important; }
+
+/* ── CTA-блок (anchor_cta): тёмная карточка — аналог anchor_9 ── */
+#anchor_cta {
+  background: #1a1a1a !important; border-radius: 16px !important;
+  padding: 36px !important; margin: 48px 0 32px !important;
+}
+#anchor_cta h2.wp-block-heading {
+  color: #ffffff !important; border-top: none !important;
+  padding-top: 0 !important; margin-top: 0 !important; font-size: 22px !important;
+  letter-spacing: -0.2px !important;
+}
+#anchor_cta p { color: rgba(255,255,255,0.72) !important; margin-top: 8px !important; }
+#anchor_cta .block-result { background: transparent !important; padding: 0 !important; margin-top: 24px !important; }
+#anchor_cta .block-result .wp-block-heading { border-top: none !important; padding-top: 0 !important; margin-top: 0 !important; }
+#anchor_cta .block-result a {
+  display: inline-block !important; background: #c01020 !important;
+  color: #fff !important; padding: 12px 26px !important;
+  border-radius: 8px !important; text-decoration: none !important;
+  font-weight: 600 !important; font-size: 15px !important;
+  transition: background .15s !important;
+}
+#anchor_cta .block-result a:hover { background: #b10e1d !important; }
+
+/* ── Форма подписки внизу статьи (block-form) ── */
+.single-blog .section-content .block-form {
+  background: #f7f5f0 !important;
+  border-radius: 16px !important;
+  padding: 32px 36px !important;
+  border: 1px solid #e8e4dc !important;
+  margin-top: 0 !important;
+  margin-bottom: 72px !important;
+}
+/* Убираем дефолтный паддинг WP внутри block-form */
+.single-blog .section-content .block-form .wp-block-group__inner-container { padding: 0 !important; }
+.single-blog .section-content .block-form .h2-runs {
+  font-size: 20px !important; color: #1a1a1a !important;
+  font-family: Inter, sans-serif !important; font-weight: 700 !important;
+  margin-top: 0 !important; margin-bottom: 6px !important; line-height: 1.3 !important;
+}
+/* Тема сама управляет isDescktop/notDescktop — мы лишь обеспечиваем fallback */
+@media (min-width: 769px) {
+  .single-blog .section-content .block-form .h2-runs.notDescktop { display: none !important; }
+  .single-blog .section-content .block-form p.notDescktop { display: none !important; }
+}
+@media (max-width: 768px) {
+  .single-blog .section-content .block-form .h2-runs.isDescktop { display: none !important; }
+  .single-blog .section-content .block-form p.isDescktop { display: none !important; }
+}
+.single-blog .section-content .block-form p {
+  font-size: 14px !important; color: #5a5a5a !important; margin-bottom: 20px !important;
+}
+/* Строка: [email input .............] [Подписаться] */
+.single-blog .section-content .block-form .form-fields {
+  display: flex !important; flex-direction: row !important;
+  gap: 10px !important; align-items: stretch !important; flex-wrap: nowrap !important;
+}
+/* span-обёртка CF7 = растягивается, заполняет всё пространство */
+.single-blog .section-content .block-form .form-fields .wpcf7-form-control-wrap {
+  flex: 1 1 auto !important; min-width: 0 !important; display: block !important;
+}
+.single-blog .section-content .block-form .form-field {
+  width: 100% !important; display: block !important;
+  padding: 13px 16px !important; font-size: 15px !important;
+  border: 1.5px solid #d0ccc5 !important; border-radius: 8px !important;
+  background: #ffffff !important; font-family: Inter, sans-serif !important;
+  color: #1a1a1a !important; line-height: 1.4 !important;
+  transition: border-color .15s !important;
+}
+.single-blog .section-content .block-form .form-field:focus {
+  outline: none !important; border-color: #c01020 !important;
+  box-shadow: 0 0 0 3px rgba(192,16,32,.1) !important;
+}
+.single-blog .section-content .block-form .form-button {
+  flex-shrink: 0 !important;
+  background: #c01020 !important; color: #ffffff !important;
+  padding: 13px 28px !important; border-radius: 8px !important;
+  border: none !important; font-weight: 600 !important;
+  font-size: 15px !important; font-family: Inter, sans-serif !important;
+  cursor: pointer !important; white-space: nowrap !important;
+  transition: background .15s !important; line-height: 1.4 !important;
+}
+.single-blog .section-content .block-form .form-button:hover { background: #b10e1d !important; }
+/* Спиннер CF7 — убрать из потока */
+.single-blog .section-content .block-form .wpcf7-spinner { display: none !important; }
+/* Чекбокс согласия */
+.single-blog .section-content .block-form .form-checkbox { margin-top: 12px !important; }
+.single-blog .section-content .block-form .form-checkbox label {
+  font-size: 12px !important; color: #7a7a7a !important;
+  display: flex !important; align-items: flex-start !important;
+  gap: 8px !important; cursor: pointer !important; line-height: 1.5 !important;
+}
+.single-blog .section-content .block-form .form-checkbox input[type="checkbox"] {
+  margin-top: 2px !important; flex-shrink: 0 !important;
+  width: 14px !important; height: 14px !important; accent-color: #c01020 !important;
+}
+.single-blog .section-content .block-form .form-checkbox a { color: #c01020 !important; }
+/* Успешная отправка */
+.single-blog .section-content .block-form .form-sent h3 {
+  color: #1a1a1a !important; font-size: 20px !important; margin-bottom: 8px !important;
+}
+.single-blog .section-content .block-form .form-sent p { color: #5a5a5a !important; }
+
+/* ── Мобильное содержание (details-дропдаун, ≤900px) ── */
+.mobile-toc {
+  display: none; /* скрыт на десктопе */
+  background: #ffffff; border: 1px solid #e4e2dc;
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 28px;
+}
+.mobile-toc summary {
+  cursor: pointer; font-weight: 600; font-size: 15px;
+  list-style: none; display: flex; justify-content: space-between; align-items: center;
+  color: #1a1a1a; font-family: Inter, sans-serif;
+  min-height: 44px; /* touch target ≥44px (Apple HIG / WCAG 2.5.5) */
+}
+.mobile-toc summary::-webkit-details-marker { display: none; }
+.mobile-toc summary::after { content: '↓'; color: #c01020; font-weight: 400; font-size: 17px; }
+.mobile-toc[open] summary::after { content: '↑'; }
+.mobile-toc-list {
+  list-style: none; margin: 12px 0 0; padding: 0; counter-reset: toc-mobile;
+}
+.mobile-toc-list li { margin-bottom: 2px; }
+.mobile-toc-list a {
+  display: block; padding: 12px 10px; border-radius: 8px; /* 12px: touch target ≥44px */
+  font-size: 13.5px; color: #5a5a5a; text-decoration: none;
+  font-family: Inter, sans-serif; line-height: 1.4;
+  counter-increment: toc-mobile;
+}
+.mobile-toc-list a::before {
+  content: counter(toc-mobile) ".";
+  display: inline-block; min-width: 22px;
+  font-weight: 600; color: #c01020; font-size: 12px; margin-right: 4px;
+}
+.mobile-toc-list a:hover { background: #fff5f5; color: #c01020; }
+
+/* ── Адаптив ── */
+
+/* 1200px: уменьшаем боковые отступы, хедер синхронно */
+@media (max-width: 1200px) {
+  body.single-blog .singlepost .container-columns > .column { margin-left: 40px !important; margin-right: 40px !important; }
+  body.single-blog .container-min.top-page { margin-left: 40px !important; }
+}
+
+/* 900px: убираем сайдбар, контент на всю ширину */
+@media (max-width: 900px) {
+  /* Мобильное содержание */
+  .mobile-toc { display: block; }
+
+  /* Колонки */
+  body.single-blog .singlepost .container-columns {
+    display: block !important;
+  }
+  body.single-blog .singlepost .container-columns > .column {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+  body.single-blog .singlepost .column.sticky-block,
+  body.single-blog .singlepost .column.footnotes-sidebar {
+    display: none !important;
+  }
+
+  /* Хедер (H1, хлебные крошки, дата) — не внутри .container, нужен свой padding */
+  body.single-blog .container-min.top-page {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    padding-top: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Хлебные крошки: обрезаем длинную строку */
+  body.single-blog .container-min.top-page .bread-crumbs {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* H1 */
+  body.single-blog .container-min.top-page h1,
+  body.single-blog .container-min.top-page .main-heading {
+    font-size: 28px !important;
+    letter-spacing: -0.2px !important;
+  }
+
+  /* Заголовки в статье */
+  .single-blog .section-content h2.wp-block-heading {
+    font-size: 22px !important;
+    margin-top: 40px !important;
+  }
+  .single-blog .section-content h3.wp-block-heading {
+    font-size: 17px !important;
+    margin-top: 24px !important;
+  }
+
+  /* block-sidenote, block-picture, block-comment: снимаем 68ch */
+  .single-blog .section-content .block-sidenote,
+  .single-blog .section-content .block-picture,
+  .single-blog .section-content .block-comment {
+    max-width: 100% !important;
+  }
+
+  /* block-autor пара → уже стопкой, только убираем margin-top */
+  .single-blog .section-content .block-autor + .block-autor { margin-top: 8px !important; }
+
+  /* Таблицы: горизонтальный скролл + отступ снизу */
+  .single-blog .section-content .wp-block-table,
+  .single-blog .section-content .table-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 28px !important;
+    max-width: 100% !important;
+  }
+  .single-blog .section-content .wp-block-table table,
+  .single-blog .section-content .table-wrapper table {
+    min-width: 480px !important;
+  }
+  .single-blog .section-content .wp-block-table thead th,
+  .single-blog .section-content .table-wrapper thead th {
+    font-size: 12px !important;
+    padding: 10px 12px !important;
+  }
+  .single-blog .section-content .wp-block-table tbody td,
+  .single-blog .section-content .table-wrapper tbody td {
+    font-size: 13.5px !important;
+    padding: 10px 12px !important;
+  }
+
+  /* block-experts: 2 колонки на планшете */
+  .single-blog .section-content .block-experts {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
+    padding: 16px !important;
+  }
+}
+
+/* 640px: телефон
+   Тема ставит .container { padding: 0 20px } при ≤425px, 30px при 426-640px.
+   Column padding НЕ нужен — он дублирует .container и сужает контент.
+   Было: 20+16=36px на сторону → 303px контента на iPhone (слишком узко).
+   Стало: 16px на сторону → 343px контента (45-48 символов, комфорт). */
+@media (max-width: 640px) {
+  body.single-blog .singlepost .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  body.single-blog .singlepost .container-columns > .column { padding: 0 !important; }
+
+  body.single-blog .container-min.top-page {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* H1 ещё меньше */
+  body.single-blog .container-min.top-page h1,
+  body.single-blog .container-min.top-page .main-heading {
+    font-size: 24px !important;
+  }
+
+  .single-blog .section-content h2.wp-block-heading {
+    font-size: 20px !important;
+    padding-top: 20px !important;
+    margin-top: 36px !important;
+  }
+
+  /* Чуть меньше базовый шрифт */
+  .single-blog .section-content,
+  .single-blog .section-content p,
+  .single-blog .section-content li,
+  .single-blog .section-content td {
+    font-size: 16px !important;
+    line-height: 1.72 !important;
+  }
+
+  /* block-comment: меньше padding */
+  .single-blog .section-content .block-comment {
+    padding: 16px 16px 14px !important;
+  }
+
+  /* block-experts: 2 колонки на телефоне */
+  .single-blog .section-content .block-experts {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Тултип: чуть уже */
+  .crm-tip { max-width: 220px !important; }
+
+  /* FAQ summary padding */
+  #crm-faq summary { padding: 12px 14px !important; font-size: 14px !important; }
+  #crm-faq .fb { padding: 12px 14px 14px !important; font-size: 14px !important; }
+
+  /* Форма подписки — меньше padding, кнопка на всю ширину */
+  .single-blog .section-content .block-form { padding: 24px 20px !important; margin-bottom: 48px !important; }
+  .single-blog .section-content .block-form .form-fields {
+    flex-direction: column !important; flex-wrap: wrap !important;
+  }
+  .single-blog .section-content .block-form .form-fields .wpcf7-form-control-wrap {
+    flex: none !important; width: 100% !important;
+  }
+  .single-blog .section-content .block-form .form-button { width: 100% !important; }
+}
+
+/* ================================================================
+   ФУТЕР — blog articles (тёмная тема, закрывает страницу)
+   ================================================================ */
+body.single-blog #footer,
+body.single-blog .footer {
+  background: #1a1a1a !important;
+  color: rgba(255,255,255,0.55) !important;
+  padding: 24px 0 !important;
+}
+body.single-blog .footer .content {
+  border-top: none !important;
+  padding: 24px 0 20px !important;
+}
+body.single-blog .footer .social-networking a {
+  color: rgba(255,255,255,0.7) !important;
+  font-size: 14px !important;
+  transition: color .15s !important;
+}
+body.single-blog .footer .social-networking a:hover { color: #ffffff !important; }
+body.single-blog .footer .conditions {
+  color: rgba(255,255,255,0.45) !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+}
+body.single-blog .footer .conditions:hover { color: rgba(255,255,255,0.8) !important; }
+body.single-blog .footer .copyright {
+  color: rgba(255,255,255,0.3) !important;
+  font-size: 13px !important;
+}
+
+/* ================================================================
+   FIX sticky: два scroll-контейнера мешают position:sticky
+   1. Тема: .wrapper { overflow: hidden } → clip, чтобы не создавать scroll-контейнер
+   2. Popmechanic: ставит body { overflow-x: hidden } → body становится scroll-контейнером,
+      sticky прикрепляется к body а не к viewport, и не активируется.
+   Оба сбрасываем через overflow-x: clip (не создаёт scroll-контейнер).
+   ================================================================ */
+body.single-blog .wrapper {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+body.single-blog {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+
+
+/* ================================================================
+   ШАПКА — тёмная на страницах статей (рамка: тёмный хедер + тёмный футер)
+   Реальный класс темы: .header (не .top-menu / .site-header)
+   Блог страница имеет .--white на body → переопределяем
+   ================================================================ */
+
+/* Тёмный фон шапки */
+body.single-blog .header {
+  background: #1a1a1a !important;
+  color: #fff !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  height: 82px !important; /* восстановить высоту тёмного варианта */
+}
+
+/* Логотип: .--white переключает на logo-dark.svg → возвращаем logo.svg (белый) */
+body.single-blog .header .content .logo {
+  background-image: url("/wp-content/themes/content_hub/src/img/logo.svg") !important;
+  width: 145px !important;
+}
+
+/* Ссылки меню */
+body.single-blog .header-menu-ul li a {
+  color: rgba(255,255,255,0.85) !important;
+}
+body.single-blog .header-menu-ul li a:hover {
+  color: #ffffff !important;
+}
+
+/* Services-menu / Blog-menu: dropdown пилл — .--white даёт #F2F2F2, перекрываем */
+body.single-blog .header-menu-ul .services-menu .services-menu-div {
+  background: rgba(255,255,255,0.1) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+}
+body.single-blog .header-menu-ul .services-menu .services-menu-div,
+body.single-blog .header-menu-ul .services-menu .services-menu-div * {
+  color: rgba(255,255,255,0.88) !important;
+}
+
+/* Мобильное меню: ресет цветов — тема делает .--white .menu bg:#fff,
+   а наши правила выше ставят белый текст → невидимо. Возвращаем чёрный. */
+body.single-blog .menu-wrapper .header-menu-ul li a,
+body.single-blog .menu-wrapper .menu-list__item {
+  color: #000 !important;
+}
+body.single-blog .menu-wrapper .header-menu-ul .services-menu .services-menu-div,
+body.single-blog .menu-wrapper .header-menu-ul .services-menu .services-menu-div * {
+  color: #000 !important;
+}
+
+/* CTA кнопка "Оставить заявку" (.to-form.button) — остаётся красной */
+body.single-blog .header .content .to-form.button {
+  background: var(--color-accent-red, #c01020) !important;
+  color: #fff !important;
+}
+
+/* ── Визуальный polish ── */
+
+/* Формулы и блоки — мягкая тень + lift при наведении */
+.single-blog .section-content .block-picture {
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+.single-blog .section-content .block-picture:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Якорные ссылки в TOC: плавный скролл */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Акцент на активной секции TOC */
+.single-blog .singlepost .sticky-block .navigation__item.active {
+  background: #fff0f0 !important;
+  color: #c01020 !important;
+  font-weight: 600 !important;
+}
+
+/* ================================================================
+   CRM DESIGN SYSTEM v4 OVERRIDES (2026-02-21)
+   Без нового файла: добавляем в existing wp-custom.css
+   ================================================================ */
+body.single-blog { background: #faf9f6 !important; } /* тёплая бумага, снижает усталость от белого */
+
+/* EXPERT rendering properties убраны из статей — меняли кернинг и позиции переносов строк.
+   text-rendering: optimizeLegibility, font-feature-settings, hanging-punctuation
+   Оставлены: тёплый фон #faf9f6 + мягкий контраст #222 (не влияют на текст). */
+
+.single-blog .section-content,
+.single-blog .section-content p,
+.single-blog .section-content li,
+.single-blog .section-content td {
+  font-size: 17px !important;
+  line-height: 1.58 !important;
+  color: #222 !important;                               /* мягче контраст: 14:1 vs 17:1, оба WCAG AAA */
+}
+
+/* EXPERT: text-wrap убран — вызывал «пляску» концов строк (браузер перераспределяет текст).
+   word-spacing убран: ухудшал Inter. hyphens убран: некрасивые переносы типа «кли-» «цен-». */
+
+.single-blog .section-content a:not([class]) {
+  color: #c01020 !important;
+  text-decoration-color: rgba(192,16,32,.3) !important;
+}
+.single-blog .section-content a:not([class]):hover {
+  text-decoration-color: #c01020 !important;
+}
+.single-blog .section-content li::marker {
+  color: #c01020 !important;
+  opacity: .75 !important;
+}
+
+.single-blog .section-content h2.wp-block-heading {
+  font-size: 24px !important;
+}
+.single-blog .section-content h3.wp-block-heading {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  line-height: 1.32 !important;
+  letter-spacing: -0.01em !important;
+  color: #242424 !important;
+  border-left: 3px solid #d7d3ca !important;
+  padding-left: 14px !important;
+  margin-top: 34px !important;
+  margin-bottom: 10px !important;
+}
+.single-blog .section-content h3.wp-block-heading + p,
+.single-blog .section-content h3.wp-block-heading + .block-sidenote__container p:first-child {
+  margin-top: 0 !important;
+}
+.single-blog .section-content h3.wp-block-heading + ul,
+.single-blog .section-content h3.wp-block-heading + ol {
+  margin-top: 8px !important;
+}
+@media (max-width: 640px) {
+  .single-blog .section-content h3.wp-block-heading {
+    font-size: 18px !important;
+    margin-top: 26px !important;
+    margin-bottom: 8px !important;
+    padding-left: 12px !important;
+  }
+}
+
+.single-blog .section-content .block-sidenote {
+  border-left-color: #c01020 !important;
+}
+.single-blog .section-content .block-sidenote a {
+  color: #c01020 !important;
+}
+
+.single-blog .singlepost .sticky-block .navigation__item:hover,
+.single-blog .singlepost .sticky-block .navigation__item.active {
+  background: #fff5f5 !important;
+  color: #c01020 !important;
+}
+
+#crm-faq summary::after,
+.single-blog .section-content [itemtype="https://schema.org/FAQPage"] summary::after {
+  color: #c01020 !important;
+}
+
+#anchor_9 .block-result a {
+  background: #c01020 !important;
+}
+#anchor_9 .block-result a:hover {
+  background: #b10e1d !important;
+}
+
+/* ================================================================
+   FINAL CLEAN FIXES (2026-02-21)
+   - removed duplicate/conflicting bugfix blocks
+   - one source of truth for experts + TOC + form heading gap
+   ================================================================ */
+
+/* 1) Experts: make WP .block-experts visually equal to DS expert cards */
+.single-blog .section-content .block-experts {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+  gap: 12px !important;
+  max-width: 68ch !important;
+  margin: 32px 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+.single-blog .section-content .block-experts > .block-experts__heading,
+.single-blog .section-content .block-experts > p.block-experts__heading {
+  grid-column: 1 / -1 !important;
+  margin: 0 0 14px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  color: #8a8a8a !important;
+  font-family: Inter, -apple-system, sans-serif !important;
+}
+.single-blog .section-content .block-experts .block-expert {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  min-height: 100% !important;
+  padding: 14px 12px 12px !important;
+  border: 1px solid #e4e2dc !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  text-align: center !important;
+}
+.single-blog .section-content .block-experts .block-expert__photo,
+.single-blog .section-content .block-experts .block-expert__photo figure,
+.single-blog .section-content .block-experts .block-expert__photo .wp-block-image {
+  margin: 0 0 8px !important;
+  line-height: 0 !important;
+}
+.single-blog .section-content .block-experts .block-expert__photo img {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  margin: 0 auto !important;
+}
+.single-blog .section-content .block-experts .block-expert__name {
+  margin: 0 0 3px !important;
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #1a1a1a !important;
+  font-family: Inter, -apple-system, sans-serif !important;
+}
+.single-blog .section-content .block-experts .block-expert__post {
+  margin: 0 !important;
+  font-size: 11.5px !important;
+  line-height: 1.4 !important;
+  color: #8a8a8a !important;
+  font-family: Inter, -apple-system, sans-serif !important;
+}
+
+/* 2) Newsletter/form heading top-gap */
+.single-blog .section-content .block-form {
+  padding-top: 24px !important;
+}
+.single-blog .section-content .block-form .wp-block-fsb-flexible-spacer,
+.single-blog .section-content .block-form .wp-block-spacer {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+}
+.single-blog .section-content .block-form h2,
+.single-blog .section-content .block-form .wp-block-heading,
+.single-blog .section-content .block-form .h2-runs {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+/* ================================================================
+   LAYOUT PARITY FIX (draft/wp preview parity)
+   - menu stays in right sidebar on desktop
+   - symmetric left/right offsets by viewport (no fixed 120px)
+   - no fixed-position TOC
+   ================================================================ */
+@media (min-width: 1201px) {
+  body.single-blog {
+    --crm-content-w: 784px;
+    --crm-sidebar-w: 280px;
+    --crm-gap: 48px;
+    --crm-shell: max(24px, calc((100vw - (var(--crm-content-w) + var(--crm-sidebar-w) + var(--crm-gap))) / 2));
+  }
+
+  body.single-blog .singlepost .container-columns {
+    display: grid !important;
+    grid-template-columns: minmax(0, var(--crm-content-w)) var(--crm-sidebar-w) !important;
+    column-gap: var(--crm-gap) !important;
+    align-items: start !important;
+    justify-content: start !important;
+    padding-left: var(--crm-shell) !important;
+    padding-right: var(--crm-shell) !important;
+    box-sizing: border-box !important;
+  }
+
+  body.single-blog .singlepost .container-columns > .column.footnotes-sidebar {
+    display: none !important;
+  }
+
+  body.single-blog .singlepost .container-columns > .column:nth-of-type(2) {
+    grid-column: 1 !important;
+    max-width: var(--crm-content-w) !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.single-blog .singlepost .container-columns > .column.sticky-block {
+    grid-column: 2 !important;
+    display: block !important;
+    width: var(--crm-sidebar-w) !important;
+    min-width: var(--crm-sidebar-w) !important;
+    margin: 0 !important;
+    position: sticky !important;
+    top: 96px !important;
+    align-self: start !important;
+    height: max-content !important;
+    overflow: visible !important;
+  }
+
+  /* ul.navigation — нормальный поток внутри sticky-block (no nested sticky) */
+  body.single-blog .singlepost .container-columns > .column.sticky-block ul.navigation {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  body.single-blog .singlepost .container-columns > .column.sticky-block .subscription {
+    display: none !important;
+  }
+
+  body.single-blog .container-min.top-page {
+    margin-left: var(--crm-shell) !important;
+    margin-right: auto !important;
+    max-width: var(--crm-content-w) !important;
+    width: calc(100% - var(--crm-shell) * 2) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* ================================================================
+   EXPERTS PIXEL PARITY (DS)
+   - exact rhythm from ds-updated.html
+   - force full-row placement inside .block-autors-row
+   ================================================================ */
+.single-blog .section-content .block-autors-row > .block-experts {
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  max-width: 68ch !important;
+}
+
+.single-blog .section-content .block-experts {
+  margin-top: 24px !important;
+  margin-bottom: 0 !important;
+  gap: 12px !important;
+}
+
+.single-blog .section-content .block-experts > .block-experts__heading,
+.single-blog .section-content .block-experts > p.block-experts__heading {
+  margin-bottom: 14px !important;
+}
+
+.single-blog .section-content .block-experts .block-expert__photo,
+.single-blog .section-content .block-experts .block-expert__photo figure,
+.single-blog .section-content .block-experts .block-expert__photo .wp-block-image {
+  margin: 0 0 8px !important;
+}
+
+.single-blog .section-content .block-experts .block-expert__name {
+  margin: 0 !important;
+}
+
+.single-blog .section-content .block-experts .block-expert__post {
+  margin-top: 3px !important;
+}
+
+/* experts final parity: same card height/flow as DS */
+.single-blog .section-content .block-experts {
+  align-items: stretch !important;
+}
+
+.single-blog .section-content .block-experts .block-expert {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  box-sizing: border-box !important;
+  height: 190px !important;
+  min-height: 190px !important;
+  padding: 12px 10px 9px !important;
+}
+
+.single-blog .section-content .block-experts .block-expert__photo,
+.single-blog .section-content .block-experts .block-expert__photo figure,
+.single-blog .section-content .block-experts .block-expert__photo .wp-block-image {
+  margin: 0 0 8px !important;
+  line-height: 0 !important;
+}
+
+.single-blog .section-content .block-experts .block-expert__name {
+  margin: 0 0 3px !important;
+}
+
+.single-blog .section-content .block-experts .block-expert__post {
+  margin: 0 !important;
+  min-height: 58px !important;
+}
+
+/* ================================================================
+   MOBILE TYPOGRAPHY — финальный блок (ДОЛЖЕН БЫТЬ ПОСЛЕДНИМ в файле)
+   v4-правила без media query стоят выше по source order и перебивают
+   640px/900px блоки. Этот блок идёт после всего — выигрывает каскад.
+   ================================================================ */
+@media (max-width: 900px) {
+  .single-blog .section-content h2.wp-block-heading {
+    font-size: 22px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Body text: 16px (не 17px из v4) */
+  .single-blog .section-content,
+  .single-blog .section-content p,
+  .single-blog .section-content li,
+  .single-blog .section-content td {
+    font-size: 16px !important;
+    line-height: 1.72 !important;
+  }
+  /* h2: 20px на телефоне (не 24px из v4) */
+  .single-blog .section-content h2.wp-block-heading {
+    font-size: 20px !important;
+  }
+}
+
+/* hover-анимации только для устройств с мышью */
+@media (hover: none) {
+  .single-blog .section-content .block-picture:hover {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
+
+/* ================================================================
+   P0.2 — BLOG HUB TYPOGRAPHY (2026-02-22)
+   Хаб /blog/ остаётся на TTSmalls/TTRuns (фирменный шрифт),
+   но с оптимизированной типографикой для читабельности кириллицы.
+   Статьи (.single-blog) — Inter (DS v6).
+   Сравнение: font-comparison.html в repo.
+   ================================================================ */
+
+/* Глобальная типографика хаба — TTSmalls EXPERT */
+#blog {
+  -webkit-font-smoothing: auto !important;              /* НЕ antialiased: TTSmalls-400 слишком тонкий */
+  text-rendering: optimizeLegibility !important;        /* кернинг-пары */
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1 !important; /* OpenType features */
+}
+
+/* Body-текст: TTSmalls с нормальным line-height (тема ставит ~1.2 = нечитабельно) */
+/* НЕ включаем a и span — они внутри заголовков и получат лишний line-height */
+#blog p,
+#blog li,
+#blog .material-author,
+#blog .article-info,
+#blog .new_article__info,
+#blog ._form-checkbox {
+  line-height: 1.65 !important;
+  letter-spacing: 0.008em !important;
+  word-spacing: 0.05em !important;                      /* EXPERT: чёткие границы слов */
+}
+
+/* Описания статей в карточках — clamp 3 строки, тизер */
+#blog .article-desc {
+  font-size: 17px !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.008em !important;
+  color: #4a4a4a !important;
+  text-wrap: pretty !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+/* Основной текст хаба — чуть плотнее для читабельности */
+#blog .material-author,
+#blog .articles-categories__item,
+#blog .subscription-form__heading {
+  font-weight: 500 !important;  /* TTSmalls Medium вместо Regular — плотнее */
+}
+
+/* Мета-инфо (дата, автор, категория) — чуть разреженнее */
+#blog .info,
+#blog .info span,
+#blog .article .info,
+#blog .articles-categories__item {
+  letter-spacing: 0.01em !important;
+}
+
+/* Дропдаун рубрик на мобилке — тема не реализовала JS toggle.
+   CSS-only: :focus-within на контейнере + кнопка :focus */
+@media (max-width: 1024px) {
+  #blog .articles-categories {
+    position: relative !important;
+  }
+  #blog .articles-categories__active:focus + .articles-categories__list,
+  #blog .articles-categories__list:hover,
+  #blog .articles-categories__list:focus-within {
+    max-height: 1000px !important;
+    padding-bottom: 30px !important;
+  }
+  #blog .articles-categories__active:focus::after {
+    transform: scale(1, -1) !important;
+  }
+}
+
+/* Заголовки: TTRuns 700 с отрицательным трекингом для кириллицы */
+#blog ._h1--big,
+#blog ._h1,
+#blog ._h2,
+#blog ._h3,
+#blog .article h3,
+#blog .materials h3,
+#blog .material h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.15 !important;
+  text-wrap: balance !important;  /* убирает висячие предлоги и короткие последние строки */
+}
+
+/* Слайдер "Новая статья" — заголовок (использует ._h1) */
+.new_article ._h1,
+.new_article ._h3,
+.new_article h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.15 !important;
+}
+
+/* Карточки — заголовки чуть мельче, line-height побольше */
+#blog .material h3,
+#blog .article h3 {
+  line-height: 1.35 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Карточки "Все статьи" — равная высота, кнопка внизу */
+#blog .article {
+  display: flex !important;
+  flex-direction: column !important;
+}
+#blog .article .button-read-all,
+#blog .article .button-read {
+  margin-top: auto !important;
+}
+
+/* ====================================================
+   BLOG HUB — Типографика форм
+   ==================================================== */
+
+/* Чекбокс формы подписки — увеличенный, без layout shift от валидации */
+#blog ._form-checkbox {
+  position: relative !important;
+  min-height: 28px !important;  /* резерв под валидацию — без дёрганья */
+}
+#blog ._form-checkbox span.wpcf7-list-item-label,
+#blog ._form-checkbox label {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: #8a8a8a !important;
+  cursor: pointer !important;
+}
+
+/* Кастомный чекбокс ::before — 18x18 вместо 12x12 */
+#blog ._form-checkbox input + span::before {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 3px !important;
+  border: 1.5px solid #ccc !important;
+  margin-right: 8px !important;
+  transform: none !important;
+  flex-shrink: 0 !important;
+}
+#blog ._form-checkbox input:checked + span::before {
+  background: #c01020 !important;
+  border-color: #c01020 !important;
+}
+
+/* Валидация "Важно заполнить" — не сдвигает соседние чекбоксы */
+#blog ._form-checkbox .wpcf7-not-valid-tip {
+  position: absolute !important;
+  left: 26px !important;
+  bottom: -16px !important;
+  font-size: 11px !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Нативный input скрыт темой, но оставим для accessibility */
+#blog ._form-checkbox input[type="checkbox"] {
+  flex-shrink: 0 !important;
+  margin-top: 2px !important;
+  margin-right: 6px !important;
+}
+
+/* Ссылка "условиями обработки" в чекбоксе */
+#blog ._form-checkbox .wpcf7-list-item-label a,
+#blog .subsc-form .wpcf7-list-item-label a {
+  color: #c01020 !important;
+}
+
+/* ====================================================
+   HEADER MENU — глобальные правки
+   ==================================================== */
+
+/* Скрыть "Календарь" везде */
+.header-menu-ul li:has(a[href='/calendar/']) { display: none !important; }
+
+/* Дропдаун «Услуги» — только десктоп (тема сбрасывает в 1 колонку при ≤1156px) */
+@media (min-width: 1157px) {
+  .header-menu-ul .services-menu ul {
+    width: 460px !important;
+    gap: 10px 24px !important;        /* vertical 10px, horizontal 24px */
+  }
+  .header-menu-ul .services-menu ul li {
+    width: calc(50% - 12px) !important; /* (460 - 40 padding) / 2 - half gap */
+  }
+}
+
+/* Типографика меню — TTSmalls-500 (Medium) вместо 400 (Regular) */
+.header-menu__item,
+.header-menu-ul li a {
+  font-family: "TTSmalls-500", "TTSmalls-400", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+/* Дропдаун: чуть мельче */
+.header-menu-ul .services-menu ul li a {
+  font-family: "TTSmalls-500", "TTSmalls-400", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+/* Пилл «Услуги ▾» / «Блог ▾» — тоже Medium */
+.header-menu-ul .services-menu .services-menu-div {
+  font-family: "TTSmalls-500", "TTSmalls-400", sans-serif !important;
+  font-weight: 500 !important;
+}
+/* --white вариант (хаб, главная) — те же правила */
+.--white .header-menu__item,
+.--white .header-menu-ul li a {
+  font-family: "TTSmalls-500", "TTSmalls-400", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+.--white .header-menu-ul .services-menu ul li a {
+  font-family: "TTSmalls-500", "TTSmalls-400", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+/* Responsive: сужаем на узких экранах */
+@media (max-width: 1080px) {
+  .header-menu__item,
+  .header-menu-ul li a,
+  .--white .header-menu__item,
+  .--white .header-menu-ul li a {
+    font-size: 14px !important;
+  }
+}
+
+/* ====================================================
+   ГЛАВНАЯ — Блок "Новая статья" (swiper)
+   ==================================================== */
+
+/* Скрыть блок автора/картинки если img пуст или отсутствует */
+.new_article__author:has(img[src=""]),
+.new_article__author:has(img:not([src])),
+.new_article__author:has(.new_article__author-photo:empty) {
+  display: none !important;
+}
+
+/* ── Editorial Dark: слайд без картинки ── */
+/* Текстовый блок занимает 100% ширины */
+.new_article:has(.new_article__author-photo:empty) .new_article__text,
+.new_article:has(img[src=""]) .new_article__text,
+.new_article:has(img:not([src])) .new_article__text {
+  width: 100% !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   EDITORIAL DARK — слайды без картинки (класс .no-image ставит JS)
+   JS в mu-plugin crm-custom-styles.php определяет пустое img и
+   добавляет .no-image на .new_article. Не используем :has() —
+   WordPress/Autoptimize могут не обрабатывать его корректно.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Явный фон на ВСЁМ слайде (а не только __text) —
+   Swiper позиционирует слайды через translate3d, они перекрываются.
+   Без явного фона тёмный .no-image слайд просвечивает через прозрачные.
+   На мобилке: изображение/его контейнер прозрачный → чёрный фон виден. */
+#blog .new-articles .new_article {
+  background: #f2f2f2 !important;
+}
+#blog .new-articles .new_article__text {
+  background: #f2f2f2;
+}
+
+/* Тёмный фон на весь слайд (перекрывает #f2f2f2 от родителя) */
+#blog .new-articles .new_article.no-image {
+  background: #1a1a1a !important;
+}
+/* Тёмный фон + белый текст + красная полоса */
+#blog .new-articles .new_article.no-image .new_article__text {
+  background: #1a1a1a !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 48px 36px !important;
+  position: relative !important;
+  width: 100% !important;
+}
+/* Красная акцентная полоса сверху */
+#blog .new-articles .new_article.no-image .new_article__text::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #c01020 0%, #c01020 30%, transparent 100%) !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Скрыть пустую картинку */
+#blog .new-articles .new_article.no-image .new_article__author {
+  display: none !important;
+}
+
+/* Мета (дата, время чтения) — приглушённый */
+#blog .new-articles .new_article.no-image .new_article__info,
+#blog .new-articles .new_article.no-image .new_article__info * {
+  color: rgba(255,255,255,0.4) !important;
+}
+
+/* Заголовок — белый, крупный */
+#blog .new-articles .new_article.no-image .new_article__title {
+  color: #fff !important;
+  font-size: 42px !important;
+  line-height: 1.1 !important;
+  padding: 20px 0 28px !important;
+  text-wrap: balance !important;
+}
+
+/* Кнопка «Читать статью» — красный акцент */
+#blog .new-articles .new_article.no-image .button-read {
+  color: #c01020 !important;
+  margin-top: auto !important;
+  padding: 14px 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+#blog .new-articles .new_article.no-image .button-read::after {
+  filter: hue-rotate(0deg) brightness(1) !important;
+}
+
+/* Мобилка */
+@media (max-width: 990px) {
+  .new_article.no-image {
+    flex-direction: column !important;
+  }
+  #blog .new-articles .new_article.no-image .new_article__text {
+    height: 100% !important;
+    padding: 40px 28px !important;
+  }
+  #blog .new-articles .new_article.no-image .new_article__title {
+    font-size: 36px !important;
+  }
+}
+
+/* Скрыть пустой card-article__visual целиком (главная) */
+.card-article__visual:has(img[src=""]),
+.card-article__visual:has(img[data-src=""]:not([src])),
+.card-article__visual:has(img:not([src])) {
+  display: none !important;
+}
+
+/* Скрыть пустое фото в сетке "Все статьи" (article-author__photo) */
+#blog .article-author:has(img[src=""]),
+#blog .article-author:has(img:not([src])),
+#blog .article-author:has(.article-author__photo:empty) {
+  display: none !important;
+}
+
+/* Чекбокс в форме подписки — старый #dc1327 → #c01020 */
+#blog ._form-checkbox input:checked + span::before {
+  background: #c01020 !important;
+}
+
+/* Breadcrumbs — хардкод #fd3939 → #c01020 */
+#breadcrumbs a,
+.--white #breadcrumbs a,
+.top-page .bread-crumbs span:not(.breadcrumb_last) {
+  color: #c01020 !important;
+}
+
+/* ====================================================
+   CVM-СТАТЬЯ — Тултипы (.explain / .explain-card)
+   Проблема: на мобилке тултипы вылезают за экран и перекрывают текст
+   Решение: bottom-sheet позиционирование на ≤768px
+   ==================================================== */
+
+/* Десктоп: ограничить ширину чтобы не вылезал за экран */
+.single-blog .explain-card {
+  max-width: min(290px, calc(100vw - 32px)) !important;
+}
+
+@media (max-width: 768px) {
+  /* Мобилка: тултип раскрывается inline под термином (в потоке текста) */
+  .single-blog .explain-card {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    display: none;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 8px 0 4px !important;
+    padding: 14px 16px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10) !important;
+    pointer-events: auto !important;
+  }
+
+  .single-blog .explain:hover .explain-card,
+  .single-blog .explain:focus-within .explain-card {
+    display: block !important;
+  }
+}
+
+/* ====================================================
+   CVM-СТАТЬЯ — Кейс-блоки (.cvm-ru-cases)
+   Проблема: на мобилке карточки скомканы, result-блок жмётся
+   ==================================================== */
+
+/* Цвет: inline-стили статьи используют #dc1327, унифицируем */
+.single-blog .cvm-ru-card {
+  border-left-color: #c01020 !important;
+}
+.single-blog .cvm-ru-num,
+.single-blog .cvm-ru-badge,
+.single-blog .cvm-stat {
+  color: #c01020 !important;
+}
+.single-blog .cvm-ru-result {
+  border-color: rgba(192,16,32,0.18) !important;
+}
+.single-blog .cvm-ru-badge {
+  background: rgba(192,16,32,0.07) !important;
+}
+.single-blog .cvm-world-list li::before {
+  color: #c01020 !important;
+}
+
+/* Тултипы внутри кейсов — тот же dashed red */
+.single-blog .explain {
+  border-bottom-color: #c01020 !important;
+}
+
+@media (max-width: 640px) {
+  /* Больше воздуха между карточками */
+  .single-blog .cvm-ru-cases {
+    gap: 18px !important;
+    margin: 16px 0 24px !important;
+  }
+
+  /* Карточки: больше внутреннего отступа */
+  .single-blog .cvm-ru-card {
+    padding: 16px 16px !important;
+  }
+
+  /* Имя компании крупнее */
+  .single-blog .cvm-ru-name {
+    font-size: 16px !important;
+  }
+
+  /* Описание: чуть крупнее для читаемости */
+  .single-blog .cvm-ru-desc {
+    font-size: 15px !important;
+    line-height: 1.58 !important;
+  }
+
+  /* Result-блок: вертикальная раскладка вместо строчной */
+  .single-blog .cvm-ru-result {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+    padding: 10px 14px !important;
+  }
+
+  /* Число побольше */
+  .single-blog .cvm-ru-num {
+    font-size: 24px !important;
+  }
+
+  /* Подпись и источник — блочные */
+  .single-blog .cvm-ru-lbl {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+  .single-blog .cvm-ru-src {
+    display: block !important;
+    margin-left: 0 !important;
+    margin-top: 2px !important;
+    font-size: 11px !important;
+  }
+
+  /* Бейдж: чуть больше отступ сверху */
+  .single-blog .cvm-ru-badge {
+    margin-top: 6px !important;
+    font-size: 12.5px !important;
+  }
+
+  /* World-list: чуть крупнее */
+  .single-blog .cvm-world-list li {
+    font-size: 15px !important;
+    padding: 12px 0 12px 20px !important;
+  }
+}
+
+
+/* ====================================================================
+   HOMEPAGE — Типографика, спейсинг, визуальная иерархия
+   Полный рефакторинг 2026-02-23
+   ==================================================================== */
+
+/* ── Body text: тема ставит --text-size: 22px, уменьшаем ─────────── */
+body.home {
+  --text-size: 18px;
+}
+@media (max-width: 768px) {
+  body.home { --text-size: 16px; }
+}
+
+/* ── Line-heights для heading-классов (тема не задаёт) ────────────── */
+.h3 { line-height: 1.25 !important; }
+.h4 { line-height: 1.3 !important; }
+.h5 { line-height: 1.35 !important; }
+.small { line-height: 1.45 !important; }
+.very-small { line-height: 1.5 !important; }
+
+/* ── Hero H1: responsive, стабильный отступ до CTA ───────────────── */
+.page-header .section-heading.h1 {
+  font-size: clamp(36px, 3.472vw, 50px) !important;
+  line-height: 1.1 !important;
+}
+.page-header .content .headline .section-heading {
+  margin-bottom: 24px !important;
+}
+.page-header .content .headline .actions {
+  padding-top: clamp(40px, 4.167vw, 60px) !important;
+}
+
+/* ── Hero → Services: убираем налипание ───────────────────────────── */
+.page-header + .section,
+.page-header + .services-section {
+  padding-top: clamp(48px, 4.861vw, 70px) !important;
+}
+
+/* ── Services: описания внутри тёмных карточек ────────────────────── */
+.service-desc p {
+  line-height: 1.5 !important;
+}
+
+/* ── Cases: числа, описания, теги ────────────────────────────────── */
+.case-info {
+  line-height: 1.0 !important;
+  margin-bottom: 12px !important;
+}
+.case-desc {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  opacity: 0.85;
+}
+.case-tags .tag {
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+/* ── Expert section: «Делимся опытом» — фикс наезда на следующий блок */
+.expert-experience-section {
+  padding-bottom: clamp(24px, 2.5vw, 40px) !important;
+  overflow: visible !important;
+}
+/* На мобилке overflow: hidden нужен для Swiper-слайдера статей */
+@media (max-width: 990px) {
+  .expert-experience-section {
+    overflow: hidden !important;
+  }
+}
+.expert-experience-section .split-content {
+  align-items: flex-start !important;
+}
+.expert-experience-section .split-content .articles {
+  overflow: visible !important;
+}
+/* Карточки статей на homepage */
+body.home .card-article {
+  background: #f2f2f2 !important;
+  border-radius: 8px !important;
+}
+body.home .card-article.no-image .card-article__visual {
+  display: none !important;
+}
+body.home .card-article__textual {
+  padding: 20px 24px !important;
+}
+body.home .card-article__textual__data {
+  font-size: 13px !important;
+  color: #8a8a8a !important;
+}
+body.home .card-article__textual__data p {
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+}
+body.home .card-article__textual__head {
+  font-size: 18px !important;
+  line-height: 1.35 !important;
+  font-family: "TTRuns-600", "TTRuns", sans-serif !important;
+}
+body.home .card-article__textual__desc {
+  font-size: 15px !important;
+  line-height: 1.55 !important;
+  color: #555 !important;
+}
+body.home .card-article__textual__link::after {
+  font-size: 15px !important;
+}
+
+/* ── Awards: заголовок + описание в тёмных карточках ─────────────── */
+.award-header {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+.award-desc {
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+}
+
+/* ── About section spacing (padding, не margin — body bg = #000) ── */
+.about-section {
+  padding-bottom: clamp(40px, 3.646vw, 70px) !important;
+  margin-bottom: 0 !important;
+}
+
+/* ── Clients split-container gap ─────────────────────────────────── */
+.split-container { gap: clamp(30px, 3.472vw, 50px) !important; }
+
+/* ── Form section spacing ──────────────────────────────────────────
+   ВАЖНО: body { background: #000 } в теме!
+   margin = прозрачный → чёрный body просвечивает.
+   Используем padding, не margin. ─────────────────────────────────── */
+.form-section {
+  padding-bottom: clamp(40px, 3.646vw, 70px) !important;
+  margin-bottom: 0 !important;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.footer {
+  padding: 40px 0 !important;
+  background: #fff !important;
+}
+.footer .copyright,
+.footer .conditions {
+  font-size: 13px !important;
+  color: rgba(26,26,26,0.5) !important;
+}
+.footer .social-networking a {
+  font-family: "TTSmalls-500", "TTSmalls-400", sans-serif !important;
+  font-size: 14px !important;
+}
+
+/* ── Header CTA: TTSmalls для единообразия с навигацией ───────────── */
+.header .content .to-form {
+  font-family: "TTSmalls-600", "TTSmalls-500", sans-serif !important;
+}
+
+/* ── SVG-стрелки слайдеров: хардкод #FD3939 → DS-токен ───────────── */
+.slider__navigation path {
+  stroke: var(--color-accent-red) !important;
+}
+
+/* ── heading-block spacing ───────────────────────────────────────── */
+.heading-block { margin-bottom: clamp(32px, 2.778vw, 40px) !important; }
+
+/* ── Secondary button (CSS-класс, нужен в HTML) ──────────────────── */
+.button--secondary {
+  background: transparent !important;
+  border: 1px solid var(--color-accent-red) !important;
+  color: var(--color-accent-red) !important;
+}
+.button--secondary:hover {
+  background: var(--color-accent-red) !important;
+  color: #fff !important;
+}
+
+/* ====================================================================
+   FORM CHECKBOXES — единый стиль (homepage + articles)
+   Тема НЕ стилизует .form-request .form-checkbox → browser default.
+   Подход: прячем input, рисуем чекбокс через label::before/::after.
+   Это НАДЁЖНЕЕ чем appearance:none на input (iOS Safari не поддерживает
+   ::after на replaced elements вроде <input>).
+   ==================================================================== */
+
+/* ── Прячем нативный input (оставляем для accessibility/focus) ──── */
+.form-request .form-checkbox input[type="checkbox"] {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ── Label: flex-контейнер с отступом под кастомный чекбокс ─────── */
+.form-request .form-checkbox label {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0 !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: #8a8a8a !important;
+  position: relative !important;
+  padding-left: 28px !important;
+}
+
+/* ── Кастомный чекбокс (квадрат 18×18) через label::before ─────── */
+.form-request .form-checkbox input[type="checkbox"] + label::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 1px !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 1.5px solid #ccc !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  transition: background .15s, border-color .15s !important;
+  box-sizing: border-box !important;
+}
+
+/* ── Checked state: красный фон ────────────────────────────────── */
+.form-request .form-checkbox input[type="checkbox"]:checked + label::before {
+  background: #c01020 !important;
+  border-color: #c01020 !important;
+}
+
+/* ── Галочка (checkmark) через label::after ────────────────────── */
+.form-request .form-checkbox input[type="checkbox"]:checked + label::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 5.5px !important;
+  top: 3px !important;
+  width: 5px !important;
+  height: 9px !important;
+  border: solid #fff !important;
+  border-width: 0 2px 2px 0 !important;
+  transform: rotate(45deg) !important;
+}
+
+/* ── Focus state для accessibility ─────────────────────────────── */
+.form-request .form-checkbox input[type="checkbox"]:focus-visible + label::before {
+  outline: 2px solid #c01020 !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Ссылка внутри чекбокса ────────────────────────────────────── */
+.form-checkbox a {
+  color: #c01020 !important;
+}
