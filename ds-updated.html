@@ -186,13 +186,18 @@ a { color: var(--red); text-decoration: none; }
   line-height: 1.32;
   letter-spacing: -0.01em;
   padding-left: 14px;
-  border-left: 3px solid #d7d3ca;
 }
 
 /* Маркеры списков — сниженная насыщенность */
 .art ul { padding-left: 20px; margin: var(--s2) 0 var(--s3); }
 .art ul li { margin-bottom: 7px; line-height: 1.6; }
-.art ul li::marker { color: var(--red); opacity: .75; }
+/* [14.09.2026, утверждено по макету] Маркированный список — красное висячее тире.
+   Тире стоит в поле слева, текст флашем. Отступ 34px — такой же, как у нумерованного,
+   чтобы рядом на странице списки стояли по одной вертикали. */
+.art ul { list-style: none; padding-left: 0; }
+.art ul li { position: relative; padding-left: 34px; margin-bottom: 14px; }
+.art ul li::before { content: "—"; position: absolute; left: 0; top: 0;
+  color: var(--red); font-weight: 400; }
 .art ol { padding-left: 22px; margin: var(--s2) 0 var(--s3); }
 .art ol li { margin-bottom: 7px; line-height: 1.6; }
 .art ol li::marker { color: var(--red); font-weight: 700; }
@@ -265,12 +270,15 @@ a { color: var(--red); text-decoration: none; }
 .block-form h2 { font-size: 21px; font-weight: 700; margin-bottom: 8px; color: #fff; }
 .block-form p { font-size: 15px; opacity: .65; margin-bottom: 22px; }
 .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
-.form-row input { flex: 1; min-width: 190px; padding: 12px 16px; border-radius: 6px; border: none; font-size: 15px; font-family: var(--font); }
+/* [13.09.2026] Правило ловило и чекбоксы согласия внутри строки: min-width:190px
+   сильнее их width:14px, чекбокс раздувался и утаскивал текст вправо. Ограничили
+   прямыми потомками. */
+.form-row > input { flex: 1; min-width: 190px; padding: 12px 16px; border-radius: 6px; border: none; font-size: 15px; font-family: var(--font); }
 .form-row button { padding: 12px 22px; background: var(--red); color: #fff; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: opacity .15s; }
 .form-row button:hover { opacity: .9; }
 .form-consent { width: 100%; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
 .form-consent label { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; opacity: .6; line-height: 1.5; cursor: pointer; }
-.form-consent input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; width: 14px; height: 14px; accent-color: var(--red); cursor: pointer; }
+.form-consent input[type="checkbox"] { margin-top: 2px; flex: 0 0 auto; min-width: 0; width: 14px; height: 14px; accent-color: var(--red); cursor: pointer; }
 .form-consent a { color: rgba(255,255,255,.7); text-decoration: underline; }
 
 /* ─── «Читайте также» / block-sidenote ──────────────────── */
@@ -589,6 +597,7 @@ a { color: var(--red); text-decoration: none; }
     <a href="#changes">Что изменилось</a>
     <a href="#tokens">Токены</a>
     <a href="#typo">Типографика</a>
+      <a href="#lists">Списки</a>
     <a href="#toc">Оглавление</a>
     <a href="#structure">Структура</a>
     <a href="#comment">Комментарий</a>
@@ -803,6 +812,72 @@ a { color: var(--red); text-decoration: none; }
           --s5: 64px
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION: Списки ──────────────────────────────────── -->
+  <section class="ds-section" id="lists">
+    <div class="ds-section-label">Списки — два вида <span class="badge badge-upd">утверждено 14.09.2026</span></div>
+
+    <p style="font-size:14px;color:#666;margin:0 0 18px;max-width:760px;">
+      Видов ровно два, третьего нет. Оформление задаёт CSS: значки в разметку руками
+      не вписываются. Отступ текста у обоих одинаковый (34&nbsp;px), поэтому рядом на странице
+      списки стоят по одной вертикали.
+    </p>
+
+    <div class="ba-wrap" style="margin-bottom:18px;">
+      <div class="ba-box after-box">
+        <div style="padding:6px 16px;background:#dcfce7;"><span class="ba-label after" style="margin:0;">Маркированный</span>
+          <span style="font-size:11px;color:#888;">красное висячее тире &middot; порядок не важен</span></div>
+        <div class="ba-inner art">
+          <p style="margin:0 0 12px;">Они объяснили свою позицию так:</p>
+          <ul>
+            <li>«Да зачем нам агентство, у нас есть свои исполнители».</li>
+            <li>«Сейчас они придут, денег возьмут и ничего не улучшат».</li>
+            <li>«У агентства таких, как мы, много&nbsp;— они никогда не будут так же вовлечены в процессы».</li>
+            <li>«Это слишком дорого для нас».</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-wrap" style="margin-bottom:18px;">
+      <div class="ba-box after-box">
+        <div style="padding:6px 16px;background:#dcfce7;"><span class="ba-label after" style="margin:0;">Нумерованный</span>
+          <span style="font-size:11px;color:#888;">красная цифра + жирное название шага &middot; порядок важен</span></div>
+        <div class="ba-inner art">
+          <p style="margin:0 0 12px;">Для себя мы выделили такие этапы:</p>
+          <ol style="padding-left:0;list-style:none;counter-reset:n;">
+            <li style="position:relative;padding-left:34px;margin-bottom:14px;counter-increment:n;">
+              <span style="position:absolute;left:0;color:var(--red);font-weight:700;">1.</span>
+              <strong style="display:block;margin-bottom:2px;">Установочная встреча и подписание договора.</strong>
+              На ней обычно присутствует менеджер и сотрудник отдела продаж.</li>
+            <li style="position:relative;padding-left:34px;margin-bottom:14px;">
+              <span style="position:absolute;left:0;color:var(--red);font-weight:700;">2.</span>
+              <strong style="display:block;margin-bottom:2px;">Встреча менеджеров клиента и агентства.</strong>
+              Договариваемся, какие инструменты используем для постановки задач и в каких
+              мессенджерах общаемся.</li>
+            <li style="position:relative;padding-left:34px;">
+              <span style="position:absolute;left:0;color:var(--red);font-weight:700;">3.</span>
+              <strong style="display:block;margin-bottom:2px;">Формирование списка «Задач погружения».</strong>
+              К нему возвращается и текущая команда, и будущая, если нужно включиться в процесс.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec rec-major" style="max-width:760px;">
+      <strong>Жирный зачин пишется в тексте, а не задаётся стилями.</strong><br>
+      В паттерне <code>num-list</code> в <code>&lt;strong&gt;</code> обёрнут сам номер пункта,
+      поэтому сделать зачин блочным через CSS нельзя&nbsp;— вёрстка ломается (проверено 14.09,
+      откатывали). Разметка пункта:
+      <div style="background:#1f1f1f;color:#e8e8e8;padding:10px 12px;border-radius:6px;margin-top:8px;font-family:monospace;font-size:12px;line-height:1.5;">&lt;li&gt;&lt;strong&gt;Название шага.&lt;/strong&gt;&lt;br&gt;<br>Пояснение обычным текстом.&lt;/li&gt;</div>
+    </div>
+
+    <div class="rec rec-crit" style="max-width:760px;margin-top:10px;">
+      <strong>Чего в статьях быть не должно:</strong> галочки, эмодзи и самодельные значки
+      в начале пункта, круглые буллиты, смешение двух видов на одной странице.
+      Галочка живёт только на посадочных, в составе услуги.
     </div>
   </section>
 
